@@ -13,11 +13,15 @@ export class CreateSertifikatComponent {
 
   }
 
-  ngOnIniti(){
+  ngOnInit(){
     this.napravi();
   }
 
   napravi(){
-    this.sertifikatService.createSertifikat();
+    this.sertifikatService.createSertifikat().subscribe(
+      res=>{
+
+      }
+    )
   }
 }

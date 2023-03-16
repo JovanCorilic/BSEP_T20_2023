@@ -23,7 +23,7 @@ export class NavbarComponent {
     const jwt:JwtHelperService = new JwtHelperService();
     const decodedItem = JSON.parse(item!);
     const info = jwt.decodeToken(decodedItem.accessToken);
-    return info['roles'];
+    return info['uloga'];
   }
 
   goToHome() {

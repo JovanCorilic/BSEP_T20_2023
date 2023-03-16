@@ -18,8 +18,8 @@ export class LoginComponent {
     private authenticationService: AuthenticationService,
   ) {
     this.logForm = this.fBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required,Validators.minLength(4)]]
+      email: "",
+      password: ""
     });
    }
 
@@ -41,7 +41,7 @@ export class LoginComponent {
         const jwt: JwtHelperService = new JwtHelperService();
         const info = jwt.decodeToken(decodedItem.accessToken);
         localStorage.setItem('uloga', info['uloga']);
-        console.log(info['uloga']);
+        //console.log(info['uloga']);
 				this.router.navigate(['']);
 			},
 			error => {
