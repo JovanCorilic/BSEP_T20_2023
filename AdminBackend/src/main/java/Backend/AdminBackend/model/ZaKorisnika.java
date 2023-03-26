@@ -29,4 +29,11 @@ public class ZaKorisnika {
     @OneToOne(mappedBy = "zaKorisnika", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn
     private ZahtevZaSertifikat zahtevZaSertifikat;
+
+    public ZaKorisnika(Integer id, String email, String ime, String prezime) {
+        this.id = id;
+        this.email = email;
+        this.ime = ime;
+        this.prezime = prezime;
+    }
 }
