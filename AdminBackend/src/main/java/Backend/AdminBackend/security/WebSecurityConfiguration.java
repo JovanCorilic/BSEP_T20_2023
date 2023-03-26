@@ -3,6 +3,7 @@ package Backend.AdminBackend.security;
 import Backend.AdminBackend.security.TokenUtils;
 import Backend.AdminBackend.security.auth.RestAuthenticationEntryPoint;
 import Backend.AdminBackend.security.auth.TokenAuthenticationFilter;
+import Backend.AdminBackend.security.password.CustomPasswordEncoder;
 import Backend.AdminBackend.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +31,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     // Implementacija PasswordEncoder-a koriscenjem BCrypt hashing funkcije.
     // BCrypt po defalt-u radi 10 rundi hesiranja prosledjene vrednosti.
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private CustomPasswordEncoder passwordEncoder;
 
     // Servis koji se koristi za citanje podataka o korisnicima aplikacije
     @Autowired
@@ -53,7 +54,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         // configure AuthenticationManager so that it knows from where to load
         // user for matching credentials
-        // Use BCryptPasswordEncoder
         auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder);
     }
 

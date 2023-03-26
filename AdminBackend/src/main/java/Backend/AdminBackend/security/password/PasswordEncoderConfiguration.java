@@ -1,21 +1,20 @@
-package Backend.AdminBackend.security;
+package Backend.AdminBackend.security.password;
 
 import Backend.AdminBackend.AdminBackendApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PasswordEncoderConfiguration {
 
     @Bean
-    BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    CustomPasswordEncoder passwordEncoder() {
+        return new CustomPasswordEncoder();
     }
 
     public static void main(String[] args){
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        CustomPasswordEncoder bCryptPasswordEncoder = new CustomPasswordEncoder();
         System.out.println(bCryptPasswordEncoder.encode("1"));
     }
 }
