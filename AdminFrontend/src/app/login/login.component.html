@@ -1,7 +1,8 @@
-<div id = "login">
+<br>
+<div id = "login" style="text-align: center;width: 20%;margin-left: 40%;">
     <form [formGroup]="logForm" (ngSubmit)="logIn()">
-		<div class="form-group">
-			<input type="text" class="form-control" id="email"  placeholder="email" formControlName="email">
+		<div [ngClass]="['form-group','block']">
+			<input type="text" [ngClass]="['form-control','input']" id="email"  placeholder="npr. Nikola@gmail.com" formControlName="email">
 			<small class="text-danger"
 				*ngIf="logForm.controls.email.touched && logForm.controls.email.errors?.required">
 				Email is required</small>
@@ -9,8 +10,8 @@
 				*ngIf="logForm.controls.email.touched && logForm.controls.email.errors?.email">
 				Email is not valid</small>
 		</div>
-		<div class="form-group">
-			<input type="password" class="form-control"  id="password" placeholder="password" formControlName="password">
+		<div [ngClass]="['form-group','block']">
+			<input type="password" [ngClass]="['form-control','input']"  id="password" placeholder="npr. 1234" formControlName="password">
 			<small class="text-danger"
 				*ngIf="logForm.controls.password.touched && logForm.controls.password.errors?.required">
 				Password is required</small>
@@ -18,8 +19,10 @@
 				*ngIf="logForm.controls.password.touched && logForm.controls.password.errors?.minlength">
 				Password should be at least 4 characters long</small>
 		</div>
-		<div class="form-group">
-    		<button id="login-button" type="submit" class="btn btn-primary btn-block" [disabled]="logForm.invalid">Log in</button>
+		<div [ngClass]="['form-group','block']">
+    		<button id="login-button" type="submit" [ngClass]="['btn btn-primary btn-block','button is-danger is-outlined']" [disabled]="logForm.invalid">Log in</button>
 		</div>
     </form>
 </div>
+<input type="datetime-local" id="Test_DatetimeLocal" class="input is-primary">
+

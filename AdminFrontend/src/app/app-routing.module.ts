@@ -1,3 +1,5 @@
+import { ViewAllZahtevSertifikatComponent } from './SERTIFIKAT/view-all-zahtev-sertifikat/view-all-zahtev-sertifikat.component';
+import { PovlacenjeSertifikatComponent } from './SERTIFIKAT/povlacenje-sertifikat/povlacenje-sertifikat.component';
 import { ViewSertifikatComponent } from './SERTIFIKAT/view-sertifikat/view-sertifikat.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
@@ -28,6 +30,18 @@ const routes: Routes = [
   {
     path: 'viewSertifikat/:id',
     component: ViewSertifikatComponent,
+    canActivate: [RoleGuard],
+    data: {expectedRoles: 'ROLE_ADMIN'}
+  },
+  {
+    path: 'povlacenjeSertifikat/:id',
+    component: PovlacenjeSertifikatComponent,
+    canActivate: [RoleGuard],
+    data: {expectedRoles: 'ROLE_ADMIN'}
+  },
+  {
+    path: 'viewAllZahtevSertifikat',
+    component: ViewAllZahtevSertifikatComponent,
     canActivate: [RoleGuard],
     data: {expectedRoles: 'ROLE_ADMIN'}
   }

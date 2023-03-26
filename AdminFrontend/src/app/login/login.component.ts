@@ -29,7 +29,6 @@ export class LoginComponent {
 		const auth: any = {};
 		auth.username = this.logForm.value.email;
 		auth.password = this.logForm.value.password;
-
 		this.authenticationService.login(auth).subscribe(
 			result => {
         //OVAKO DOBIJEM TOKEN

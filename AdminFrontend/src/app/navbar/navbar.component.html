@@ -1,44 +1,34 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar" role="navigation" aria-label="main navigation" style="background-color: rgb(211, 116, 116);">
     <div class="navbar-brand">
-      <a class="navbar-item" (click)="goToHome()">
-        <mat-icon>home</mat-icon>
+      <a [ngClass]="['navbar-item']" (click)="goToHome()">
+        <img src="assets/clipart41255.png"  >
       </a>
   
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
+        <span aria-hidden="true" *ngIf="getRole()==='ROLE_ADMIN'"></span>
+        <span aria-hidden="true" *ngIf="getRole()==='ROLE_ADMIN'"></span>
+        <span aria-hidden="true" ></span>
       </a>
     </div>
   
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item">
-          Home
-        </a>
-  
-        <a  class="navbar-item" (click)="goToCreateSertifikat()">
+        <a  class="navbar-item" (click)="goToCreateSertifikat()" *ngIf="getRole()==='ROLE_ADMIN'">
           Create Sertifikat
         </a>
   
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            More
+        <div class="navbar-item has-dropdown is-hoverable" *ngIf="getRole()==='ROLE_ADMIN'">
+          <a class="navbar-link" >
+            Sertifikat
           </a>
   
           <div class="navbar-dropdown">
-            <a class="navbar-item">
-              About
-            </a>
-            <a class="navbar-item">
-              Jobs
-            </a>
-            <a class="navbar-item">
-              Contact
+            <a class="navbar-item" (click)="goToSviZahteviSertifikat()">
+              Svi zahtevi za sertifikat
             </a>
             <hr class="navbar-divider">
-            <a class="navbar-item">
-              Report an issue
+            <a class="navbar-item" (click)="goToSviSertifikati()">
+              Svi sertifikati
             </a>
           </div>
         </div>
@@ -46,15 +36,15 @@
   
       <div class="navbar-end">
         <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-primary">
-              <strong>Sign up</strong>
-            </a>
-            <a (click)="goToLogin()" *ngIf="getRole()!=='ROLE_ADMIN'" class="button is-light">
-              Log in
+            <a (click)="goToLogin()" *ngIf="getRole()!=='ROLE_ADMIN'" class="button is-outlined">
+              Login
             </a>
           </div>
-        </div>
+          <div class="navbar-item">
+            <a (click)="logOut()" *ngIf="getRole()==='ROLE_ADMIN'" class="button is-outlined">
+              Logout
+            </a>
+          </div>
       </div>
     </div>
   </nav>

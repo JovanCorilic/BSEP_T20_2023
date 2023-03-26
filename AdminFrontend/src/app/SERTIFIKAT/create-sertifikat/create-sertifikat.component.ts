@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { SertifikatService } from './../../SERVICE/sertifikat.service';
 import { Component } from '@angular/core';
 
@@ -7,14 +9,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./create-sertifikat.component.css']
 })
 export class CreateSertifikatComponent {
-  constructor(
-    private sertifikatService:SertifikatService
-  ){
+  createForm: FormGroup;
 
+  constructor(
+    private sertifikatService:SertifikatService,
+    private router:Router,
+    private fBuilder:FormBuilder
+  ){
+    this.createForm = this.fBuilder.group({
+
+    })
   }
 
   ngOnInit(){
-    this.napravi();
+
   }
 
   napravi(){
