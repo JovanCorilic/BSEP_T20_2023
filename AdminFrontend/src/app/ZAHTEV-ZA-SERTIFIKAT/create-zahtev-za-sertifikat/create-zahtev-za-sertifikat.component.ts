@@ -1,4 +1,4 @@
-import { ZahtevZaSertifikat } from './../../MODEL/ZahtevZaSertifikat';
+import { ZahtevZaSertifikat } from '../../MODEL/ZahtevZaSertifikat';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -68,5 +68,6 @@ export class CreateZahtevZaSertifikatComponent {
         this.zahtev.zaUredjaj.serijskiBroj=this.createForm.value.serijskiBroj;
       }
       this.sertifikatService.createZahtevZaSertifikat(this.zahtev);
+      this.router.navigate(['/viewAllZahtevSertifikat']);
   }
 }

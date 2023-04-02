@@ -12,10 +12,10 @@ import { LoginComponent } from './login/login.component';
 import { CreateSertifikatComponent } from './SERTIFIKAT/create-sertifikat/create-sertifikat.component';
 import { ViewAllSertifikatComponent } from './SERTIFIKAT/view-all-sertifikat/view-all-sertifikat.component';
 import { ViewSertifikatComponent } from './SERTIFIKAT/view-sertifikat/view-sertifikat.component';
-import { ViewAllZahtevSertifikatComponent } from './SERTIFIKAT/view-all-zahtev-sertifikat/view-all-zahtev-sertifikat.component';
+import { ViewAllZahtevSertifikatComponent } from './ZAHTEV-ZA-SERTIFIKAT/view-all-zahtev-sertifikat/view-all-zahtev-sertifikat.component';
 import { PovlacenjeSertifikatComponent } from './SERTIFIKAT/povlacenje-sertifikat/povlacenje-sertifikat.component';
-import { CreateZahtevZaSertifikatComponent } from './SERTIFIKAT/create-zahtev-za-sertifikat/create-zahtev-za-sertifikat.component';
-import { ViewZahtevZaSertifikatComponent } from './SERTIFIKAT/view-zahtev-za-sertifikat/view-zahtev-za-sertifikat.component';
+import { CreateZahtevZaSertifikatComponent } from './ZAHTEV-ZA-SERTIFIKAT/create-zahtev-za-sertifikat/create-zahtev-za-sertifikat.component';
+import { ViewZahtevZaSertifikatComponent } from './ZAHTEV-ZA-SERTIFIKAT/view-zahtev-za-sertifikat/view-zahtev-za-sertifikat.component';
 
 
 

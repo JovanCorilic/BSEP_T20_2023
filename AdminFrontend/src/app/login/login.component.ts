@@ -25,16 +25,8 @@ export class LoginComponent {
     });
    }
 
-  showDiv(select: any){
-    console.log(select.target.value);
-    if(select.target.value==1){
-     this.pokazivanje = true;
-    } else{
-     this.pokazivanje = false;
-    }
-   } 
-
-  ngOnInit():void {}
+  ngOnInit():void {
+  }
 
   logIn(){
     console.log(this.logForm.value.test);

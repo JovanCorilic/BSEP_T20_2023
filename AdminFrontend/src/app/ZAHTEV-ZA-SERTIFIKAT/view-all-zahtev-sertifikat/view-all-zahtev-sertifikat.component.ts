@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { SertifikatService } from './../../SERVICE/sertifikat.service';
-import { ZahtevZaSertifikat } from './../../MODEL/ZahtevZaSertifikat';
+import { SertifikatService } from '../../SERVICE/sertifikat.service';
+import { ZahtevZaSertifikat } from '../../MODEL/ZahtevZaSertifikat';
 import { Component } from '@angular/core';
 
 @Component({

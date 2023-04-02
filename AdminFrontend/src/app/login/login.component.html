@@ -3,7 +3,7 @@
     <form [formGroup]="logForm" (ngSubmit)="logIn()">
 		<div [ngClass]="['form-group','block']">
 			<input type="text" [ngClass]="['form-control','input']" id="email"  placeholder="npr. Nikola@gmail.com" formControlName="email">
-			<small class="text-danger"
+			<small class="text-danger" style="color: red;"
 				*ngIf="logForm.controls.email.touched && logForm.controls.email.errors?.required">
 				Email is required</small>
 			<small class="text-danger"
@@ -12,7 +12,7 @@
 		</div>
 		<div [ngClass]="['form-group','block']">
 			<input type="password" [ngClass]="['form-control','input']"  id="password" placeholder="npr. 1234" formControlName="password">
-			<small class="text-danger"
+			<small class="text-danger" style="color: red;"
 				*ngIf="logForm.controls.password.touched && logForm.controls.password.errors?.required">
 				Password is required</small>
 			<small class="text-danger"
@@ -25,10 +25,6 @@
 		</div>
     </form>
 </div>
-<select id="test" name="form_select" (change)="showDiv($event)">
-	<option value="0">No</option>
-	<option value="1">Yes</option>
- </select>
- <div id="hidden_div" *ngIf="pokazivanje">Hello hidden content</div>
+
  
   
