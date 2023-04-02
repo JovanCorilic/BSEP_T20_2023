@@ -31,7 +31,8 @@ public class ZahtevZaSertifikatMapper implements MapperInterface<ZahtevZaSertifi
                 break;
         }
         return new ZahtevZaSertifikat(dto.getId(),dto.getStartDate(),dto.getEndDate(),dto.getNamena(),
-                dto.getPotvrdjenZahtev(),dto.getPrihvacen(),zaKorisnika,zaUredjaj,zaMojaKucaAplikacija);
+                dto.getEmailPotvrda(),dto.getPotvrdjenZahtev(),dto.getPrihvacen(),zaKorisnika,zaUredjaj,
+                zaMojaKucaAplikacija);
     }
 
     @Override
@@ -52,12 +53,13 @@ public class ZahtevZaSertifikatMapper implements MapperInterface<ZahtevZaSertifi
                 break;
         }
         return new ZahtevZaSertifikatDTO(entity.getId(),entity.getStartDate(),entity.getEndDate(),entity.getNamena(),
-                entity.getPotvrdjenZahtev(),entity.getPrihvacen(),zaKorisnikaDTO,zaUredjajDTO,zaMojaKucaAplikacijaDTO);
+                entity.getEmailPotvrda(),entity.getPotvrdjenZahtev(),entity.getPrihvacen(),zaKorisnikaDTO,zaUredjajDTO,
+                zaMojaKucaAplikacijaDTO);
     }
 
-    public ZahtevZaSertifikatMapper(ZaKorisnikaMapper zaKorisnikaMapper, ZaMojaKucaAplikacijaMapper zaMojaKucaAplikacijaMapper, ZaUredjajMapper zaUredjajMapper) {
-        this.zaKorisnikaMapper = zaKorisnikaMapper;
-        this.zaMojaKucaAplikacijaMapper = zaMojaKucaAplikacijaMapper;
-        this.zaUredjajMapper = zaUredjajMapper;
+    public ZahtevZaSertifikatMapper() {
+        this.zaKorisnikaMapper = new ZaKorisnikaMapper();
+        this.zaMojaKucaAplikacijaMapper = new ZaMojaKucaAplikacijaMapper();
+        this.zaUredjajMapper = new ZaUredjajMapper();
     }
 }

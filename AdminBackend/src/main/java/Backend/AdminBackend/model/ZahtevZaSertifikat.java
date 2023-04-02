@@ -27,6 +27,9 @@ public class ZahtevZaSertifikat {
     private String namena;
 
     @Column
+    private String emailPotvrda;
+
+    @Column
     private Boolean potvrdjenZahtev;
 
     @Column
@@ -43,5 +46,17 @@ public class ZahtevZaSertifikat {
     @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn
     private ZaMojaKucaAplikacija zaMojaKucaAplikacija;
+
+    public void Update(ZahtevZaSertifikat zahtevZaSertifikat){
+        this.startDate = zahtevZaSertifikat.getStartDate();
+        this.endDate = zahtevZaSertifikat.getEndDate();
+        this.namena = zahtevZaSertifikat.getNamena();
+        this.emailPotvrda = zahtevZaSertifikat.getEmailPotvrda();
+        this.potvrdjenZahtev = zahtevZaSertifikat.getPotvrdjenZahtev();
+        this.prihvacen=zahtevZaSertifikat.getPrihvacen();
+        this.zaKorisnika=zahtevZaSertifikat.getZaKorisnika();
+        this.zaUredjaj=zahtevZaSertifikat.getZaUredjaj();
+        this.zaMojaKucaAplikacija=zahtevZaSertifikat.getZaMojaKucaAplikacija();
+    }
 
 }

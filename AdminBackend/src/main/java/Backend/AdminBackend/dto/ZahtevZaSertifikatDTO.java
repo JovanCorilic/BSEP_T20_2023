@@ -7,6 +7,8 @@ public class ZahtevZaSertifikatDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String namena;
+
+    private String emailPotvrda;
     private Boolean potvrdjenZahtev;
     private Boolean prihvacen;
     private ZaKorisnikaDTO zaKorisnika;
@@ -16,16 +18,25 @@ public class ZahtevZaSertifikatDTO {
     public ZahtevZaSertifikatDTO() {
     }
 
-    public ZahtevZaSertifikatDTO(Integer id, LocalDateTime startDate, LocalDateTime endDate, String namena, Boolean potvrdjenZahtev, Boolean prihvacen, ZaKorisnikaDTO zaKorisnika, ZaUredjajDTO zaUredjaj, ZaMojaKucaAplikacijaDTO zaMojaKucaAplikacija) {
+    public ZahtevZaSertifikatDTO(Integer id, LocalDateTime startDate, LocalDateTime endDate, String namena, String emailPotvrda, Boolean potvrdjenZahtev, Boolean prihvacen, ZaKorisnikaDTO zaKorisnika, ZaUredjajDTO zaUredjaj, ZaMojaKucaAplikacijaDTO zaMojaKucaAplikacija) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.namena = namena;
+        this.emailPotvrda = emailPotvrda;
         this.potvrdjenZahtev = potvrdjenZahtev;
         this.prihvacen = prihvacen;
         this.zaKorisnika = zaKorisnika;
         this.zaUredjaj = zaUredjaj;
         this.zaMojaKucaAplikacija = zaMojaKucaAplikacija;
+    }
+
+    public String getEmailPotvrda() {
+        return emailPotvrda;
+    }
+
+    public void setEmailPotvrda(String emailPotvrda) {
+        this.emailPotvrda = emailPotvrda;
     }
 
     public Integer getId() {
