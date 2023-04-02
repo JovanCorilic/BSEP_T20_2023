@@ -36,8 +36,8 @@ export class NavbarComponent {
     this.router.navigate(['/login']);
   }
 
-  goToCreateSertifikat(){
-    this.router.navigate(['/createSertifikat']);
+  goToCreateZahtevZaSertifikat(){
+    this.router.navigate(['/createZahtevZaSertifikat']);
   }
 
   goToSviZahteviSertifikat(){

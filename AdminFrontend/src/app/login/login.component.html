@@ -19,10 +19,16 @@
 				*ngIf="logForm.controls.password.touched && logForm.controls.password.errors?.minlength">
 				Password should be at least 4 characters long</small>
 		</div>
+		
 		<div [ngClass]="['form-group','block']">
     		<button id="login-button" type="submit" [ngClass]="['btn btn-primary btn-block','button is-danger is-outlined']" [disabled]="logForm.invalid">Log in</button>
 		</div>
     </form>
 </div>
-<input type="datetime-local" id="Test_DatetimeLocal" class="input is-primary">
-
+<select id="test" name="form_select" (change)="showDiv($event)">
+	<option value="0">No</option>
+	<option value="1">Yes</option>
+ </select>
+ <div id="hidden_div" *ngIf="pokazivanje">Hello hidden content</div>
+ 
+  

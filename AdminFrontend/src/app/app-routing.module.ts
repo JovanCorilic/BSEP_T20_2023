@@ -1,3 +1,4 @@
+import { CreateZahtevZaSertifikatComponent } from './SERTIFIKAT/create-zahtev-za-sertifikat/create-zahtev-za-sertifikat.component';
 import { ViewAllZahtevSertifikatComponent } from './SERTIFIKAT/view-all-zahtev-sertifikat/view-all-zahtev-sertifikat.component';
 import { PovlacenjeSertifikatComponent } from './SERTIFIKAT/povlacenje-sertifikat/povlacenje-sertifikat.component';
 import { ViewSertifikatComponent } from './SERTIFIKAT/view-sertifikat/view-sertifikat.component';
@@ -18,6 +19,12 @@ const routes: Routes = [
   {
     path: 'createSertifikat',
     component: CreateSertifikatComponent,
+    canActivate: [RoleGuard],
+    data: {expectedRoles: 'ROLE_ADMIN'}
+  },
+  {
+    path: 'createZahtevZaSertifikat',
+    component: CreateZahtevZaSertifikatComponent,
     canActivate: [RoleGuard],
     data: {expectedRoles: 'ROLE_ADMIN'}
   },

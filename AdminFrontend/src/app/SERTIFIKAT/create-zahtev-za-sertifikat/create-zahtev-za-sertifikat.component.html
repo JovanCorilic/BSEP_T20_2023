@@ -1,0 +1,82 @@
+<br>
+<div id = "zahtevSertifikat" style="text-align: center;width: 20%;margin-left: 40%;">
+    <form [formGroup]="createForm" (ngSubmit)="napravi()">
+        <div [ngClass]="['form-group','block']">
+            <input type="datetime-local" [ngClass]="['form-control','input']" formControlName="startDate">
+			<small style="color: red;"
+				*ngIf="createForm.controls.startDate.touched && createForm.controls.startDate.errors?.required">
+				Start date is required</small>
+        </div>
+        <div [ngClass]="['form-group','block']">
+            <input type="datetime-local" [ngClass]="['form-control','input']" formControlName="endDate">
+			<small style="color: red;"
+				*ngIf="createForm.controls.endDate.touched && createForm.controls.endDate.errors?.required">
+				End date is required</small>
+        </div>
+        <div [ngClass]="['form-group','block']">
+            <input type="text" [ngClass]="['form-control','input']" formControlName="emailPotvrda" placeholder="Email Potvrda">
+            <small style="color: red;"
+                *ngIf="createForm.controls.emailPotvrda.touched && createForm.controls.emailPotvrda.errors?.required">
+                Email Potvrda is required</small>
+        </div>
+        <div [ngClass]="['form-group','block','select is-rounded']">
+            <select formControlName="namena" (change)="pokazivanjeElemenata($event)">
+                <option value="1">Korisnik</option>
+                <option value="2">Moja kuca aplikacija</option>
+                <option value="3">Uredjaj</option>
+                <option value="0">Admin aplikacija</option>
+            </select>
+        </div>
+        <div *ngIf="pokazivanje===1">
+            <div [ngClass]="['form-group','block']">
+                <input type="text" [ngClass]="['form-control','input']" formControlName="email" placeholder="Email">
+                <small style="color: red;"
+                    *ngIf="createForm.controls.email.touched && createForm.controls.email.errors?.required">
+                    Email is required</small>
+            </div>
+            <div [ngClass]="['form-group','block']">
+                <input type="text" [ngClass]="['form-control','input']" formControlName="ime" placeholder="Ime">
+                <small style="color: red;"
+                    *ngIf="createForm.controls.ime.touched && createForm.controls.ime.errors?.required">
+                    Ime is required</small>
+            </div>
+            <div [ngClass]="['form-group','block']">
+                <input type="text" [ngClass]="['form-control','input']" formControlName="prezime" placeholder="Prezime">
+                <small style="color: red;"
+                    *ngIf="createForm.controls.prezime.touched && createForm.controls.prezime.errors?.required">
+                    Prezime is required</small>
+            </div>
+        </div>
+        <div *ngIf="pokazivanje===2">
+            <div [ngClass]="['form-group','block']">
+                <input type="text" [ngClass]="['form-control','input']" formControlName="serijskiBroj" placeholder="Serijski Broj">
+                <small style="color: red;"
+                    *ngIf="createForm.controls.serijskiBroj.touched && createForm.controls.serijskiBroj.errors?.required">
+                    Serijski Broj is required</small>
+            </div>
+        </div>
+        <div *ngIf="pokazivanje===3">
+            <div [ngClass]="['form-group','block']">
+                <input type="text" [ngClass]="['form-control','input']" formControlName="naziv" placeholder="Naziv">
+                <small style="color: red;"
+                    *ngIf="createForm.controls.naziv.touched && createForm.controls.naziv.errors?.required">
+                    naziv is required</small>
+            </div>
+            <div [ngClass]="['form-group','block']">
+                <input type="text" [ngClass]="['form-control','input']" formControlName="svrha" placeholder="Svrha">
+                <small style="color: red;"
+                    *ngIf="createForm.controls.svrha.touched && createForm.controls.svrha.errors?.required">
+                    svrha is required</small>
+            </div>
+            <div [ngClass]="['form-group','block']">
+                <input type="text" [ngClass]="['form-control','input']" formControlName="serijskiBroj" placeholder="Serijski Broj">
+                <small style="color: red;"
+                    *ngIf="createForm.controls.serijskiBroj.touched && createForm.controls.serijskiBroj.errors?.required">
+                    Serijski Broj is required</small>
+            </div>
+        </div>
+        <div [ngClass]="['form-group','block']">
+    		<button type="submit" [ngClass]="['btn btn-primary btn-block','button is-danger is-outlined']" [disabled]="createForm.invalid">Posalji zahtev</button>
+		</div>
+    </form>
+</div>

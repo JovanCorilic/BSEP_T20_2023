@@ -11,6 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class LoginComponent {
   logForm: FormGroup;
+  pokazivanje:boolean=false;
 
   constructor(
     private fBuilder:FormBuilder,
@@ -19,13 +20,24 @@ export class LoginComponent {
   ) {
     this.logForm = this.fBuilder.group({
       email: ["",[Validators.required]],
-      password: ["",[Validators.required]]
+      password: ["",[Validators.required]],
+      test: ""
     });
    }
+
+  showDiv(select: any){
+    console.log(select.target.value);
+    if(select.target.value==1){
+     this.pokazivanje = true;
+    } else{
+     this.pokazivanje = false;
+    }
+   } 
 
   ngOnInit():void {}
 
   logIn(){
+    console.log(this.logForm.value.test);
 		const auth: any = {};
 		auth.username = this.logForm.value.email;
 		auth.password = this.logForm.value.password;
