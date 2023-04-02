@@ -26,10 +26,6 @@ export class CreateSertifikatComponent {
   }
 
   napravi(){
-    this.sertifikatService.createSertifikat().subscribe(
-      res=>{
-
-      }
-    )
+    this.sertifikatService.createSertifikat();
   }
 }

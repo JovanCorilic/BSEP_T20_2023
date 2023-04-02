@@ -18,8 +18,8 @@ export class LoginComponent {
     private authenticationService: AuthenticationService,
   ) {
     this.logForm = this.fBuilder.group({
-      email: "",
-      password: ""
+      email: ["",[Validators.required]],
+      password: ["",[Validators.required]]
     });
    }
 
@@ -42,6 +42,7 @@ export class LoginComponent {
         localStorage.setItem('uloga', info['uloga']);
         //console.log(info['uloga']);
 				this.router.navigate(['']);
+        
 			},
 			error => {
 	
