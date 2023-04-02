@@ -15,6 +15,7 @@ import { ViewSertifikatComponent } from './SERTIFIKAT/view-sertifikat/view-serti
 import { ViewAllZahtevSertifikatComponent } from './SERTIFIKAT/view-all-zahtev-sertifikat/view-all-zahtev-sertifikat.component';
 import { PovlacenjeSertifikatComponent } from './SERTIFIKAT/povlacenje-sertifikat/povlacenje-sertifikat.component';
 import { CreateZahtevZaSertifikatComponent } from './SERTIFIKAT/create-zahtev-za-sertifikat/create-zahtev-za-sertifikat.component';
+import { ViewZahtevZaSertifikatComponent } from './SERTIFIKAT/view-zahtev-za-sertifikat/view-zahtev-za-sertifikat.component';
 
 
 
@@ -28,7 +29,8 @@ import { CreateZahtevZaSertifikatComponent } from './SERTIFIKAT/create-zahtev-za
     ViewSertifikatComponent,
     ViewAllZahtevSertifikatComponent,
     PovlacenjeSertifikatComponent,
-    CreateZahtevZaSertifikatComponent
+    CreateZahtevZaSertifikatComponent,
+    ViewZahtevZaSertifikatComponent
   ],
   imports: [
     BrowserModule,

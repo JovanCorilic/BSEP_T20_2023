@@ -1,1 +1,56 @@
-<p>view-all-zahtev-sertifikat works!</p>
+<table class="table is-hoverable" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>
+                Start date
+            </th>
+            <th>
+                End date
+            </th>
+            <th>
+                Namena
+            </th>
+            <th>
+                Email potvrda
+            </th>
+            <th>
+                <abbr title="Potvrdjen zahtev od emaila">PZE</abbr>
+            </th>
+            <th>
+                Prihvacen zahtev
+            </th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>
+                Start date
+            </th>
+            <th>
+                End date
+            </th>
+            <th>
+                Namena
+            </th>
+            <th>
+                Email potvrda
+            </th>
+            <th>
+                <abbr title="Potvrdjen zahtev od emaila">PZE</abbr>
+            </th>
+            <th>
+                Prihvacen zahtev
+            </th>
+        </tr>
+    </tfoot>
+    <tbody *ngFor="let zahtev of lista">
+        <tr (click)="idiNaZahtev(zahtev.id)">
+            <td>{{zahtev.startDate}}</td>
+            <td>{{zahtev.endDate}}</td>
+            <td>{{zahtev.namena}}</td>
+            <td>{{zahtev.emailPotvrda}}</td>
+            <td>{{zahtev.potvrdjenZahtev}}</td>
+            <td>{{zahtev.prihvacen}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -9,6 +9,7 @@ import { RoleGuard } from './SECURITY/role.service';
 import { LoginGuard } from './SECURITY/login.service';
 import { CreateSertifikatComponent } from './SERTIFIKAT/create-sertifikat/create-sertifikat.component';
 import { ViewAllSertifikatComponent } from './SERTIFIKAT/view-all-sertifikat/view-all-sertifikat.component';
+import { ViewZahtevZaSertifikatComponent } from './SERTIFIKAT/view-zahtev-za-sertifikat/view-zahtev-za-sertifikat.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,12 @@ const routes: Routes = [
   {
     path: 'viewSertifikat/:id',
     component: ViewSertifikatComponent,
+    canActivate: [RoleGuard],
+    data: {expectedRoles: 'ROLE_ADMIN'}
+  },
+  {
+    path: 'viewZahtevZaSertifikat/:id',
+    component: ViewZahtevZaSertifikatComponent,
     canActivate: [RoleGuard],
     data: {expectedRoles: 'ROLE_ADMIN'}
   },
