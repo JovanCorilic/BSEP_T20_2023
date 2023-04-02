@@ -32,6 +32,13 @@ export class ViewZahtevZaSertifikatComponent {
   ngOnInit():void{
     this.sertifikatService.dajZahtevZaSertifikat(Number.parseInt(this.id)).subscribe(
       res=>{
+        if(res.namena==="Korisnik")
+          this.pokazivanje=1;
+        else if(res.namena==="Moja kuca aplikacija")
+          this.pokazivanje=2;
+        else if(res.namena==="Uredjaj")
+          this.pokazivanje=3;
+          
         this.createForm = this.fBuilder.group({
           startDate: [res.startDate,[Validators.required]],
           endDate: [res.endDate,[Validators.required]],
