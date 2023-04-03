@@ -1,6 +1,6 @@
 import { CreateZahtevZaSertifikatComponent } from './ZAHTEV-ZA-SERTIFIKAT/create-zahtev-za-sertifikat/create-zahtev-za-sertifikat.component';
 import { ViewAllZahtevSertifikatComponent } from './ZAHTEV-ZA-SERTIFIKAT/view-all-zahtev-sertifikat/view-all-zahtev-sertifikat.component';
-import { PovlacenjeSertifikatComponent } from './SERTIFIKAT/povlacenje-sertifikat/povlacenje-sertifikat.component';
+import { PovlacenjeSertifikatComponent } from './POVUCENI-SERTIFIKATI/povlacenje-sertifikat/povlacenje-sertifikat.component';
 import { ViewSertifikatComponent } from './SERTIFIKAT/view-sertifikat/view-sertifikat.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
@@ -9,6 +9,7 @@ import { RoleGuard } from './SECURITY/role.service';
 import { LoginGuard } from './SECURITY/login.service';
 import { ViewAllSertifikatComponent } from './SERTIFIKAT/view-all-sertifikat/view-all-sertifikat.component';
 import { ViewZahtevZaSertifikatComponent } from './ZAHTEV-ZA-SERTIFIKAT/view-zahtev-za-sertifikat/view-zahtev-za-sertifikat.component';
+import { ViewAllPovuceniSertifikatiComponent } from './POVUCENI-SERTIFIKATI/view-all-povuceni-sertifikati/view-all-povuceni-sertifikati.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,12 @@ const routes: Routes = [
   {
     path: 'povlacenjeSertifikat/:alias',
     component: PovlacenjeSertifikatComponent,
+    canActivate: [RoleGuard],
+    data: {expectedRoles: 'ROLE_ADMIN'}
+  },
+  {
+    path: 'povuceniSertifikati',
+    component: ViewAllPovuceniSertifikatiComponent,
     canActivate: [RoleGuard],
     data: {expectedRoles: 'ROLE_ADMIN'}
   },

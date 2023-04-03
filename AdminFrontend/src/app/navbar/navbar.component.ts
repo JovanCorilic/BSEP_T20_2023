@@ -48,11 +48,15 @@ export class NavbarComponent {
     this.router.navigate(['/viewAllSertifikat']);
   }
 
+  goToSviPovuceniSertifikati(){
+    this.router.navigate(['/povuceniSertifikati']);
+  }
+
   logOut() {
-    localStorage.removeItem('user');
+    /*localStorage.removeItem('user');
         localStorage.removeItem('accessToken');
-        localStorage.removeItem('uloga');
-    /*this.authenticationService.logout().subscribe(
+        localStorage.removeItem('uloga');*/
+    this.authenticationService.logout().subscribe(
 			result => {
         localStorage.removeItem('user');
         localStorage.removeItem('accessToken');
@@ -60,7 +64,7 @@ export class NavbarComponent {
 				
 				this.router.navigate(['']);
 			}
-		);*/
+		);
   }
 
 }

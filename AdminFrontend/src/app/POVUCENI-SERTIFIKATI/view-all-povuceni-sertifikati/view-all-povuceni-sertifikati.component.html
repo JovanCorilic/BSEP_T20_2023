@@ -1,0 +1,28 @@
+<table class="table" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>
+                Alias
+            </th>
+            <th>
+                Razlog
+            </th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>
+                Alias
+            </th>
+            <th>
+                Razlog
+            </th>
+        </tr>
+    </tfoot>
+    <tbody *ngFor="let povucen of lista">
+        <tr>
+            <td>{{povucen.alias}}</td>
+            <td>{{povucen.razlog}}</td>
+        </tr>
+    </tbody>
+</table>
