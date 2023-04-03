@@ -1,10 +1,8 @@
 package Backend.AdminBackend.service;
 
+import Backend.AdminBackend.model.PovlacenjeSertifikata;
 import Backend.AdminBackend.model.Sertifikat;
-import Backend.AdminBackend.repository.SertifikatRepository;
-import Backend.AdminBackend.repository.ZaKorisnikaRepository;
-import Backend.AdminBackend.repository.ZaMojaKucaAplikacijaRepository;
-import Backend.AdminBackend.repository.ZaUredjajRepository;
+import Backend.AdminBackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +15,22 @@ public class SertifikatService implements ServiceInterface<Sertifikat>{
     private SertifikatRepository sertifikatRepository;
 
     @Autowired
-    private ZaKorisnikaRepository zaKorisnikaRepository;
+    private PovlacenjeSertifikataRepository povlacenjeSertifikataRepository;
 
-    @Autowired
-    private ZaMojaKucaAplikacijaRepository zaMojaKucaAplikacijaRepository;
+    public void povlacenjeSertifikata(String alias,String razlog){
+        PovlacenjeSertifikata povlacenjeSertifikata = new PovlacenjeSertifikata();
+        povlacenjeSertifikata.setRazlog(razlog);
+        povlacenjeSertifikata.setAlias(alias);
+        povlacenjeSertifikataRepository.save(povlacenjeSertifikata);
+    }
 
-    @Autowired
-    private ZaUredjajRepository zaUredjajRepository;
+    public PovlacenjeSertifikata dajPovuceniSertifikat(String alias){
+        return povlacenjeSertifikataRepository.findByAlias(alias);
+    }
+
+    public List<PovlacenjeSertifikata> SviPovuceniSertifikati(){
+        return povlacenjeSertifikataRepository.findAll();
+    }
 
     @Override
     public List<Sertifikat> findAll() {
