@@ -29,7 +29,7 @@ const routes: Routes = [
     data: {expectedRoles: 'ROLE_ADMIN'}
   },
   {
-    path: 'viewSertifikat/:id',
+    path: 'viewSertifikat/:alias',
     component: ViewSertifikatComponent,
     canActivate: [RoleGuard],
     data: {expectedRoles: 'ROLE_ADMIN'}
@@ -41,7 +41,7 @@ const routes: Routes = [
     data: {expectedRoles: 'ROLE_ADMIN'}
   },
   {
-    path: 'povlacenjeSertifikat/:id',
+    path: 'povlacenjeSertifikat/:alias',
     component: PovlacenjeSertifikatComponent,
     canActivate: [RoleGuard],
     data: {expectedRoles: 'ROLE_ADMIN'}

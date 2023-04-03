@@ -1,1 +1,52 @@
-<p>view-sertifikat works!</p>
+<br>
+<div [ngClass]="['content','block']" style="text-align: center;">
+    <h2>Sertifikat</h2>
+    <p>
+        Alias : {{sertifikat.alias}}<br>
+        Namena : {{sertifikat.namena}}<br>
+        Start Date : {{sertifikat.startDate}}<br>
+        End Date : {{sertifikat.endDate}}<br>
+        Subject Email : {{sertifikat.subjectEmail}}<br>
+    </p>
+    <h3>Issuer</h3>
+    <p>
+        Ime : {{sertifikat.korisnik.ime}}<br>
+        Prezime : {{sertifikat.korisnik.prezime}}<br>
+        Email : {{sertifikat.korisnik.email}}<br>
+    </p>
+    <div *ngIf="sertifikat.namena==='Korisnik'">
+        <h3>
+            Za korisnika sertifikat
+        </h3>
+        <p>
+            Ime : {{sertifikat.zaKorisnika.ime}}<br>
+            Prezime : {{sertifikat.zaKorisnika.prezime}}<br>
+            Email : {{sertifikat.zaKorisnika.email}}<br>
+        </p>
+    </div>
+    <div *ngIf="sertifikat.namena==='Moja kuca aplikacija'">
+        <h3>
+            Moja kuca aplikacija sertifikat
+        </h3>
+        <p>
+            Serijski broj : {{sertifikat.zaMojaKucaAplikacija.serijskiBroj}}
+        </p>
+    </div>
+    <div *ngIf="sertifikat.namena==='Uredjaj'">
+        <h3>
+            Uredjaj sertifikat
+        </h3>
+        <p>
+            Naziv : {{sertifikat.zaUredjaj.naziv}}
+            Svrha : {{sertifikat.zaUredjaj.svrha}}
+            Serijski Broj : {{sertifikat.zaUredjaj.serijskiBroj}}
+        </p>
+    </div>
+    <div *ngIf="sertifikat.namena==='Admin aplikacija'">
+        <h3>
+            Admin aplikacija sertifikat
+        </h3>
+    </div>
+    <button class="button is-outlined" (click)="natrag()">Natrag</button>&nbsp;&nbsp;
+    <button class="button is-danger is-outlined" (click)="povlacenjeSertifikata()">Povuci sertifikat</button>
+</div>

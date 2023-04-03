@@ -1,1 +1,56 @@
-<p>view-all-sertifikat works!</p>
+<table class="table is-hoverable" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>
+                Alias
+            </th>
+            <th>
+                Namena
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+            <th>
+                Subject Email
+            </th>
+            <th>
+                Admin Email
+            </th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>
+                Alias
+            </th>
+            <th>
+                Namena
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+            <th>
+                Subject Email
+            </th>
+            <th>
+                Admin Email
+            </th>
+        </tr>
+    </tfoot>
+    <tbody *ngFor="let sertifikat of lista">
+        <tr (click)="idiNaZahtev(sertifikat.alias)">
+            <td>{{sertifikat.alias}}</td>
+            <td>{{sertifikat.namena}}</td>
+            <td>{{sertifikat.startDate}}</td>
+            <td>{{sertifikat.endDate}}</td>
+            <td>{{sertifikat.subjectEmail}}</td>
+            <td>{{sertifikat.korisnik.email}}</td>
+        </tr>
+    </tbody>
+</table>
