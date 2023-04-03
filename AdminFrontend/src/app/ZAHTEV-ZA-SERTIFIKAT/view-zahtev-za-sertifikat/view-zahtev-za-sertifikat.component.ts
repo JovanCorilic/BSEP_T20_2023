@@ -109,7 +109,11 @@ export class ViewZahtevZaSertifikatComponent {
   }
 
   napraviSertifikat(){
-    this.sertifikatService.createSertifikat(this.zahtev);
+    this.sertifikatService.createSertifikat(this.zahtev).subscribe(
+      res=>{
+        
+      }
+    );
     this.router.navigate(['/viewAllZahtevSertifikat']);
   }
 

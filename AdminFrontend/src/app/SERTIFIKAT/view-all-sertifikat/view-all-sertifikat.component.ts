@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Sertifikat } from 'src/app/MODEL/Sertifikat';
+import { SertifikatSimple } from 'src/app/MODEL/SertifikatSimple';
 import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
   styleUrls: ['./view-all-sertifikat.component.css']
 })
 export class ViewAllSertifikatComponent {
-  lista:Sertifikat[]|undefined;
+  lista:SertifikatSimple[]|undefined;
 
   constructor(
     private sertifikatService:SertifikatService,
@@ -28,6 +29,11 @@ export class ViewAllSertifikatComponent {
 
   idiNaZahtev(alias:string){
     this.router.navigate(['/viewSertifikat/'+alias]);
+  }
+
+  povlacenjeSertifikata(alias:string){
+    this.router.navigate(['/povlacenjeSertifikat/'+alias]);
+
   }
 
 }

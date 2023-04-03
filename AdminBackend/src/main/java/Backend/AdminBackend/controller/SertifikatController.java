@@ -1,8 +1,6 @@
 package Backend.AdminBackend.controller;
 
-import Backend.AdminBackend.dto.PovlacenjeSertifikataDTO;
-import Backend.AdminBackend.dto.SertifikatDTO;
-import Backend.AdminBackend.dto.ZahtevZaSertifikatDTO;
+import Backend.AdminBackend.dto.*;
 import Backend.AdminBackend.mapper.PovlacenjeSertifikataMapper;
 import Backend.AdminBackend.mapper.SertifikatMapper;
 import Backend.AdminBackend.mapper.ZahtevZaSertifikatMapper;
@@ -23,7 +21,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/sertifikat", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/sertifikat")
 public class SertifikatController {
 
     @Autowired
@@ -63,11 +61,11 @@ public class SertifikatController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/dajSveSertifikate")
-    public ResponseEntity<List<SertifikatDTO>>getAllSertifikate(){
+    public ResponseEntity<List<SertifikatSimpleDTO>>getAllSertifikate(){
         List<Sertifikat> sertifikats = sertifikatService.findAll();
-        List<SertifikatDTO>lista = new ArrayList<>();
+        List<SertifikatSimpleDTO>lista = new ArrayList<>();
         for (Sertifikat sertifikat : sertifikats){
-            lista.add(sertifikatMapper.toDto(sertifikat));
+            lista.add(new SertifikatSimpleDTO(sertifikat.getAlias(),sertifikat.getNamena(),sertifikat.getStartDate(),sertifikat.getEndDate(),sertifikat.getSubjectEmail(),sertifikat.getKorisnik().getEmail()));
         }
         return new ResponseEntity<>(lista,HttpStatus.OK);
     }
@@ -81,6 +79,15 @@ public class SertifikatController {
         return new ResponseEntity<>(sertifikatDTO,HttpStatus.OK);
     }
 
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/napraviMini/{id}")
+    public ResponseEntity<?> createSertifikatMini(@PathVariable Integer id){
+
+        ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatService.findOne(id);
+        zahtevZaSertifikatService.napraviSertifikatOdZahteva(zahtevZaSertifikat);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/napravi")
@@ -112,18 +119,18 @@ public class SertifikatController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/dajZahtevZaSertifikat/{id}")
-    public ResponseEntity<ZahtevZaSertifikatDTO> dajZahtevZaSertifikat(@PathVariable Integer id){
+    public ResponseEntity<ZahtevZaSertifikatShortDTO> dajZahtevZaSertifikat(@PathVariable Integer id){
         ZahtevZaSertifikat zahtevZaSertifikat  = zahtevZaSertifikatService.findOne(id);
-        return new ResponseEntity<>(zahtevZaSertifikatMapper.toDto(zahtevZaSertifikat),HttpStatus.OK);
+        return new ResponseEntity<>(new ZahtevZaSertifikatShortDTO(zahtevZaSertifikat.getId(),zahtevZaSertifikat.getStartDate(),zahtevZaSertifikat.getEndDate(),zahtevZaSertifikat.getNamena(),zahtevZaSertifikat.getEmailPotvrda(),zahtevZaSertifikat.getPotvrdjenZahtev(),zahtevZaSertifikat.getPrihvacen()),HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/dajListuZahtevaZaSertifikat")
-    public ResponseEntity<List<ZahtevZaSertifikatDTO>> dajListuZahtevaZaSertifikat(){
+    public ResponseEntity<List<ZahtevZaSertifikatShortDTO>> dajListuZahtevaZaSertifikat(){
         List<ZahtevZaSertifikat> lista = zahtevZaSertifikatService.findAll();
-        List<ZahtevZaSertifikatDTO>listaDTO = new ArrayList<>();
+        List<ZahtevZaSertifikatShortDTO>listaDTO = new ArrayList<>();
         for (ZahtevZaSertifikat zahtevZaSertifikat : lista)
-            listaDTO.add(zahtevZaSertifikatMapper.toDto(zahtevZaSertifikat));
+            listaDTO.add(new ZahtevZaSertifikatShortDTO(zahtevZaSertifikat.getId(),zahtevZaSertifikat.getStartDate(),zahtevZaSertifikat.getEndDate(),zahtevZaSertifikat.getNamena(),zahtevZaSertifikat.getEmailPotvrda(),zahtevZaSertifikat.getPotvrdjenZahtev(),zahtevZaSertifikat.getPrihvacen()));
         return new ResponseEntity<>(listaDTO, HttpStatus.OK);
     }
 

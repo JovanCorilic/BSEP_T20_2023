@@ -4,6 +4,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Sertifikat } from '../MODEL/Sertifikat';
 import { PovlacenjeSertifikata } from '../MODEL/PovlacenjeSertifikata';
+import { ZahtevZaSertifikatShort } from '../MODEL/ZahtevZaSertifikatShort';
+import { SertifikatSimple } from '../MODEL/SertifikatSimple';
 
 @Injectable({
     providedIn:'root'
@@ -20,8 +22,8 @@ export class SertifikatService{
         return this.http.post(this.path+"/povuciSertifikat",povuci);
     }
 
-    public dajSveSertifikate():Observable<Sertifikat[]>{
-        return this.http.get<Sertifikat[]>(this.path+"/dajSveSertifikate");
+    public dajSveSertifikate():Observable<SertifikatSimple[]>{
+        return this.http.get<SertifikatSimple[]>(this.path+"/dajSveSertifikate");
     }
 
     public dajSertifikat(alias:string):Observable<Sertifikat>{
@@ -30,6 +32,10 @@ export class SertifikatService{
     
     public createSertifikat(zahtev:ZahtevZaSertifikat):Observable<any>{
         return this.http.post(this.path+"/napravi",zahtev);
+    }
+
+    public createSertifikatMini(id:number):Observable<any>{
+        return this.http.get(this.path+"/napraviMini"+`/${id}`);
     }
 
     public createZahtevZaSertifikat(zahtev:ZahtevZaSertifikat):Observable<any>{
@@ -45,8 +51,8 @@ export class SertifikatService{
         return this.http.get<ZahtevZaSertifikat>(this.path+"/dajZahtevZaSertifikat"+`/${id}`);
     }
 
-    public dajListuZahtevaZaSertifikat():Observable<ZahtevZaSertifikat[]>{
-        return this.http.get<ZahtevZaSertifikat[]>(this.path+"/dajListuZahtevaZaSertifikat");
+    public dajListuZahtevaZaSertifikat():Observable<ZahtevZaSertifikatShort[]>{
+        return this.http.get<ZahtevZaSertifikatShort[]>(this.path+"/dajListuZahtevaZaSertifikat");
     }
 
     public izbrisiZahtevZaSertifikat(id:number){

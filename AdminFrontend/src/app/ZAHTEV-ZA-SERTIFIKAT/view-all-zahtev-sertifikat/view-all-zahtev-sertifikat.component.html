@@ -44,7 +44,7 @@
         </tr>
     </tfoot>
     <tbody *ngFor="let zahtev of lista">
-        <tr (click)="idiNaZahtev(zahtev.id)">
+        <tr (click)="napraviSertifikat(zahtev.id)">
             <td>{{zahtev.startDate}}</td>
             <td>{{zahtev.endDate}}</td>
             <td>{{zahtev.namena}}</td>

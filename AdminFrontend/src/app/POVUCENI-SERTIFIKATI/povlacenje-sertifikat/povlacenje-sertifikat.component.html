@@ -1,4 +1,5 @@
 <br>
+<div style="text-align: center;">
 <h2>Odaberite razlog povlacenja, ili</h2>
 <div class="dropdown">
     <button onclick="pokazi()" class="dropbtn" id="dropbtn">Cesti razlozi povlacenjax</button>
@@ -10,11 +11,12 @@
       <button class="tad" id="b5">Bezbednost sistema je komprovizovana</button>
       <button class="tad" id="b6">Klijent za zatrazio da ga izbacimo</button>
       <button class="tad" id="b7">Ne zelimo da navedemo razlog</button>
-      <button class="tad" id="b8">Nema rezloga</button>
+      <button class="tad" id="b8">Nema razloga</button>
     </div>
   </div>
 
 <h3>Unesite razlog povlacenja</h3>
 <textarea name="text" id="text" cols="40" rows="5"></textarea><br>
-<button (click)="posalji()">Povuci</button>&nbsp;&nbsp;
-<button (click)="natrag()">Natrag</button>
+<button class="button is-danger is-outlined" (click)="posalji()">Povuci</button>&nbsp;&nbsp;
+<button class="button is-outlined" (click)="natrag()">Natrag</button>
+</div>
