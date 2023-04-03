@@ -1,5 +1,8 @@
 package Backend.AdminBackend.security.certificate;
 
+import Backend.AdminBackend.security.Base64Utility;
+import Backend.AdminBackend.security.keystores.KeyStoreReader;
+import Backend.AdminBackend.security.keystores.KeyStoreWriter;
 import org.bouncycastle.asn1.x500.X500NameBuilder;
 import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -43,6 +46,24 @@ public class CertificateExample {
             cert.verify(keyPairIssuer.getPublic());
             System.out.println("\nValidacija uspesna :)");
 
+            System.out.println(Base64Utility.encode(cert.getSubjectX500Principal().getEncoded()));
+
+
+            System.out.println(cert.getSubjectDN().toString());//CN=Marija Kovacevic,SURNAME=Kovacevic,GIVENNAME=Marija,O=UNS-FTN,OU=Katedra za informatiku,C=RS,E=marija.kovacevic@uns.ac.rs,UID=654321
+            System.out.println(cert.getNotAfter()); //Fri Mar 01 00:00:00 CET 2024
+            System.out.println(cert.getNotBefore()); //Tue Mar 01 00:00:00 CET 2022
+
+            KeyStoreReader reader = new KeyStoreReader();
+            KeyStoreWriter writer = new KeyStoreWriter();
+
+            //writer.loadKeyStore(null,"1".toCharArray());
+            /*writer.loadKeyStore("src/main/resources/jks/test.jks","1".toCharArray());
+            writer.write("Nesto3", keyPairIssuer.getPrivate(), "1".toCharArray(),cert);
+            writer.saveKeyStore("src/main/resources/jks/test.jks","1".toCharArray());*/
+
+            X509Certificate temp = (X509Certificate) reader.readCertificate("src/main/resources/jks/test.jks","1","Nesto3");
+            System.out.println("Ovde "+temp.getNotAfter());
+
             // Ovde se desava exception, jer se validacija vrsi putem drugog kljuca
             KeyPair anotherPair = generateKeyPair();
             cert.verify(anotherPair.getPublic());
@@ -66,7 +87,6 @@ public class CertificateExample {
 
         // UID (USER ID) je ID korisnika
         builder.addRDN(BCStyle.UID, "123456");
-
         // Kreiraju se podaci za issuer-a, sto u ovom slucaju ukljucuje:
         // - privatni kljuc koji ce se koristiti da potpise sertifikat koji se izdaje
         // - podatke o vlasniku sertifikata koji izdaje nov sertifikat
@@ -80,7 +100,7 @@ public class CertificateExample {
             // Datumi od kad do kad vazi sertifikat
             SimpleDateFormat iso8601Formater = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = iso8601Formater.parse("2022-03-01");
-            Date endDate = iso8601Formater.parse("2024-03-01");
+            Date endDate = iso8601Formater.parse("2025-03-01");
 
             // Serijski broj sertifikata
             String sn = "1";
@@ -112,7 +132,7 @@ public class CertificateExample {
 
     private KeyPair generateKeyPair() {
         try {
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA", "BC");
             SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
             keyGen.initialize(2048, random);
             return keyGen.generateKeyPair();

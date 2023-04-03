@@ -1,11 +1,12 @@
 package Backend.AdminBackend.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class ZahtevZaSertifikatDTO {
     private Integer id;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private Date startDate;
+    private Date endDate;
     private String namena;
 
     private String emailPotvrda;
@@ -18,7 +19,7 @@ public class ZahtevZaSertifikatDTO {
     public ZahtevZaSertifikatDTO() {
     }
 
-    public ZahtevZaSertifikatDTO(Integer id, LocalDateTime startDate, LocalDateTime endDate, String namena, String emailPotvrda, Boolean potvrdjenZahtev, Boolean prihvacen, ZaKorisnikaDTO zaKorisnika, ZaUredjajDTO zaUredjaj, ZaMojaKucaAplikacijaDTO zaMojaKucaAplikacija) {
+    public ZahtevZaSertifikatDTO(Integer id, Date startDate, Date endDate, String namena, String emailPotvrda, Boolean potvrdjenZahtev, Boolean prihvacen, ZaKorisnikaDTO zaKorisnika, ZaUredjajDTO zaUredjaj, ZaMojaKucaAplikacijaDTO zaMojaKucaAplikacija) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -47,19 +48,19 @@ public class ZahtevZaSertifikatDTO {
         this.id = id;
     }
 
-    public LocalDateTime getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

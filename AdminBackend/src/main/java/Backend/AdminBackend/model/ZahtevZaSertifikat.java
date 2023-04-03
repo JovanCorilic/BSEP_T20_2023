@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -19,9 +20,9 @@ public class ZahtevZaSertifikat {
     private Integer id;
 
     @Column
-    private LocalDateTime startDate;
+    private Date startDate;
     @Column
-    private LocalDateTime endDate;
+    private Date endDate;
 
     @Column
     private String namena;

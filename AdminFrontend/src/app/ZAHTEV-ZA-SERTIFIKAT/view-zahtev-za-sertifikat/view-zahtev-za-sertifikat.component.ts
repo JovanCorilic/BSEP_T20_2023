@@ -14,6 +14,7 @@ export class ViewZahtevZaSertifikatComponent {
   createForm: FormGroup;
   pokazivanje:number = 0;
   zahtev = <ZahtevZaSertifikat>{};
+  
 
   constructor(
     private sertifikatService:SertifikatService,
@@ -52,9 +53,10 @@ export class ViewZahtevZaSertifikatComponent {
           serijskiBroj: [res.zaMojaKucaAplikacija.serijskiBroj,[Validators.required]],
     
           naziv: [res.zaUredjaj.naziv,[Validators.required]],
-          svrha: [res.zaUredjaj.svrha,[Validators.required]],
+          svrha: [res.zaUredjaj.svrha,[Validators.required]]
           //serijskiBroj: ["",[Validators.required]]
         });
+        this.zahtev=res;
       }
     )
   }
@@ -76,8 +78,7 @@ export class ViewZahtevZaSertifikatComponent {
       this.zahtev.endDate=this.createForm.value.endDate;
       this.zahtev.namena=this.createForm.value.namena;
       this.zahtev.emailPotvrda=this.createForm.value.emailPotvrda;
-      this.zahtev.potvrdjenZahtev = false;
-      this.zahtev.prihvacen=false;
+
       if(this.pokazivanje==1){
         this.zahtev.zaKorisnika.email=this.createForm.value.email;
         this.zahtev.zaKorisnika.ime=this.createForm.value.ime;
