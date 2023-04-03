@@ -21,10 +21,10 @@
         </div>
         <div [ngClass]="['form-group','block','select is-rounded']">
             <select formControlName="namena" (change)="pokazivanjeElemenata($event)">
-                <option value="1">Korisnik</option>
-                <option value="2">Moja kuca aplikacija</option>
-                <option value="3">Uredjaj</option>
-                <option value="0">Admin aplikacija</option>
+                <option value="Korisnik">Korisnik</option>
+                <option value="Moja kuca aplikacija">Moja kuca aplikacija</option>
+                <option value="Uredjaj">Uredjaj</option>
+                <option value="Admin aplikacija" selected>Admin aplikacija</option>
             </select>
         </div>
         <div *ngIf="pokazivanje===1">
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div [ngClass]="['form-group','block']">
-    		<button type="submit" [ngClass]="['btn btn-primary btn-block','button is-danger is-outlined']" [disabled]="createForm.invalid">Posalji zahtev</button>
+    		<button type="submit" [ngClass]="['btn btn-primary btn-block','button is-danger is-outlined']">Posalji zahtev</button>
 		</div>
     </form>
 </div>

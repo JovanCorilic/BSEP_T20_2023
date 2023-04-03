@@ -2,6 +2,7 @@ package Backend.AdminBackend.dto;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 public class ZahtevZaSertifikatDTO {
     private Integer id;
@@ -15,6 +16,49 @@ public class ZahtevZaSertifikatDTO {
     private ZaKorisnikaDTO zaKorisnika;
     private ZaUredjajDTO zaUredjaj;
     private ZaMojaKucaAplikacijaDTO zaMojaKucaAplikacija;
+
+    public void konverzija(Object temp){
+        LinkedHashMap<String, LinkedHashMap<String,Object>>lista = (LinkedHashMap<String, LinkedHashMap<String, Object>>)temp;
+        LinkedHashMap<String,Object>lista2 = lista.get("zahtev");
+        id = (Integer)lista2.get("id");
+        //startDate =(Date) lista2.get("startDate");
+        //endDate = (Date) lista2.get("endDate");
+        startDate = new Date();
+        endDate = new Date();
+        namena = (String) lista2.get("namena");
+        emailPotvrda = (String) lista2.get("emailPotvrda");
+        potvrdjenZahtev=(Boolean) lista2.get("potvrdjenZahtev");
+        prihvacen = (Boolean) lista2.get("prihvacen");
+
+        LinkedHashMap<String,String>lista3 =(LinkedHashMap<String, String>) lista2.get("zaKorisnika");
+        zaKorisnika=new ZaKorisnikaDTO();
+        if (lista3.size()!=0){
+            zaKorisnika = new ZaKorisnikaDTO();
+            if (lista3.get("id")!=null)
+                zaKorisnika.setId(Integer.parseInt(lista3.get("id")));
+            zaKorisnika.setEmail(lista3.get("email"));
+            zaKorisnika.setIme(lista3.get("ime"));
+            zaKorisnika.setPrezime(lista3.get("prezime"));
+        }
+        lista3 = (LinkedHashMap<String, String>) lista2.get("zaUredjaj");
+        zaUredjaj = new ZaUredjajDTO();
+        if (lista3.size()!=0){
+            zaUredjaj = new ZaUredjajDTO();
+            if (lista3.get("id")!=null)
+                zaUredjaj.setId(Integer.parseInt(lista3.get("id")));
+            zaUredjaj.setNaziv(lista3.get("naziv"));
+            zaUredjaj.setSvrha(lista3.get("svrha"));
+            zaUredjaj.setSerijskiBroj(lista3.get("serijskiBroj"));
+        }
+        lista3 = (LinkedHashMap<String, String>) lista2.get("zaMojaKucaAplikacija");
+        zaMojaKucaAplikacija = new ZaMojaKucaAplikacijaDTO();
+        if (lista3.size()!=0){
+            zaMojaKucaAplikacija = new ZaMojaKucaAplikacijaDTO();
+            if (lista3.get("id")!=null)
+                zaMojaKucaAplikacija.setId(Integer.parseInt(lista3.get("id")));
+            zaMojaKucaAplikacija.setSerijskiBroj(lista3.get("serijskiBroj"));
+        }
+    }
 
     public ZahtevZaSertifikatDTO() {
     }

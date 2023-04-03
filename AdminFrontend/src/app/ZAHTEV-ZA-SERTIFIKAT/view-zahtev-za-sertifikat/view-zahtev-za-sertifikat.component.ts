@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ZaKorisnika } from 'src/app/MODEL/ZaKorisnika';
+import { ZaMojaKucaAplikacija } from 'src/app/MODEL/ZaMojaKucaAplikacija';
+import { ZaUredjaj } from 'src/app/MODEL/ZaUredjaj';
 import { ZahtevZaSertifikat } from 'src/app/MODEL/ZahtevZaSertifikat';
 import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
 
@@ -62,13 +65,13 @@ export class ViewZahtevZaSertifikatComponent {
   }
 
   pokazivanjeElemenata(broj:any){
-    if(broj.target.value==1){
+    if(broj.target.value==="Korisnik"){
       this.pokazivanje=1;
-    }else if(broj.target.value==2){
+    }else if(broj.target.value==="Moja kuca aplikacija"){
       this.pokazivanje=2;
-    }else if(broj.target.value==3){
+    }else if(broj.target.value==="Uredjaj"){
       this.pokazivanje=3;
-    }else if(broj.target.value==0){
+    }else if(broj.target.value==="Admin aplikacija"){
       this.pokazivanje=0;
     }
   }
@@ -78,7 +81,9 @@ export class ViewZahtevZaSertifikatComponent {
       this.zahtev.endDate=this.createForm.value.endDate;
       this.zahtev.namena=this.createForm.value.namena;
       this.zahtev.emailPotvrda=this.createForm.value.emailPotvrda;
-
+      this.zahtev.zaKorisnika=<ZaKorisnika>{};
+      this.zahtev.zaMojaKucaAplikacija = <ZaMojaKucaAplikacija>{};
+      this.zahtev.zaUredjaj = <ZaUredjaj>{};
       if(this.pokazivanje==1){
         this.zahtev.zaKorisnika.email=this.createForm.value.email;
         this.zahtev.zaKorisnika.ime=this.createForm.value.ime;

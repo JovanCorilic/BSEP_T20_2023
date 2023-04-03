@@ -23,7 +23,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/sertifikat", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/sertifikat", produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
 public class SertifikatController {
 
     @Autowired
@@ -91,8 +91,10 @@ public class SertifikatController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/createZahtevZaSertifikat")
-    public ResponseEntity<?> createZahtevZaSertifikat(@RequestBody ZahtevZaSertifikatDTO zahtevZaSertifikatDTO){
+    @RequestMapping(value = "/createZahtevZaSertifikat", method=RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createZahtevZaSertifikat(@RequestBody Object temp){
+        ZahtevZaSertifikatDTO zahtevZaSertifikatDTO = new ZahtevZaSertifikatDTO();
+        zahtevZaSertifikatDTO.konverzija(temp);
         ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatMapper.toModel(zahtevZaSertifikatDTO);
         zahtevZaSertifikat.setPrihvacen(false);
         zahtevZaSertifikat.setPotvrdjenZahtev(false);

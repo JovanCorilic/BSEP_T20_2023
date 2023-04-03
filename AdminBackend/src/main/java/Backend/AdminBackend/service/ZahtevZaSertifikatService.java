@@ -87,7 +87,7 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
 
     @Override
     public ZahtevZaSertifikat create(ZahtevZaSertifikat entity){
-        potvrdaZahteva(entity);
+
         entity.setId(null);
         //uradi ovde proveru za duplikate
         /*ZaKorisnika zaKorisnika = zaKorisnikaRepository.findByEmail(entity.getZaKorisnika().getEmail());
@@ -111,11 +111,22 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
         else{
             entity.setZaMojaKucaAplikacija(zaMojaKucaAplikacija);
         }*/
-        entity.getZaKorisnika().setId(null);
-        entity.getZaUredjaj().setId(null);
-        entity.getZaMojaKucaAplikacija().setId(null);
-
-        return zahtevZaSertifikatRepository.save(entity);
+        if (entity.getZaMojaKucaAplikacija()!=null) {
+            ZaMojaKucaAplikacija zaMojaKucaAplikacija = zaMojaKucaAplikacijaRepository.save(entity.getZaMojaKucaAplikacija());
+            entity.setZaMojaKucaAplikacija(zaMojaKucaAplikacija);
+        }
+        if (entity.getZaKorisnika()!=null) {
+            ZaKorisnika zaKorisnika = zaKorisnikaRepository.save(entity.getZaKorisnika());
+            entity.setZaKorisnika(zaKorisnika);
+        }
+        if (entity.getZaUredjaj()!=null) {
+            ZaUredjaj zaUredjaj = zaUredjajRepository.save(entity.getZaUredjaj());
+            entity.setZaUredjaj(zaUredjaj);
+        }
+        entity.setPotvrdjenZahtev(true);
+        zahtevZaSertifikatRepository.save(entity);
+        //potvrdaZahteva(entity);
+        return null;
     }
 
     @Async
@@ -138,7 +149,7 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
         simpleMailMessage.setTo(komeSalje);
         simpleMailMessage.setSubject(naslov);
         simpleMailMessage.setText(poruka+ "\r\n"+"http://localhost:4200/auth"+confirmURL);
-        javaMailSender.send(simpleMailMessage);
+        //javaMailSender.send(simpleMailMessage);
     }
 
     public void potvrdaZahteva(String token) throws Exception {

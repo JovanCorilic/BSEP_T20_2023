@@ -16,8 +16,8 @@ export class SertifikatService{
         return this.http.get<PovlacenjeSertifikata[]>(this.path+"/dajSvePovuceneSertifikate");
     }
 
-    public povuciSertifikat(povuci:PovlacenjeSertifikata){
-        this.http.post(this.path+"/povuciSertifikat",povuci);
+    public povuciSertifikat(povuci:PovlacenjeSertifikata):Observable<any>{
+        return this.http.post(this.path+"/povuciSertifikat",povuci);
     }
 
     public dajSveSertifikate():Observable<Sertifikat[]>{
@@ -28,16 +28,17 @@ export class SertifikatService{
         return this.http.get<Sertifikat>(this.path+"/dajSertifikat"+`/${alias}`);
     }
     
-    public createSertifikat(zahtev:ZahtevZaSertifikat){
-        this.http.post(this.path+"/napravi",zahtev);
+    public createSertifikat(zahtev:ZahtevZaSertifikat):Observable<any>{
+        return this.http.post(this.path+"/napravi",zahtev);
     }
 
-    public createZahtevZaSertifikat(zahtev:ZahtevZaSertifikat){
-        this.http.post(this.path+"/createZahtevZaSertifikat",{zahtev});
+    public createZahtevZaSertifikat(zahtev:ZahtevZaSertifikat):Observable<any>{
+        console.log(zahtev);
+        return this.http.post(this.path+"/createZahtevZaSertifikat",{zahtev});
     }
 
-    public updateZahtevZaSertifikat(zahtev:ZahtevZaSertifikat){
-        this.http.put(this.path+"/updateZahtevZaSertifikat",{zahtev}); 
+    public updateZahtevZaSertifikat(zahtev:ZahtevZaSertifikat):Observable<any>{
+        return this.http.put(this.path+"/updateZahtevZaSertifikat",{zahtev}); 
     }
 
     public dajZahtevZaSertifikat(id:number):Observable<ZahtevZaSertifikat>{
@@ -49,6 +50,6 @@ export class SertifikatService{
     }
 
     public izbrisiZahtevZaSertifikat(id:number){
-        this.http.delete(this.path+"/izbrisiZahtevZaSertifikat"+`/${id}`);
+        return this.http.delete(this.path+"/izbrisiZahtevZaSertifikat"+`/${id}`);
     }
 }

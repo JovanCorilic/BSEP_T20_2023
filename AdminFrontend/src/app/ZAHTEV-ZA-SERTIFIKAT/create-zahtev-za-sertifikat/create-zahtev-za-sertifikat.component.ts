@@ -2,6 +2,9 @@ import { ZahtevZaSertifikat } from '../../MODEL/ZahtevZaSertifikat';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ZaKorisnika } from 'src/app/MODEL/ZaKorisnika';
+import { ZaMojaKucaAplikacija } from 'src/app/MODEL/ZaMojaKucaAplikacija';
+import { ZaUredjaj } from 'src/app/MODEL/ZaUredjaj';
 import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
 
 @Component({
@@ -22,7 +25,7 @@ export class CreateZahtevZaSertifikatComponent {
     this.createForm = this.fBuilder.group({
       startDate: ["",[Validators.required]],
       endDate: ["",[Validators.required]],
-      namena: ["Admin aplikacija"],
+      namena: "Admin aplikacija",
       emailPotvrda: ["",[Validators.required]],
 
       email: ["",[Validators.required]],
@@ -38,13 +41,13 @@ export class CreateZahtevZaSertifikatComponent {
   }
 
   pokazivanjeElemenata(broj:any){
-    if(broj.target.value==1){
+    if(broj.target.value==="Korisnik"){
       this.pokazivanje=1;
-    }else if(broj.target.value==2){
+    }else if(broj.target.value==="Moja kuca aplikacija"){
       this.pokazivanje=2;
-    }else if(broj.target.value==3){
+    }else if(broj.target.value==="Uredjaj"){
       this.pokazivanje=3;
-    }else if(broj.target.value==0){
+    }else if(broj.target.value==="Admin aplikacija"){
       this.pokazivanje=0;
     }
   }
@@ -56,6 +59,9 @@ export class CreateZahtevZaSertifikatComponent {
       this.zahtev.emailPotvrda=this.createForm.value.emailPotvrda;
       this.zahtev.potvrdjenZahtev = false;
       this.zahtev.prihvacen=false;
+      this.zahtev.zaKorisnika=<ZaKorisnika>{};
+      this.zahtev.zaMojaKucaAplikacija = <ZaMojaKucaAplikacija>{};
+      this.zahtev.zaUredjaj = <ZaUredjaj>{};
       if(this.pokazivanje==1){
         this.zahtev.zaKorisnika.email=this.createForm.value.email;
         this.zahtev.zaKorisnika.ime=this.createForm.value.ime;
@@ -67,7 +73,13 @@ export class CreateZahtevZaSertifikatComponent {
         this.zahtev.zaUredjaj.svrha=this.createForm.value.svrha;
         this.zahtev.zaUredjaj.serijskiBroj=this.createForm.value.serijskiBroj;
       }
-      this.sertifikatService.createZahtevZaSertifikat(this.zahtev);
-      this.router.navigate(['/viewAllZahtevSertifikat']);
+   
+      //let temp:ZahtevZaSertifikat = new ZahtevZaSertifikat(0,new Date(),new Date(),"","",false,false,new ZaKorisnika(0,"","",""),new ZaUredjaj(0,"","",""),new ZaMojaKucaAplikacija(0,""));
+      this.sertifikatService.createZahtevZaSertifikat(this.zahtev).subscribe(
+        res=>{
+          this.router.navigate(['/viewAllZahtevSertifikat']);
+        }
+      );
+      
   }
 }

@@ -20,13 +20,13 @@ public class ZahtevZaSertifikatMapper implements MapperInterface<ZahtevZaSertifi
         ZaUredjaj zaUredjaj = null;
 
         switch (dto.getNamena()) {
-            case "uredjaj":
+            case "Uredjaj":
                 zaUredjaj = zaUredjajMapper.toModel(dto.getZaUredjaj());
                 break;
-            case "mojakuca":
+            case "Moja kuca aplikacija":
                 zaMojaKucaAplikacija = zaMojaKucaAplikacijaMapper.toModel(dto.getZaMojaKucaAplikacija());
                 break;
-            case "korisnik":
+            case "Korisnik":
                 zaKorisnika = zaKorisnikaMapper.toModel(dto.getZaKorisnika());
                 break;
         }
@@ -42,13 +42,13 @@ public class ZahtevZaSertifikatMapper implements MapperInterface<ZahtevZaSertifi
         ZaUredjajDTO zaUredjajDTO = null;
 
         switch (entity.getNamena()) {
-            case "uredjaj":
+            case "Uredjaj":
                 zaUredjajDTO = zaUredjajMapper.toDto(entity.getZaUredjaj());
                 break;
-            case "mojakuca":
+            case "Moja kuca aplikacija":
                 zaMojaKucaAplikacijaDTO = zaMojaKucaAplikacijaMapper.toDto(entity.getZaMojaKucaAplikacija());
                 break;
-            case "korisnik":
+            case "Korisnik":
                 zaKorisnikaDTO = zaKorisnikaMapper.toDto(entity.getZaKorisnika());
                 break;
         }
