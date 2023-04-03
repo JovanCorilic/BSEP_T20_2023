@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
-import { CreateSertifikatComponent } from './SERTIFIKAT/create-sertifikat/create-sertifikat.component';
 import { ViewAllSertifikatComponent } from './SERTIFIKAT/view-all-sertifikat/view-all-sertifikat.component';
 import { ViewSertifikatComponent } from './SERTIFIKAT/view-sertifikat/view-sertifikat.component';
 import { ViewAllZahtevSertifikatComponent } from './ZAHTEV-ZA-SERTIFIKAT/view-all-zahtev-sertifikat/view-all-zahtev-sertifikat.component';
@@ -24,7 +23,6 @@ import { ViewZahtevZaSertifikatComponent } from './ZAHTEV-ZA-SERTIFIKAT/view-zah
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    CreateSertifikatComponent,
     ViewAllSertifikatComponent,
     ViewSertifikatComponent,
     ViewAllZahtevSertifikatComponent,
