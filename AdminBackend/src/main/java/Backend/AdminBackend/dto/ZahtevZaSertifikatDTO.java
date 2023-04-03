@@ -1,5 +1,7 @@
 package Backend.AdminBackend.dto;
 
+import Backend.AdminBackend.ostalo.KonverterDatum;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -23,8 +25,9 @@ public class ZahtevZaSertifikatDTO {
         id = (Integer)lista2.get("id");
         //startDate =(Date) lista2.get("startDate");
         //endDate = (Date) lista2.get("endDate");
-        startDate = new Date();
-        endDate = new Date();
+        //startDate -> 2023-04-12T22:56
+        startDate = KonverterDatum.konvertovanjeSamoDatumUDateHitno(((String) lista2.get("startDate")).split("T")[0]);
+        endDate = KonverterDatum.konvertovanjeSamoDatumUDateHitno(((String) lista2.get("endDate")).split("T")[0]);
         namena = (String) lista2.get("namena");
         emailPotvrda = (String) lista2.get("emailPotvrda");
         potvrdjenZahtev=(Boolean) lista2.get("potvrdjenZahtev");
