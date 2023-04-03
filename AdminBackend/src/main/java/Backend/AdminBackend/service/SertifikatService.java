@@ -51,6 +51,6 @@ public class SertifikatService implements ServiceInterface<Sertifikat>{
 
     @Override
     public void delete(Integer id) {
-        sertifikatRepository.delete(Objects.requireNonNull(sertifikatRepository.findById(id).orElse(null)));
+        //sertifikatRepository.delete(Objects.requireNonNull(sertifikatRepository.findById(id).orElse(null)));
     }
 }

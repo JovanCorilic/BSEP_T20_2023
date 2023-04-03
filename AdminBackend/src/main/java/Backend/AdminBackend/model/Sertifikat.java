@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.security.PublicKey;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -26,6 +27,19 @@ public class Sertifikat {
 
     @Column
     private PublicKey publicKey;
+
+    @Column
+    private Date startDate;
+
+    @Column
+    private Date endDate;
+
+    @Column
+    private  String subjectEmail;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Korisnik korisnik;
 
     @OneToOne(targetEntity = ZaKorisnika.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = true)

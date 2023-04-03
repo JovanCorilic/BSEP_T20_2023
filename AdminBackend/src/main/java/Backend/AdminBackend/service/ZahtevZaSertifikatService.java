@@ -2,11 +2,14 @@ package Backend.AdminBackend.service;
 
 import Backend.AdminBackend.model.*;
 import Backend.AdminBackend.repository.*;
+import Backend.AdminBackend.security.certificate.PravljenjeSertifikata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Date;
 import java.util.List;
@@ -61,7 +64,15 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
                 sertifikat.setNamena(zahtevZaSertifikat.getNamena());
                 break;
         }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Korisnik korisnik = (Korisnik) auth.getPrincipal();
+        sertifikat.setKorisnik(korisnik);
+        sertifikat.setStartDate(zahtevZaSertifikat.getStartDate());
+        sertifikat.setEndDate(zahtevZaSertifikat.getEndDate());
+        sertifikat.setSubjectEmail(zahtevZaSertifikat.getEmailPotvrda());
         Sertifikat temp = sertifikatRepository.save(sertifikat);
+        temp.setPublicKey(PravljenjeSertifikata.pravljenje(temp));
+        sertifikatRepository.save(temp);
     }
 
     @Override

@@ -11,7 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,6 +42,9 @@ public class Korisnik implements UserDetails {
     @ManyToMany()
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Uloga> uloge;
+
+    @OneToMany(mappedBy = "korisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Sertifikat> sertifikats=new HashSet<>();
 
     public Korisnik(Integer id, String ime, String prezime, String email, String lozinka) {
         this.id = id;
