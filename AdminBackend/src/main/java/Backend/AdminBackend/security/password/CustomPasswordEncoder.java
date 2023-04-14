@@ -23,8 +23,7 @@ public class CustomPasswordEncoder implements PasswordEncoder {
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         try {
             byte[]tempSalt = HashSaltPassword.ekstrakcijaSalta(encodedPassword);
-            byte[]tempHesh = HashSaltPassword.ekstrakcijaHesha(encodedPassword);
-            return HashSaltPassword.authenticate(rawPassword.toString(), tempHesh,tempSalt);
+            return HashSaltPassword.authenticate(rawPassword.toString(), Base64Utility.decode(encodedPassword),tempSalt);
         } catch (IOException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

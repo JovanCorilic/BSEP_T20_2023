@@ -29,12 +29,8 @@ export class PovlacenjeSertifikatComponent {
 
   posalji(){
     let razlog = (document.getElementById("text") as HTMLTextAreaElement).value;
-    this.sertifikatService.povuciSertifikat(new PovlacenjeSertifikata(razlog,this.id)).subscribe(
-      res=>{
-        this.router.navigate([''])
-      }
-    );
-    
+    this.sertifikatService.povuciSertifikat(new PovlacenjeSertifikata(razlog,this.id));
+    this.router.navigate(['/viewSertifikat/'+this.id])
   }
 
   loadJS(){
@@ -44,7 +40,7 @@ export class PovlacenjeSertifikatComponent {
   }
 
   natrag(){
-    this.router.navigate([''])
+    this.router.navigate(['/viewSertifikat/'+this.id])
   }
 
 }

@@ -44,13 +44,13 @@
         </tr>
     </tfoot>
     <tbody *ngFor="let sertifikat of lista">
-        <tr (click)="povlacenjeSertifikata(sertifikat.alias)">
+        <tr (click)="idiNaZahtev(sertifikat.alias)">
             <td>{{sertifikat.alias}}</td>
             <td>{{sertifikat.namena}}</td>
             <td>{{sertifikat.startDate}}</td>
             <td>{{sertifikat.endDate}}</td>
             <td>{{sertifikat.subjectEmail}}</td>
-            <td>{{sertifikat.adminEmail}}</td>
+            <td>{{sertifikat.korisnik.email}}</td>
         </tr>
     </tbody>
 </table>

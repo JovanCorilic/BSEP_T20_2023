@@ -115,21 +115,11 @@ public class HashSaltPassword {
         return Base64Utility.decode(temp+temp2);
     }
 
-    public static byte[] ekstrakcijaHesha(String HashSaltPassword) throws IOException {
-        String temp = HashSaltPassword.substring(44,HashSaltPassword.length()-44);
-        return Base64Utility.decode(temp);
-    }
-
     public static boolean authenticate(String attemptedPassword, byte[] storedPassword, byte[] salt) throws NoSuchAlgorithmException {
         MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
         byte[] attemptedPasswordBytes = attemptedPassword.getBytes(StandardCharsets.UTF_8);
         byte[] spajanjeAttemptedPassword = addAll(attemptedPasswordBytes,salt);
         byte[] attemptedPasswordDigest = sha256.digest(spajanjeAttemptedPassword);
         return Arrays.equals(attemptedPasswordDigest,storedPassword);
-    }
-
-    public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
-        HashSaltPassword hashSaltPassword = new HashSaltPassword();
-        hashSaltPassword.testIt();
     }
 }
