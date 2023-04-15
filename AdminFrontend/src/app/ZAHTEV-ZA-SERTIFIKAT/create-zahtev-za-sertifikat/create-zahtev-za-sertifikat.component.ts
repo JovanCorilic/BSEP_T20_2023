@@ -2,6 +2,9 @@ import { ZahtevZaSertifikat } from '../../MODEL/ZahtevZaSertifikat';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ZaKorisnika } from 'src/app/MODEL/ZaKorisnika';
+import { ZaMojaKucaAplikacija } from 'src/app/MODEL/ZaMojaKucaAplikacija';
+import { ZaUredjaj } from 'src/app/MODEL/ZaUredjaj';
 import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
 
 @Component({
@@ -25,26 +28,26 @@ export class CreateZahtevZaSertifikatComponent {
       namena: ["Admin aplikacija"],
       emailPotvrda: ["",[Validators.required]],
 
-      email: ["",[Validators.required]],
-      ime: ["",[Validators.required]],
-      prezime: ["",[Validators.required]],
+      email: [""],
+      ime: [""],
+      prezime: [""],
 
-      serijskiBroj: ["",[Validators.required]],
+      serijskiBroj: [""],
 
-      naziv: ["",[Validators.required]],
-      svrha: ["",[Validators.required]],
+      naziv: [""],
+      svrha: [""],
       //serijskiBroj: ["",[Validators.required]]
     })
   }
 
   pokazivanjeElemenata(broj:any){
-    if(broj.target.value==1){
+    if(broj.target.value==="Korisnik"){
       this.pokazivanje=1;
-    }else if(broj.target.value==2){
+    }else if(broj.target.value==="Moja kuca aplikacija"){
       this.pokazivanje=2;
-    }else if(broj.target.value==3){
+    }else if(broj.target.value==="Uredjaj"){
       this.pokazivanje=3;
-    }else if(broj.target.value==0){
+    }else if(broj.target.value==="Admin aplikacija"){
       this.pokazivanje=0;
     }
   }
@@ -57,17 +60,20 @@ export class CreateZahtevZaSertifikatComponent {
       this.zahtev.potvrdjenZahtev = false;
       this.zahtev.prihvacen=false;
       if(this.pokazivanje==1){
+        this.zahtev.zaKorisnika = <ZaKorisnika>{};
         this.zahtev.zaKorisnika.email=this.createForm.value.email;
         this.zahtev.zaKorisnika.ime=this.createForm.value.ime;
         this.zahtev.zaKorisnika.prezime=this.createForm.value.prezime;
       }else if(this.pokazivanje==2){
+        this.zahtev.zaMojaKucaAplikacija = <ZaMojaKucaAplikacija>{};
         this.zahtev.zaMojaKucaAplikacija.serijskiBroj=this.createForm.value.serijskiBroj;
       }else if(this.pokazivanje==3){
+        this.zahtev.zaUredjaj = <ZaUredjaj>{};
         this.zahtev.zaUredjaj.naziv=this.createForm.value.naziv;
         this.zahtev.zaUredjaj.svrha=this.createForm.value.svrha;
         this.zahtev.zaUredjaj.serijskiBroj=this.createForm.value.serijskiBroj;
       }
-      this.sertifikatService.createZahtevZaSertifikat(this.zahtev);
+      this.sertifikatService.createZahtevZaSertifikat(this.zahtev).subscribe();
       this.router.navigate(['/viewAllZahtevSertifikat']);
   }
 }

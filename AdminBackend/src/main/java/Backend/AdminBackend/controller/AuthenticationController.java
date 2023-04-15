@@ -55,6 +55,13 @@ public class AuthenticationController {
         return ResponseEntity.ok(new UserTokenStateDTO(jwt, expiresIn));
     }
 
+    @GetMapping(value = "/log-out", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<?> logoutUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        SecurityContextHolder.clearContext();
+        return new ResponseEntity<>("You successfully logged out!", HttpStatus.OK);
+    }
+
     @PutMapping(value = "/potvrdaZahteva/{token}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> potvrdaZahteva(@RequestBody TokenDTO tokenDTO) throws Exception{
         try {

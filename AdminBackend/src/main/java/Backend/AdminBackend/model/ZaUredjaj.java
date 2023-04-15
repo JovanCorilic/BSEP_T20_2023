@@ -37,4 +37,10 @@ public class ZaUredjaj {
         this.svrha = svrha;
         this.serijskiBroj = serijskiBroj;
     }
+
+    public void Update(ZaUredjaj zaUredjaj){
+        naziv = zaUredjaj.getNaziv();
+        svrha = zaUredjaj.getSvrha();
+        serijskiBroj = zaUredjaj.getSerijskiBroj();
+    }
 }

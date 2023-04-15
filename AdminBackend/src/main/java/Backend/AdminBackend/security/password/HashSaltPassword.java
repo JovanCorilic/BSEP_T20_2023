@@ -109,6 +109,11 @@ public class HashSaltPassword {
         return temp+Base64Utility.encode(hashPassword)+temp2;
     }
 
+    public static byte[] ekstrakcijaHesha(String HashSaltPassword) throws IOException {
+        String temp = HashSaltPassword.substring(44,HashSaltPassword.length()-44);
+        return Base64Utility.decode(temp);
+    }
+
     public static byte[] ekstrakcijaSalta(String HashSaltPassword) throws IOException {
         String temp = HashSaltPassword.substring(0,44);
         String temp2 = HashSaltPassword.substring(HashSaltPassword.length()-44);

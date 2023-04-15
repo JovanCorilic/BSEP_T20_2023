@@ -29,7 +29,7 @@ export class PovlacenjeSertifikatComponent {
 
   posalji(){
     let razlog = (document.getElementById("text") as HTMLTextAreaElement).value;
-    this.sertifikatService.povuciSertifikat(new PovlacenjeSertifikata(razlog,this.id));
+    this.sertifikatService.povuciSertifikat(new PovlacenjeSertifikata(razlog,this.id)).subscribe();
     this.router.navigate(['/viewSertifikat/'+this.id])
   }
 

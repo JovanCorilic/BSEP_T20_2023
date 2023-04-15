@@ -87,35 +87,40 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
 
     @Override
     public ZahtevZaSertifikat create(ZahtevZaSertifikat entity){
-        potvrdaZahteva(entity);
+
         entity.setId(null);
         //uradi ovde proveru za duplikate
-        /*ZaKorisnika zaKorisnika = zaKorisnikaRepository.findByEmail(entity.getZaKorisnika().getEmail());
-        if (zaKorisnika==null)
-            entity.getZaKorisnika().setId(null);
-        else {
-            entity.setZaKorisnika(zaKorisnika);
+        if (entity.getZaKorisnika()!=null) {
+            ZaKorisnika zaKorisnika = zaKorisnikaRepository.findByEmail(entity.getZaKorisnika().getEmail()).orElse(null);
+            if (zaKorisnika == null) {
+                entity.setZaKorisnika(zaKorisnikaRepository.save(entity.getZaKorisnika()));
+            } else {
+                entity.setZaKorisnika(zaKorisnika);
+            }
         }
 
-        ZaUredjaj zaUredjaj = zaUredjajRepository.findBySerijskiBroj(entity.getZaUredjaj().getSerijskiBroj());
-        if (zaUredjaj==null)
-            entity.getZaUredjaj().setId(null);
-        else{
-            entity.setZaUredjaj(zaUredjaj);
+        if (entity.getZaUredjaj()!=null) {
+            ZaUredjaj zaUredjaj = zaUredjajRepository.findBySerijskiBroj(entity.getZaUredjaj().getSerijskiBroj()).orElse(null);
+            if (zaUredjaj == null) {
+                entity.setZaUredjaj(zaUredjajRepository.save(entity.getZaUredjaj()));
+            } else {
+                entity.setZaUredjaj(zaUredjaj);
+            }
         }
 
-        ZaMojaKucaAplikacija zaMojaKucaAplikacija =
-                zaMojaKucaAplikacijaRepository.findBySerijskiBroj(entity.getZaMojaKucaAplikacija().getSerijskiBroj());
-        if (zaMojaKucaAplikacija==null)
-            entity.getZaMojaKucaAplikacija().setId(null);
-        else{
-            entity.setZaMojaKucaAplikacija(zaMojaKucaAplikacija);
-        }*/
-        entity.getZaKorisnika().setId(null);
-        entity.getZaUredjaj().setId(null);
-        entity.getZaMojaKucaAplikacija().setId(null);
+        if (entity.getZaMojaKucaAplikacija()!=null) {
+            ZaMojaKucaAplikacija zaMojaKucaAplikacija =
+                    zaMojaKucaAplikacijaRepository.findBySerijskiBroj(entity.getZaMojaKucaAplikacija().getSerijskiBroj()).orElse(null);
+            if (zaMojaKucaAplikacija == null) {
+                entity.setZaMojaKucaAplikacija(zaMojaKucaAplikacijaRepository.save(entity.getZaMojaKucaAplikacija()));
+            } else {
+                entity.setZaMojaKucaAplikacija(zaMojaKucaAplikacija);
+            }
+        }
 
-        return zahtevZaSertifikatRepository.save(entity);
+        zahtevZaSertifikatRepository.save(entity);
+        potvrdaZahteva(entity);
+        return null;
     }
 
     @Async
@@ -167,6 +172,9 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
     public void delete(Integer id){
         ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatRepository.findById(id).orElse(null);
         assert zahtevZaSertifikat != null;
+        ZaMojaKucaAplikacija zaMojaKucaAplikacija = zaMojaKucaAplikacijaRepository.findById(zahtevZaSertifikat.getZaMojaKucaAplikacija().getId()).orElse(null);
+        assert zaMojaKucaAplikacija != null;
+        zaMojaKucaAplikacijaRepository.delete(zaMojaKucaAplikacija);
         zahtevZaSertifikatRepository.delete(zahtevZaSertifikat);
     }
 }

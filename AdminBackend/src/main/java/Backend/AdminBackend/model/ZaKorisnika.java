@@ -36,4 +36,10 @@ public class ZaKorisnika {
         this.ime = ime;
         this.prezime = prezime;
     }
+
+    public void Update(ZaKorisnika zaKorisnika){
+        email = zaKorisnika.getEmail();
+        ime = zaKorisnika.getIme();
+        prezime = zaKorisnika.getPrezime();
+    }
 }

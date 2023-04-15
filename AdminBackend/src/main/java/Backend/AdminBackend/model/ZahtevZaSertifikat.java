@@ -55,9 +55,12 @@ public class ZahtevZaSertifikat {
         this.emailPotvrda = zahtevZaSertifikat.getEmailPotvrda();
         this.potvrdjenZahtev = zahtevZaSertifikat.getPotvrdjenZahtev();
         this.prihvacen=zahtevZaSertifikat.getPrihvacen();
-        this.zaKorisnika=zahtevZaSertifikat.getZaKorisnika();
-        this.zaUredjaj=zahtevZaSertifikat.getZaUredjaj();
-        this.zaMojaKucaAplikacija=zahtevZaSertifikat.getZaMojaKucaAplikacija();
+        if (zahtevZaSertifikat.getZaKorisnika() !=null)
+            this.zaKorisnika.Update(zahtevZaSertifikat.getZaKorisnika());
+        if (zahtevZaSertifikat.getZaUredjaj() != null)
+            this.zaUredjaj.Update(zahtevZaSertifikat.getZaUredjaj());
+        if (zahtevZaSertifikat.getZaMojaKucaAplikacija() != null)
+            this.zaMojaKucaAplikacija.Update(zahtevZaSertifikat.getZaMojaKucaAplikacija());
     }
 
 }

@@ -29,4 +29,8 @@ public class ZaMojaKucaAplikacija {
         this.id = id;
         this.serijskiBroj = serijskiBroj;
     }
+
+    public void Update(ZaMojaKucaAplikacija zaMojaKucaAplikacija){
+        serijskiBroj = zaMojaKucaAplikacija.getSerijskiBroj();
+    }
 }

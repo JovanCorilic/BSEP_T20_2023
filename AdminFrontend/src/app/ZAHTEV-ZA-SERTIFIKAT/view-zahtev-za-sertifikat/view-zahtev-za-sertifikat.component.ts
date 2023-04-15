@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { formatDate } from '@angular/common';
+import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ZaKorisnika } from 'src/app/MODEL/ZaKorisnika';
+import { ZaMojaKucaAplikacija } from 'src/app/MODEL/ZaMojaKucaAplikacija';
+import { ZaUredjaj } from 'src/app/MODEL/ZaUredjaj';
 import { ZahtevZaSertifikat } from 'src/app/MODEL/ZahtevZaSertifikat';
 import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
 
@@ -20,55 +24,75 @@ export class ViewZahtevZaSertifikatComponent {
     private sertifikatService:SertifikatService,
     private router:Router,
     private route:ActivatedRoute,
-    private fBuilder:FormBuilder
+    private fBuilder:FormBuilder,
+    @Inject(LOCALE_ID) public locale: string
   ){
     let temp=this.route.snapshot.paramMap.get('id');
     if(temp != null)
         this.id = temp;
     else
       this.id = "nista";
-    this.createForm = this.fBuilder.group({});
-  }
 
+    this.sertifikatService.dajZahtevZaSertifikat(Number.parseInt(this.id)).subscribe(
+        res=>{
+          this.zahtev = res;
+    });
+    
+    this.createForm = this.fBuilder.group({
+      startDate: ["",[Validators.required]],
+      endDate: ["",[Validators.required]],
+      namena: [""],
+      emailPotvrda: ["",[Validators.required]],
+
+      email: [""],
+      ime: [""],
+      prezime: [""],
+
+      serijskiBroj: [""],
+
+      naziv: [""],
+      svrha: [""],
+      //serijskiBroj: ["",[Validators.required]]
+    });
+  }
+//this.createForm.controls.emailPotvrda.setValue(this.zahtev.emailPotvrda);
   ngOnInit():void{
     this.sertifikatService.dajZahtevZaSertifikat(Number.parseInt(this.id)).subscribe(
       res=>{
-        if(res.namena==="Korisnik")
-          this.pokazivanje=1;
-        else if(res.namena==="Moja kuca aplikacija")
-          this.pokazivanje=2;
-        else if(res.namena==="Uredjaj")
-          this.pokazivanje=3;
-          
-        this.createForm = this.fBuilder.group({
-          startDate: [res.startDate,[Validators.required]],
-          endDate: [res.endDate,[Validators.required]],
-          namena: [res.namena],
-          emailPotvrda: [res.emailPotvrda,[Validators.required]],
-    
-          email: [res.zaKorisnika.email,[Validators.required]],
-          ime: [res.zaKorisnika.ime,[Validators.required]],
-          prezime: [res.zaKorisnika.prezime,[Validators.required]],
-    
-          serijskiBroj: [res.zaMojaKucaAplikacija.serijskiBroj,[Validators.required]],
-    
-          naziv: [res.zaUredjaj.naziv,[Validators.required]],
-          svrha: [res.zaUredjaj.svrha,[Validators.required]]
-          //serijskiBroj: ["",[Validators.required]]
-        });
         this.zahtev=res;
+        if(this.zahtev.namena==="Korisnik"){
+          this.pokazivanje=1;
+          this.createForm.controls.email.setValue(this.zahtev.zaKorisnika.email);
+          this.createForm.controls.ime.setValue(this.zahtev.zaKorisnika.ime);
+          this.createForm.controls.prezime.setValue(this.zahtev.zaKorisnika.prezime);
+        }
+        else if(this.zahtev.namena==="Moja kuca aplikacija"){
+          this.pokazivanje=2;
+          this.createForm.controls.serijskiBroj.setValue(this.zahtev.zaMojaKucaAplikacija.serijskiBroj);
+        }
+        else if(this.zahtev.namena==="Uredjaj"){
+          this.pokazivanje=3;
+          this.createForm.controls.naziv.setValue(this.zahtev.zaUredjaj.naziv);
+          this.createForm.controls.svrha.setValue(this.zahtev.zaUredjaj.svrha);
+          this.createForm.controls.serijskiBroj.setValue(this.zahtev.zaUredjaj.serijskiBroj);
+        }
+        this.createForm.controls.startDate.setValue(formatDate(this.zahtev.startDate,'yyyy-MM-ddThh:mm',this.locale));
+        this.createForm.controls.endDate.setValue(formatDate(this.zahtev.endDate,'yyyy-MM-ddThh:mm',this.locale));
+        this.createForm.controls.namena.setValue(this.zahtev.namena);
+        this.createForm.controls.emailPotvrda.setValue(this.zahtev.emailPotvrda);
+      
       }
     )
   }
 
   pokazivanjeElemenata(broj:any){
-    if(broj.target.value==1){
+    if(broj.target.value==="Korisnik"){
       this.pokazivanje=1;
-    }else if(broj.target.value==2){
+    }else if(broj.target.value==="Moja kuca aplikacija"){
       this.pokazivanje=2;
-    }else if(broj.target.value==3){
+    }else if(broj.target.value==="Uredjaj"){
       this.pokazivanje=3;
-    }else if(broj.target.value==0){
+    }else if(broj.target.value==="Admin aplikacija"){
       this.pokazivanje=0;
     }
   }
@@ -80,22 +104,25 @@ export class ViewZahtevZaSertifikatComponent {
       this.zahtev.emailPotvrda=this.createForm.value.emailPotvrda;
 
       if(this.pokazivanje==1){
+        this.zahtev.zaKorisnika = <ZaKorisnika>{};
         this.zahtev.zaKorisnika.email=this.createForm.value.email;
         this.zahtev.zaKorisnika.ime=this.createForm.value.ime;
         this.zahtev.zaKorisnika.prezime=this.createForm.value.prezime;
       }else if(this.pokazivanje==2){
+        this.zahtev.zaMojaKucaAplikacija = <ZaMojaKucaAplikacija>{};
         this.zahtev.zaMojaKucaAplikacija.serijskiBroj=this.createForm.value.serijskiBroj;
       }else if(this.pokazivanje==3){
+        this.zahtev.zaUredjaj = <ZaUredjaj>{};
         this.zahtev.zaUredjaj.naziv=this.createForm.value.naziv;
         this.zahtev.zaUredjaj.svrha=this.createForm.value.svrha;
         this.zahtev.zaUredjaj.serijskiBroj=this.createForm.value.serijskiBroj;
       }
-      this.sertifikatService.updateZahtevZaSertifikat(this.zahtev);
+      this.sertifikatService.updateZahtevZaSertifikat(this.zahtev).subscribe();
       this.router.navigate(['/viewAllZahtevSertifikat']);
   }
 
   delete2(){
-    this.sertifikatService.izbrisiZahtevZaSertifikat(Number.parseInt(this.id));
+    this.sertifikatService.izbrisiZahtevZaSertifikat(Number.parseInt(this.id)).subscribe();
     this.router.navigate(['/viewAllZahtevSertifikat']);
   }
 
@@ -104,7 +131,7 @@ export class ViewZahtevZaSertifikatComponent {
   }
 
   napraviSertifikat(){
-    this.sertifikatService.createSertifikat(this.zahtev);
+    this.sertifikatService.createSertifikat(this.zahtev).subscribe();
     this.router.navigate(['/viewAllZahtevSertifikat']);
   }
 
