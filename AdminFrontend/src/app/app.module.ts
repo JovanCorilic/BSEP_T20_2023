@@ -16,6 +16,7 @@ import { PovlacenjeSertifikatComponent } from './POVUCENI-SERTIFIKATI/povlacenje
 import { CreateZahtevZaSertifikatComponent } from './ZAHTEV-ZA-SERTIFIKAT/create-zahtev-za-sertifikat/create-zahtev-za-sertifikat.component';
 import { ViewZahtevZaSertifikatComponent } from './ZAHTEV-ZA-SERTIFIKAT/view-zahtev-za-sertifikat/view-zahtev-za-sertifikat.component';
 import { ViewAllPovuceniSertifikatiComponent } from './POVUCENI-SERTIFIKATI/view-all-povuceni-sertifikati/view-all-povuceni-sertifikati.component';
+import { VerifikacijaZahtevaZaSertifikatComponent } from './SECURITY/verifikacija-zahteva-za-sertifikat/verifikacija-zahteva-za-sertifikat.component';
 
 
 
@@ -30,7 +31,8 @@ import { ViewAllPovuceniSertifikatiComponent } from './POVUCENI-SERTIFIKATI/view
     PovlacenjeSertifikatComponent,
     CreateZahtevZaSertifikatComponent,
     ViewZahtevZaSertifikatComponent,
-    ViewAllPovuceniSertifikatiComponent
+    ViewAllPovuceniSertifikatiComponent,
+    VerifikacijaZahtevaZaSertifikatComponent
   ],
   imports: [
     BrowserModule,

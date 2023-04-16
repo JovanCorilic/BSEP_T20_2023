@@ -39,7 +39,22 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
     private SertifikatRepository sertifikatRepository;
 
     public void napraviSertifikatOdZahteva(ZahtevZaSertifikat zahtevZaSertifikat){
+        if (!zahtevZaSertifikat.getPotvrdjenZahtev())
+            return;
+        zahtevZaSertifikat = zahtevZaSertifikatRepository.findById(zahtevZaSertifikat.getId()).orElse(null);
         zahtevZaSertifikat.setPrihvacen(true);
+        /*
+        switch (zahtevZaSertifikat.getNamena()) {
+            case "Uredjaj":
+                zaUredjajRepository.save(zahtevZaSertifikat.getZaUredjaj());
+                break;
+            case "Moja kuca aplikacija":
+                zaMojaKucaAplikacijaRepository.save(zahtevZaSertifikat.getZaMojaKucaAplikacija());
+                break;
+            case "Korisnik":
+                zaKorisnikaRepository.save(zahtevZaSertifikat.getZaKorisnika());
+                break;
+        }*/
         zahtevZaSertifikatRepository.save(zahtevZaSertifikat);
         Sertifikat sertifikat = new Sertifikat();
         switch (zahtevZaSertifikat.getNamena()) {
@@ -142,7 +157,7 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
 
         simpleMailMessage.setTo(komeSalje);
         simpleMailMessage.setSubject(naslov);
-        simpleMailMessage.setText(poruka+ "\r\n"+"http://localhost:4200/auth"+confirmURL);
+        simpleMailMessage.setText(poruka+ "\r\n"+"http://localhost:4200"+confirmURL);
         javaMailSender.send(simpleMailMessage);
     }
 

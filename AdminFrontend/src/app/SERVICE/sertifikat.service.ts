@@ -12,6 +12,10 @@ export class SertifikatService{
     constructor(private http: HttpClient){}
     private path = "http://localhost:8080/sertifikat";
 
+    public potvrdaZahtevaZaSertifikat(token:string){
+        return this.http.put(this.path+"/potvrdaZahteva"+`/${token}`,null);
+    }
+
     public dajSvePovuceneSertifikate():Observable<PovlacenjeSertifikata[]>{
         return this.http.get<PovlacenjeSertifikata[]>(this.path+"/dajSvePovuceneSertifikate");
     }

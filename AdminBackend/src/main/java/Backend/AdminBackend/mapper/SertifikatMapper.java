@@ -21,15 +21,15 @@ public class SertifikatMapper implements MapperInterface<Sertifikat, SertifikatD
         ZaUredjajDTO zaUredjajDTO = null;
 
         switch (entity.getNamena()) {
-            case "uredjaj":
+            case "Uredjaj":
                 zaUredjajDTO = zaUredjajMapper.toDto(entity.getZaUredjaj());
                 zaUredjajDTO.setId(null);
                 break;
-            case "mojakuca":
+            case "Moja kuca aplikacija":
                 zaMojaKucaAplikacijaDTO = zaMojaKucaAplikacijaMapper.toDto(entity.getZaMojaKucaAplikacija());
                 zaMojaKucaAplikacijaDTO.setId(null);
                 break;
-            case "korisnik":
+            case "Korisnik":
                 zaKorisnikaDTO = zaKorisnikaMapper.toDto(entity.getZaKorisnika());
                 zaKorisnikaDTO.setId(null);
                 break;
@@ -38,5 +38,12 @@ public class SertifikatMapper implements MapperInterface<Sertifikat, SertifikatD
 
         return new SertifikatDTO(entity.getAlias(), entity.getNamena(), entity.getStartDate(),entity.getEndDate(),
                 entity.getSubjectEmail(),korisnikDTO,zaKorisnikaDTO,zaUredjajDTO,zaMojaKucaAplikacijaDTO);
+    }
+
+    public SertifikatMapper() {
+        this.zaKorisnikaMapper = new ZaKorisnikaMapper();
+        this.zaMojaKucaAplikacijaMapper = new ZaMojaKucaAplikacijaMapper();
+        this.zaUredjajMapper = new ZaUredjajMapper();
+        this.korisnikMapper = new KorisnikMapper();
     }
 }

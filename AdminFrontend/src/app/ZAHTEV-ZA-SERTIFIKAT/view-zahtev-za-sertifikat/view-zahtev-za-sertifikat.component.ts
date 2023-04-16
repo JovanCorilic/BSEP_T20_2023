@@ -18,7 +18,8 @@ export class ViewZahtevZaSertifikatComponent {
   createForm: FormGroup;
   pokazivanje:number = 0;
   zahtev = <ZahtevZaSertifikat>{};
-  
+  status: boolean = true;
+  status2: boolean = true;
 
   constructor(
     private sertifikatService:SertifikatService,
@@ -98,6 +99,7 @@ export class ViewZahtevZaSertifikatComponent {
   }
 
   update(){
+    this.status2 = !this.status2;
     this.zahtev.startDate = this.createForm.value.startDate;
       this.zahtev.endDate=this.createForm.value.endDate;
       this.zahtev.namena=this.createForm.value.namena;
@@ -117,8 +119,14 @@ export class ViewZahtevZaSertifikatComponent {
         this.zahtev.zaUredjaj.svrha=this.createForm.value.svrha;
         this.zahtev.zaUredjaj.serijskiBroj=this.createForm.value.serijskiBroj;
       }
-      this.sertifikatService.updateZahtevZaSertifikat(this.zahtev).subscribe();
-      this.router.navigate(['/viewAllZahtevSertifikat']);
+      this.sertifikatService.updateZahtevZaSertifikat(this.zahtev).subscribe(
+        res=>{
+          alert("Uspesno promenjeno!");
+          this.router.navigate(['/viewZahtevZaSertifikat/'+this.id]);
+          this.status2 = !this.status2;
+        }
+      );
+      
   }
 
   delete2(){
@@ -131,8 +139,13 @@ export class ViewZahtevZaSertifikatComponent {
   }
 
   napraviSertifikat(){
-    this.sertifikatService.createSertifikat(this.zahtev).subscribe();
-    this.router.navigate(['/viewAllZahtevSertifikat']);
+    this.status = !this.status;
+    this.sertifikatService.createSertifikat(this.zahtev).subscribe(
+      res=>{
+        this.router.navigate(['/viewAllSertifikat']);
+      }
+    );
+    
   }
 
 }

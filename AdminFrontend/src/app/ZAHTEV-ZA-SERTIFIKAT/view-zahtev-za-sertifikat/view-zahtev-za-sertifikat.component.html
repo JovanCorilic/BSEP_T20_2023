@@ -74,15 +74,15 @@
                     *ngIf="createForm.controls.serijskiBroj.touched && createForm.controls.serijskiBroj.errors?.required">
                     Serijski Broj is required</small>
             </div>
-        </div>
+        </div><br>
         <div [ngClass]="['form-group','block']">
-    		<button type="submit" [ngClass]="['btn btn-primary btn-block','button is-danger is-outlined']" [disabled]="createForm.invalid">Promeni zahtev</button>
+    		<button type="submit" [ngClass]="['btn btn-primary btn-block',status2 ? 'button is-warning is-outlined' : 'button is-warning is-outlined is-loading']" [disabled]="createForm.invalid">Promeni zahtev</button>
 		</div>
-    </form>
+    </form><br>
     <div class="block">
         
         <button class="button is-outlined" (click)="natrag()">Natrag</button>&nbsp;&nbsp;
         
-        <button class="button is-outlined" (click)="napraviSertifikat()">Napravi sertifikat</button>
+        <button [ngClass]="[status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" (click)="napraviSertifikat()">Napravi sertifikat</button>
     </div>
 </div>

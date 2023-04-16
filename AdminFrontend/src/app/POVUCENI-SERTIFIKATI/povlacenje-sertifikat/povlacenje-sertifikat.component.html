@@ -1,20 +1,23 @@
 <br>
-<h2>Odaberite razlog povlacenja, ili</h2>
-<div class="dropdown">
-    <button onclick="pokazi()" class="dropbtn" id="dropbtn">Cesti razlozi povlacenjax</button>
-    <div id="myDropdown" class="dropdown-content">
-      <button style="color: black;" class="tad" id="b1">Osoba vise nije od poverenja</button>
-      <button class="tad" id="b2">Uplata nije izvrsena</button>
-      <button class="tad" id="b3">Istekla nam je licenca</button>
-      <button class="tad" id="b4">Klijent je greskom dodat</button>
-      <button class="tad" id="b5">Bezbednost sistema je komprovizovana</button>
-      <button class="tad" id="b6">Klijent za zatrazio da ga izbacimo</button>
-      <button class="tad" id="b7">Ne zelimo da navedemo razlog</button>
-      <button class="tad" id="b8">Nema rezloga</button>
+<div style="text-align: center;">
+  <h2>Odaberite razlog povlacenja, ili</h2>
+  <div class="dropdown">
+      <button onclick="pokazi()" class="dropbtn" id="dropbtn">Česti razlozi povlačenja</button>
+      <div id="myDropdown" class="dropdown-content">
+        <button style="color: black;" class="tad" id="b1">Osoba više nije od poverenja</button>
+        <button class="tad" id="b2">Uplata nije izvršena</button>
+        <button class="tad" id="b3">Istekla nam je licenca</button>
+        <button class="tad" id="b4">Klijent je greškom dodat</button>
+        <button class="tad" id="b5">Bezbednost sistema je kompromizovana</button>
+        <button class="tad" id="b6">Klijent za zatražio da ga izbacimo</button>
+        <button class="tad" id="b7">Ne želimo da navedemo razlog</button>
+        <button class="tad" id="b8">Nema razloga</button>
+      </div>
     </div>
-  </div>
 
-<h3>Unesite razlog povlacenja</h3>
-<textarea name="text" id="text" cols="40" rows="5"></textarea><br>
-<button (click)="posalji()">Povuci</button>&nbsp;&nbsp;
-<button (click)="natrag()">Natrag</button>
+  <h3>Unesite razlog povlacenja</h3>
+  <textarea name="text" id="text" cols="40" rows="5"></textarea><br>
+  <button (click)="natrag()" class="button is-outlined">Natrag</button>&nbsp;&nbsp;
+  <button (click)="posalji()" [ngClass]="[status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']">Povuci</button>
+  
+</div>

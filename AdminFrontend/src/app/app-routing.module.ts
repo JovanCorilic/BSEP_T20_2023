@@ -10,6 +10,7 @@ import { LoginGuard } from './SECURITY/login.service';
 import { ViewAllSertifikatComponent } from './SERTIFIKAT/view-all-sertifikat/view-all-sertifikat.component';
 import { ViewZahtevZaSertifikatComponent } from './ZAHTEV-ZA-SERTIFIKAT/view-zahtev-za-sertifikat/view-zahtev-za-sertifikat.component';
 import { ViewAllPovuceniSertifikatiComponent } from './POVUCENI-SERTIFIKATI/view-all-povuceni-sertifikati/view-all-povuceni-sertifikati.component';
+import { VerifikacijaZahtevaZaSertifikatComponent } from './SECURITY/verifikacija-zahteva-za-sertifikat/verifikacija-zahteva-za-sertifikat.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,12 @@ const routes: Routes = [
   {
     path: 'viewAllZahtevSertifikat',
     component: ViewAllZahtevSertifikatComponent,
+    canActivate: [RoleGuard],
+    data: {expectedRoles: 'ROLE_ADMIN'}
+  },
+  {
+    path: 'potvrdaZahteva/:token',
+    component: VerifikacijaZahtevaZaSertifikatComponent,
     canActivate: [RoleGuard],
     data: {expectedRoles: 'ROLE_ADMIN'}
   }

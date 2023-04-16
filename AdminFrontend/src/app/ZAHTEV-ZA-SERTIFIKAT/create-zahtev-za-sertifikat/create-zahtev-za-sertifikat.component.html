@@ -74,9 +74,9 @@
                     *ngIf="createForm.controls.serijskiBroj.touched && createForm.controls.serijskiBroj.errors?.required">
                     Serijski Broj is required</small>
             </div>
-        </div>
+        </div><br>
         <div [ngClass]="['form-group','block']">
-    		<button type="submit" [ngClass]="['btn btn-primary btn-block','button is-danger is-outlined']" [disabled]="createForm.invalid">Posalji zahtev</button>
+    		<button type="submit" [ngClass]="['btn btn-primary btn-block',status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" [disabled]="createForm.invalid">Posalji zahtev</button>
 		</div>
     </form>
 </div>

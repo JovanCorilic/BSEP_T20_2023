@@ -62,16 +62,6 @@ public class AuthenticationController {
         return new ResponseEntity<>("You successfully logged out!", HttpStatus.OK);
     }
 
-    @PutMapping(value = "/potvrdaZahteva/{token}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> potvrdaZahteva(@RequestBody TokenDTO tokenDTO) throws Exception{
-        try {
-            zahtevZaSertifikatService.potvrdaZahteva(tokenDTO.getToken());
-            return new ResponseEntity<>(HttpStatus.OK);
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-    }
-
     public AuthenticationController() {
     }
 }

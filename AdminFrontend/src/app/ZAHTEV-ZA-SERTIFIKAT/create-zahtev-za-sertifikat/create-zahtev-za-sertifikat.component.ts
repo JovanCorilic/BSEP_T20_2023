@@ -16,6 +16,7 @@ export class CreateZahtevZaSertifikatComponent {
   createForm: FormGroup;
   pokazivanje:number = 0;
   zahtev = <ZahtevZaSertifikat>{};
+  status: boolean = true;
 
   constructor(
     private sertifikatService:SertifikatService,
@@ -53,6 +54,7 @@ export class CreateZahtevZaSertifikatComponent {
   }
 
   napravi(){
+      this.status = !this.status; 
       this.zahtev.startDate = this.createForm.value.startDate;
       this.zahtev.endDate=this.createForm.value.endDate;
       this.zahtev.namena=this.createForm.value.namena;
@@ -73,7 +75,11 @@ export class CreateZahtevZaSertifikatComponent {
         this.zahtev.zaUredjaj.svrha=this.createForm.value.svrha;
         this.zahtev.zaUredjaj.serijskiBroj=this.createForm.value.serijskiBroj;
       }
-      this.sertifikatService.createZahtevZaSertifikat(this.zahtev).subscribe();
-      this.router.navigate(['/viewAllZahtevSertifikat']);
+      this.sertifikatService.createZahtevZaSertifikat(this.zahtev).subscribe(
+        res=>{
+          this.router.navigate(['/viewAllZahtevSertifikat']);
+        }
+      );
+      
   }
 }
