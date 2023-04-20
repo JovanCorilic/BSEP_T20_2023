@@ -46,6 +46,9 @@ public class Korisnik implements UserDetails {
     @OneToMany(mappedBy = "korisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Sertifikat> sertifikats=new HashSet<>();
 
+    @OneToMany(mappedBy = "korisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ZahtevZaSertifikat> zahtevZaSertifikats = new HashSet<>();
+
     public Korisnik(Integer id, String ime, String prezime, String email, String lozinka) {
         this.id = id;
         this.ime = ime;

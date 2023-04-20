@@ -7,14 +7,25 @@
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
         <span aria-hidden="true" *ngIf="getRole()==='ROLE_ADMIN'"></span>
         <span aria-hidden="true" *ngIf="getRole()==='ROLE_ADMIN'"></span>
+        <span aria-hidden="true" *ngIf="getRole()==='ROLE_MUSTERIJA'"></span>
+        <span aria-hidden="true" *ngIf="getRole()==='ROLE_MUSTERIJA'"></span>
+        <span aria-hidden="true" *ngIf="getRole()==='ROLE_SUPERADMIN'"></span>
         <span aria-hidden="true" ></span>
       </a>
     </div>
   
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a  class="navbar-item" (click)="goToCreateZahtevZaSertifikat()" *ngIf="getRole()==='ROLE_ADMIN'">
+        <a  class="navbar-item" (click)="goToCreateZahtevZaSertifikat()" *ngIf="getRole()==='ROLE_MUSTERIJA'">
           Create zahtev za sertifikat
+        </a>
+
+        <a  class="navbar-item" (click)="goToCreateZahtevZaSertifikat()" *ngIf="getRole()==='ROLE_MUSTERIJA'">
+          Svi moji zahtevi za sertifikat
+        </a>
+
+        <a  class="navbar-item" (click)="goToPravljenjeAdmina()" *ngIf="getRole()==='ROLE_SUPERADMIN'">
+          Pravljenje admina
         </a>
   
         <div class="navbar-item has-dropdown is-hoverable" *ngIf="getRole()==='ROLE_ADMIN'">
@@ -36,16 +47,22 @@
             </a>
           </div>
         </div>
+        <a  class="navbar-item" (click)="goToZahteviZaRegistraciju()" *ngIf="getRole()==='ROLE_ADMIN'">
+          Svi zahtevi za registraciju
+        </a>
       </div>
   
       <div class="navbar-end">
         <div class="navbar-item">
-            <a (click)="goToLogin()" *ngIf="getRole()!=='ROLE_ADMIN'" class="button is-outlined">
+            <a (click)="goToLogin()" *ngIf="getRole()!=='ROLE_ADMIN' || getRole()!=='ROLE_SUPERADMIN' || getRole()!=='ROLE_MUSTERIJA'" class="button is-outlined">
               Login
+            </a>
+            <a (click)="goToRegister()" *ngIf="getRole()!=='ROLE_ADMIN' || getRole()!=='ROLE_SUPERADMIN' || getRole()!=='ROLE_MUSTERIJA'" class="button is-danger is-outlined">
+              Register
             </a>
           </div>
           <div class="navbar-item">
-            <a (click)="logOut()" *ngIf="getRole()==='ROLE_ADMIN'" class="button is-outlined">
+            <a (click)="logOut()" *ngIf="getRole()==='ROLE_ADMIN' || getRole()==='ROLE_SUPERADMIN' || getRole()==='ROLE_MUSTERIJA'" class="button is-outlined">
               Logout
             </a>
           </div>

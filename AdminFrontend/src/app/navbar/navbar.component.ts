@@ -52,6 +52,18 @@ export class NavbarComponent {
     this.router.navigate(['/povuceniSertifikati']);
   }
 
+  goToZahteviZaRegistraciju(){
+    this.router.navigate(['/pregledSvihKorisnika']);
+  }
+
+  goToPravljenjeAdmina(){
+    this.router.navigate(['/pravljenjeAdmina']);
+  }
+
+  goToRegister(){
+    this.router.navigate(['/register']);
+  }
+
   logOut() {
     /*localStorage.removeItem('user');
         localStorage.removeItem('accessToken');

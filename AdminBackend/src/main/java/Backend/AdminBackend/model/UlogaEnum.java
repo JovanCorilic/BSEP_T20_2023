@@ -4,7 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum UlogaEnum {
-    ROLE_ADMIN("ROLE_ADMIN");
+    ROLE_ADMIN("ROLE_ADMIN"),
+    ROLE_SUPERADMIN("ROLE_SUPERADMIN"),
+    ROLE_MUSTERIJA("ROLE_MUSTERIJA");
 
     private String ulogaNaziv;
 

@@ -84,7 +84,6 @@ public class SertifikatController {
         return new ResponseEntity<>(lista,HttpStatus.OK);
     }
 
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/dajSertifikat/{alias}")
     public ResponseEntity<SertifikatDTO> getSertifikat(@PathVariable String alias){
@@ -93,38 +92,12 @@ public class SertifikatController {
         return new ResponseEntity<>(sertifikatDTO,HttpStatus.OK);
     }
 
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/napravi")
     public ResponseEntity<?> createSertifikat(@RequestBody ZahtevZaSertifikatDTO zahtevZaSertifikatDTO){
         ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatMapper.toModel(zahtevZaSertifikatDTO);
         zahtevZaSertifikatService.napraviSertifikatOdZahteva(zahtevZaSertifikat);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/createZahtevZaSertifikat")
-    public ResponseEntity<?> createZahtevZaSertifikat(@RequestBody ZahtevZaSertifikatDTO zahtevZaSertifikatDTO){
-        ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatMapper.toModel(zahtevZaSertifikatDTO);
-        zahtevZaSertifikat.setPrihvacen(false);
-        zahtevZaSertifikat.setPotvrdjenZahtev(false);
-        zahtevZaSertifikatService.create(zahtevZaSertifikat);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("/updateZahtevZaSertifikat")
-    public ResponseEntity<?> updateZahtevZaSertifikat(@RequestBody ZahtevZaSertifikatDTO zahtevZaSertifikatDTO){
-        ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatMapper.toModel(zahtevZaSertifikatDTO);
-        zahtevZaSertifikatService.update(zahtevZaSertifikat,zahtevZaSertifikat.getId());
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/dajZahtevZaSertifikat/{id}")
-    public ResponseEntity<ZahtevZaSertifikatDTO> dajZahtevZaSertifikat(@PathVariable Integer id){
-        ZahtevZaSertifikat zahtevZaSertifikat  = zahtevZaSertifikatService.findOne(id);
-        return new ResponseEntity<>(zahtevZaSertifikatMapper.toDto(zahtevZaSertifikat),HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -137,12 +110,12 @@ public class SertifikatController {
         return new ResponseEntity<>(listaDTO, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    /*@PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/izbrisiZahtevZaSertifikat/{id}")
     public ResponseEntity<Void> izbrisiZahtevZaSertifikat(@PathVariable Integer id){
         zahtevZaSertifikatService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
+    }*/
 
     public SertifikatController() {
         zahtevZaSertifikatMapper = new ZahtevZaSertifikatMapper();

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
+import { ZahtevZaSertifikatService } from 'src/app/SERVICE/zahtevZaSertifikat.service';
 
 @Component({
   selector: 'app-verifikacija-zahteva-za-sertifikat',
@@ -13,6 +14,7 @@ export class VerifikacijaZahtevaZaSertifikatComponent {
 
   constructor(
     private sertifikatService:SertifikatService,
+    private zahtevZaSertifikatService:ZahtevZaSertifikatService,
     private router:Router,
     private route:ActivatedRoute,
   ){
@@ -25,7 +27,7 @@ export class VerifikacijaZahtevaZaSertifikatComponent {
 
   potvrdiZahtev(){
     this.status = !this.status; 
-    this.sertifikatService.potvrdaZahtevaZaSertifikat(this.token).subscribe(
+    this.zahtevZaSertifikatService.potvrdaZahtevaZaSertifikat(this.token).subscribe(
       res=>{
         this.router.navigate(['/viewAllZahtevSertifikat']);
       }

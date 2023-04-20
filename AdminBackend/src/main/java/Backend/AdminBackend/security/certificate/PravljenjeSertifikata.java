@@ -32,6 +32,7 @@ public class PravljenjeSertifikata {
 
             CertificateGenerator cg = new CertificateGenerator();
             X509Certificate cert = cg.generateCertificate(subjectData, issuerData);
+            
 
             System.out.println("\n===== Podaci o izdavacu sertifikata =====");
             System.out.println(cert.getIssuerX500Principal().getName());
@@ -126,7 +127,6 @@ public class PravljenjeSertifikata {
         builder.addRDN(BCStyle.O, "UNS-FTN");
         builder.addRDN(BCStyle.OU, "Katedra za informatiku");
         builder.addRDN(BCStyle.C, "RS");
-
 
         builder.addRDN(BCStyle.E, sertifikat.getSubjectEmail());
 

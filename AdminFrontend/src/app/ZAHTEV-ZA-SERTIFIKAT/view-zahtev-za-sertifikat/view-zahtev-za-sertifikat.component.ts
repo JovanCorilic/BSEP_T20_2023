@@ -2,11 +2,13 @@ import { formatDate } from '@angular/common';
 import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ZaKorisnika } from 'src/app/MODEL/ZaKorisnika';
 import { ZaMojaKucaAplikacija } from 'src/app/MODEL/ZaMojaKucaAplikacija';
 import { ZaUredjaj } from 'src/app/MODEL/ZaUredjaj';
 import { ZahtevZaSertifikat } from 'src/app/MODEL/ZahtevZaSertifikat';
 import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
+import { ZahtevZaSertifikatService } from 'src/app/SERVICE/zahtevZaSertifikat.service';
 
 @Component({
   selector: 'app-view-zahtev-za-sertifikat',
@@ -23,6 +25,7 @@ export class ViewZahtevZaSertifikatComponent {
 
   constructor(
     private sertifikatService:SertifikatService,
+    private zahtevZaSertifikatService:ZahtevZaSertifikatService,
     private router:Router,
     private route:ActivatedRoute,
     private fBuilder:FormBuilder,
@@ -34,7 +37,7 @@ export class ViewZahtevZaSertifikatComponent {
     else
       this.id = "nista";
 
-    this.sertifikatService.dajZahtevZaSertifikat(Number.parseInt(this.id)).subscribe(
+    this.zahtevZaSertifikatService.dajZahtevZaSertifikat(Number.parseInt(this.id)).subscribe(
         res=>{
           this.zahtev = res;
     });
@@ -58,7 +61,7 @@ export class ViewZahtevZaSertifikatComponent {
   }
 //this.createForm.controls.emailPotvrda.setValue(this.zahtev.emailPotvrda);
   ngOnInit():void{
-    this.sertifikatService.dajZahtevZaSertifikat(Number.parseInt(this.id)).subscribe(
+    this.zahtevZaSertifikatService.dajZahtevZaSertifikat(Number.parseInt(this.id)).subscribe(
       res=>{
         this.zahtev=res;
         if(this.zahtev.namena==="Korisnik"){
@@ -119,7 +122,7 @@ export class ViewZahtevZaSertifikatComponent {
         this.zahtev.zaUredjaj.svrha=this.createForm.value.svrha;
         this.zahtev.zaUredjaj.serijskiBroj=this.createForm.value.serijskiBroj;
       }
-      this.sertifikatService.updateZahtevZaSertifikat(this.zahtev).subscribe(
+      this.zahtevZaSertifikatService.updateZahtevZaSertifikat(this.zahtev).subscribe(
         res=>{
           alert("Uspesno promenjeno!");
           this.router.navigate(['/viewZahtevZaSertifikat/'+this.id]);
@@ -127,11 +130,6 @@ export class ViewZahtevZaSertifikatComponent {
         }
       );
       
-  }
-
-  delete2(){
-    this.sertifikatService.izbrisiZahtevZaSertifikat(Number.parseInt(this.id)).subscribe();
-    this.router.navigate(['/viewAllZahtevSertifikat']);
   }
 
   natrag(){
@@ -146,6 +144,19 @@ export class ViewZahtevZaSertifikatComponent {
       }
     );
     
+  }
+
+  getRole():string{
+    const item = localStorage.getItem('user');
+
+    if(!item){
+      return "";
+    }
+
+    const jwt:JwtHelperService = new JwtHelperService();
+    const decodedItem = JSON.parse(item!);
+    const info = jwt.decodeToken(decodedItem.accessToken);
+    return info['uloga'];
   }
 
 }

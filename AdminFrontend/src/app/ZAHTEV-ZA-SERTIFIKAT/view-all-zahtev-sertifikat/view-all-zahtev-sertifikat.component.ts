@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { SertifikatService } from '../../SERVICE/sertifikat.service';
 import { ZahtevZaSertifikat } from '../../MODEL/ZahtevZaSertifikat';
 import { Component } from '@angular/core';
+import { ZahtevZaSertifikatService } from 'src/app/SERVICE/zahtevZaSertifikat.service';
 
 @Component({
   selector: 'app-view-all-zahtev-sertifikat',
@@ -13,13 +14,14 @@ export class ViewAllZahtevSertifikatComponent {
 
   constructor(
     private sertifikatService:SertifikatService,
+    private zahtevZaSertifikatService:ZahtevZaSertifikatService,
     private router:Router
   ){
 
   }
 
   ngOnInit():void{
-    this.sertifikatService.dajListuZahtevaZaSertifikat().subscribe(
+    this.zahtevZaSertifikatService.dajListuZahtevaZaSertifikat().subscribe(
       res=>{
         this.lista = res;
       }

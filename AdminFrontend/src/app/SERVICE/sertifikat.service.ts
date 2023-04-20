@@ -12,10 +12,6 @@ export class SertifikatService{
     constructor(private http: HttpClient){}
     private path = "http://localhost:8080/sertifikat";
 
-    public potvrdaZahtevaZaSertifikat(token:string){
-        return this.http.put(this.path+"/potvrdaZahteva"+`/${token}`,null);
-    }
-
     public dajSvePovuceneSertifikate():Observable<PovlacenjeSertifikata[]>{
         return this.http.get<PovlacenjeSertifikata[]>(this.path+"/dajSvePovuceneSertifikate");
     }
@@ -35,24 +31,5 @@ export class SertifikatService{
     public createSertifikat(zahtev:ZahtevZaSertifikat){
         return this.http.post(this.path+"/napravi",zahtev);
     }
-
-    public createZahtevZaSertifikat(zahtev:ZahtevZaSertifikat){
-        return this.http.post(this.path+"/createZahtevZaSertifikat",zahtev);
-    }
-
-    public updateZahtevZaSertifikat(zahtev:ZahtevZaSertifikat){
-        return this.http.put(this.path+"/updateZahtevZaSertifikat",zahtev); 
-    }
-
-    public dajZahtevZaSertifikat(id:number):Observable<ZahtevZaSertifikat>{
-        return this.http.get<ZahtevZaSertifikat>(this.path+"/dajZahtevZaSertifikat"+`/${id}`);
-    }
-
-    public dajListuZahtevaZaSertifikat():Observable<ZahtevZaSertifikat[]>{
-        return this.http.get<ZahtevZaSertifikat[]>(this.path+"/dajListuZahtevaZaSertifikat");
-    }
-
-    public izbrisiZahtevZaSertifikat(id:number){
-        return this.http.delete(this.path+"/izbrisiZahtevZaSertifikat"+`/${id}`);
-    }
+    
 }

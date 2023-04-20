@@ -6,6 +6,7 @@ import { ZaKorisnika } from 'src/app/MODEL/ZaKorisnika';
 import { ZaMojaKucaAplikacija } from 'src/app/MODEL/ZaMojaKucaAplikacija';
 import { ZaUredjaj } from 'src/app/MODEL/ZaUredjaj';
 import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
+import { ZahtevZaSertifikatService } from 'src/app/SERVICE/zahtevZaSertifikat.service';
 
 @Component({
   selector: 'app-create-zahtev-za-sertifikat',
@@ -20,6 +21,7 @@ export class CreateZahtevZaSertifikatComponent {
 
   constructor(
     private sertifikatService:SertifikatService,
+    private zahtevZaSertifikatService:ZahtevZaSertifikatService,
     private router:Router,
     private fBuilder:FormBuilder
   ){
@@ -75,7 +77,7 @@ export class CreateZahtevZaSertifikatComponent {
         this.zahtev.zaUredjaj.svrha=this.createForm.value.svrha;
         this.zahtev.zaUredjaj.serijskiBroj=this.createForm.value.serijskiBroj;
       }
-      this.sertifikatService.createZahtevZaSertifikat(this.zahtev).subscribe(
+      this.zahtevZaSertifikatService.createZahtevZaSertifikat(this.zahtev).subscribe(
         res=>{
           this.router.navigate(['/viewAllZahtevSertifikat']);
         }

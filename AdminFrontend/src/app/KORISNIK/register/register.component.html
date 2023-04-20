@@ -1,0 +1,42 @@
+<br>
+<div style="text-align: center;width: 20%;margin-left: 40%;">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div [ngClass]="['form-group','block']">
+            <p>Email</p>
+            <input type="text" [ngClass]="['form-control','input']" formControlName="email" placeholder="Email">
+            <small style="color: red;"
+                *ngIf="registerForm.controls.email.touched && registerForm.controls.email.errors?.required">
+                Email je potreban</small>
+            <small style="color: red;"
+            *ngIf="registerForm.controls.email.touched && registerForm.controls.email.errors?.email">
+            Email nije validan</small>
+        </div>
+        <div [ngClass]="['form-group','block']">
+            <p>Lozinka</p>
+            <input type="password" [ngClass]="['form-control','input']" formControlName="lozinka" placeholder="lozinka">
+            <small style="color: red;"
+                *ngIf="registerForm.controls.lozinka.touched && registerForm.controls.lozinka.errors?.required">
+                Lozinka je potrebna</small>
+            <small style="color: red;"
+            *ngIf="registerForm.controls.lozinka.touched && registerForm.controls.lozinka.errors?.minlength">
+            Lozinka treba da ima najmanje 4 znaka</small>
+        </div>
+        <div [ngClass]="['form-group','block']">
+            <p>Ime</p>
+            <input type="text" [ngClass]="['form-control','input']" formControlName="ime" placeholder="ime">
+            <small style="color: red;"
+                *ngIf="registerForm.controls.ime.touched && registerForm.controls.ime.errors?.required">
+                ime je potrebno</small>
+        </div>
+        <div [ngClass]="['form-group','block']">
+            <p>Prezime</p>
+            <input type="text" [ngClass]="['form-control','input']" formControlName="prezime" placeholder="prezime">
+            <small style="color: red;"
+                *ngIf="registerForm.controls.prezime.touched && registerForm.controls.prezime.errors?.required">
+                prezime je potrebno</small>
+        </div><br>
+        <div [ngClass]="['form-group','block']">
+    		<button type="submit" [ngClass]="['btn btn-primary btn-block',status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" [disabled]="registerForm.invalid">Registruj se</button>
+		</div>
+    </form>
+</div>
