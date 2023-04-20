@@ -5,23 +5,23 @@
 			<input type="text" [ngClass]="['form-control','input']" id="email"  placeholder="npr. Nikola@gmail.com" formControlName="email">
 			<small class="text-danger" style="color: red;"
 				*ngIf="logForm.controls.email.touched && logForm.controls.email.errors?.required">
-				Email is required</small>
+				Email je obavezan</small>
 			<small class="text-danger"
 				*ngIf="logForm.controls.email.touched && logForm.controls.email.errors?.email">
-				Email is not valid</small>
+				Neispravan email</small>
 		</div>
 		<div [ngClass]="['form-group','block']">
 			<input type="password" [ngClass]="['form-control','input']"  id="password" placeholder="npr. 1234" formControlName="password">
 			<small class="text-danger" style="color: red;"
 				*ngIf="logForm.controls.password.touched && logForm.controls.password.errors?.required">
-				Password is required</small>
+				Lozinka je obavezna</small>
 			<small class="text-danger"
 				*ngIf="logForm.controls.password.touched && logForm.controls.password.errors?.minlength">
-				Password should be at least 4 characters long</small>
+				Lozinka treba da ima najmanje 4 znaka</small>
 		</div>
 		
 		<div [ngClass]="['form-group','block']">
-    		<button id="login-button" type="submit" [ngClass]="['btn btn-primary btn-block','button is-danger is-outlined']" [disabled]="logForm.invalid">Log in</button>
+    		<button id="login-button" type="submit" [ngClass]="['btn btn-primary btn-block',status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" [disabled]="logForm.invalid">Log in</button>
 		</div>
     </form>
 </div>

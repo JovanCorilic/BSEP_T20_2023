@@ -20,6 +20,8 @@ import { VerifikacijaZahtevaZaSertifikatComponent } from './SECURITY/verifikacij
 import { RegisterComponent } from './KORISNIK/register/register.component';
 import { PregledSvihKorisnikaComponent } from './KORISNIK/pregled-svih-korisnika/pregled-svih-korisnika.component';
 import { PravljenjeAdminaComponent } from './KORISNIK/pravljenje-admina/pravljenje-admina.component';
+import { PotvrdaEmailRegistracijeComponent } from './SECURITY/potvrda-email-registracije/potvrda-email-registracije.component';
+import { PotvrdaEmailAdminaKreacijaComponent } from './SECURITY/potvrda-email-admina-kreacija/potvrda-email-admina-kreacija.component';
 
 
 
@@ -38,7 +40,9 @@ import { PravljenjeAdminaComponent } from './KORISNIK/pravljenje-admina/pravljen
     VerifikacijaZahtevaZaSertifikatComponent,
     RegisterComponent,
     PregledSvihKorisnikaComponent,
-    PravljenjeAdminaComponent
+    PravljenjeAdminaComponent,
+    PotvrdaEmailRegistracijeComponent,
+    PotvrdaEmailAdminaKreacijaComponent
   ],
   imports: [
     BrowserModule,

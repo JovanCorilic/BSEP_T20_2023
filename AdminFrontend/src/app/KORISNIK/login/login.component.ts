@@ -12,6 +12,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class LoginComponent {
   logForm: FormGroup;
   pokazivanje:boolean=false;
+  status: boolean = true;
+
 
   constructor(
     private fBuilder:FormBuilder,
@@ -29,6 +31,7 @@ export class LoginComponent {
   }
 
   logIn(){
+    this.status= !this.status;
     console.log(this.logForm.value.test);
 		const auth: any = {};
 		auth.username = this.logForm.value.email;

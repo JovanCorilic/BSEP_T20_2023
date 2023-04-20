@@ -25,6 +25,14 @@ export class AuthenticationService {
 		return this.http.post(this.path+"/register",musterija);
 	}
 
+	verifikacijaRegistracije(token:string){
+        return this.http.get(this.path+"/verifikacijaRegistracijaMusterija"+`/${token}`);
+    }
+
+	verifikacijaAdminNalog(token:string){
+        return this.http.get(this.path+"/verifikacijaAdminNalog"+`/${token}`);
+    }
+
 	isLoggedIn(): boolean {
 		if (!localStorage.getItem('user')) {
 				return false;

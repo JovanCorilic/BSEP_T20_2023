@@ -1,1 +1,44 @@
-<p>pregled-svih-korisnika works!</p>
+<table class="table is-hoverable" style="width: 100%;">
+    <thead>
+        <tr>
+            <th>
+                Email
+            </th>
+            <th>
+                Ime
+            </th>
+            <th>
+                Prezime
+            </th>
+
+            <th>
+                
+            </th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>
+                Email
+            </th>
+            <th>
+                Ime
+            </th>
+            <th>
+                Prezime
+            </th>
+
+            <th>
+                
+            </th>
+        </tr>
+    </tfoot>
+    <tbody *ngFor="let korisnik of lista">
+        <tr>
+            <td>{{korisnik.email}}</td>
+            <td>{{korisnik.ime}}</td>
+            <td>{{korisnik.prezime}}</td>
+            <td><button *ngIf="mapaIzgled.get(korisnik.email)?.kliknuo" [ngClass]="[mapaIzgled.get(korisnik.email)?.status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" (click)="napraviMusterijuNalog(korisnik.email)">Odobri</button></td>
+        </tr>
+    </tbody>
+</table>

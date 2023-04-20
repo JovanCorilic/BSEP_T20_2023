@@ -54,10 +54,10 @@
   
       <div class="navbar-end">
         <div class="navbar-item">
-            <a (click)="goToLogin()" *ngIf="getRole()!=='ROLE_ADMIN' || getRole()!=='ROLE_SUPERADMIN' || getRole()!=='ROLE_MUSTERIJA'" class="button is-outlined">
+            <a (click)="goToLogin()" *ngIf="getRole()!=='ROLE_ADMIN' && getRole()!=='ROLE_SUPERADMIN' && getRole()!=='ROLE_MUSTERIJA'" class="button is-outlined">
               Login
-            </a>
-            <a (click)="goToRegister()" *ngIf="getRole()!=='ROLE_ADMIN' || getRole()!=='ROLE_SUPERADMIN' || getRole()!=='ROLE_MUSTERIJA'" class="button is-danger is-outlined">
+            </a>&nbsp;&nbsp;
+            <a (click)="goToRegister()" *ngIf="getRole()!=='ROLE_ADMIN' && getRole()!=='ROLE_SUPERADMIN' && getRole()!=='ROLE_MUSTERIJA'" class="button is-danger">
               Register
             </a>
           </div>

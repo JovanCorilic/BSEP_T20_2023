@@ -32,7 +32,7 @@ public class ZahtevZaSertifikatMapper implements MapperInterface<ZahtevZaSertifi
         }
         return new ZahtevZaSertifikat(dto.getId(),dto.getStartDate(),dto.getEndDate(),dto.getNamena(),
                 dto.getEmailPotvrda(),dto.getPotvrdjenZahtev(),dto.getPrihvacen(),zaKorisnika,zaUredjaj,
-                zaMojaKucaAplikacija);
+                zaMojaKucaAplikacija,null);
     }
 
     @Override

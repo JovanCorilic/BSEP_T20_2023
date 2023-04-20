@@ -14,6 +14,8 @@ import { VerifikacijaZahtevaZaSertifikatComponent } from './SECURITY/verifikacij
 import { RegisterComponent } from './KORISNIK/register/register.component';
 import { PravljenjeAdminaComponent } from './KORISNIK/pravljenje-admina/pravljenje-admina.component';
 import { PregledSvihKorisnikaComponent } from './KORISNIK/pregled-svih-korisnika/pregled-svih-korisnika.component';
+import { PotvrdaEmailRegistracijeComponent } from './SECURITY/potvrda-email-registracije/potvrda-email-registracije.component';
+import { PotvrdaEmailAdminaKreacijaComponent } from './SECURITY/potvrda-email-admina-kreacija/potvrda-email-admina-kreacija.component';
 
 const routes: Routes = [
   {
@@ -75,6 +77,11 @@ const routes: Routes = [
     canActivate:[LoginGuard]
   },
   {
+    path: 'verifikacijaRegistracija/:token',
+    component:PotvrdaEmailRegistracijeComponent,
+    canActivate:[LoginGuard]
+  },
+  {
     path: 'pravljenjeAdmina',
     component: PravljenjeAdminaComponent,
     canActivate: [RoleGuard],
@@ -85,6 +92,12 @@ const routes: Routes = [
     component: PregledSvihKorisnikaComponent,
     canActivate: [RoleGuard],
     data: {expectedRoles: 'ROLE_ADMIN'}
+  },
+  {
+    path: 'VerifikacijaAdminPravljenje/:token',
+    component: PotvrdaEmailAdminaKreacijaComponent,
+    canActivate:[LoginGuard]
+
   }
 
 ];
