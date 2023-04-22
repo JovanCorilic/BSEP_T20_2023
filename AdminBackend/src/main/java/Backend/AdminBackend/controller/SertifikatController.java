@@ -2,7 +2,6 @@ package Backend.AdminBackend.controller;
 
 import Backend.AdminBackend.dto.PovlacenjeSertifikataDTO;
 import Backend.AdminBackend.dto.SertifikatDTO;
-import Backend.AdminBackend.dto.TokenDTO;
 import Backend.AdminBackend.dto.ZahtevZaSertifikatDTO;
 import Backend.AdminBackend.mapper.PovlacenjeSertifikataMapper;
 import Backend.AdminBackend.mapper.SertifikatMapper;
@@ -36,8 +35,8 @@ public class SertifikatController {
     private final ZahtevZaSertifikatMapper zahtevZaSertifikatMapper;
     private final SertifikatMapper sertifikatMapper;
     private final PovlacenjeSertifikataMapper povlacenjeSertifikataMapper;
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//sta je ovo???
+    /*@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/potvrdaZahteva/{token}")
     public ResponseEntity<Void> potvrdaZahteva(@PathVariable String token){
         try {
@@ -46,7 +45,7 @@ public class SertifikatController {
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-    }
+    }*/
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/dajPovuceniSertifikat/{alias}")

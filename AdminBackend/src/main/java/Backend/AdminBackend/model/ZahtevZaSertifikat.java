@@ -50,7 +50,11 @@ public class ZahtevZaSertifikat {
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn
-    private Korisnik korisnik;
+    private Korisnik musterija;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Korisnik admin;
 
     public void Update(ZahtevZaSertifikat zahtevZaSertifikat){
         this.startDate = zahtevZaSertifikat.getStartDate();

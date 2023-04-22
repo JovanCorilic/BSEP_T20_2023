@@ -26,8 +26,12 @@ public class VerificationToken {
     private Date expiryDate;
 
     @OneToOne(targetEntity = ZahtevZaSertifikat.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = true)
     private ZahtevZaSertifikat zahtevZaSertifikat;
+
+    @OneToOne(targetEntity = Korisnik.class, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = true)
+    private Korisnik korisnik;
 
     private static final int EXPIRATION = 60*24;
 

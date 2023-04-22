@@ -1,10 +1,10 @@
 package Backend.AdminBackend.service;
 
 import Backend.AdminBackend.model.*;
+import Backend.AdminBackend.ostalo.VerifikacioniTokenSlanjeEmail;
 import Backend.AdminBackend.repository.*;
 import Backend.AdminBackend.security.certificate.PravljenjeSertifikata;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -37,6 +37,8 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
 
     @Autowired
     private SertifikatRepository sertifikatRepository;
+    @Autowired
+    private KorisnikRepository korisnikRepository;
 
     public void napraviSertifikatOdZahteva(ZahtevZaSertifikat zahtevZaSertifikat){
         if (!zahtevZaSertifikat.getPotvrdjenZahtev())
@@ -81,7 +83,7 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Korisnik korisnik = (Korisnik) auth.getPrincipal();
-        sertifikat.setKorisnik(korisnik);
+        sertifikat.setKorisnik(korisnikRepository.findByEmail(korisnik.getEmail()));
         sertifikat.setStartDate(zahtevZaSertifikat.getStartDate());
         sertifikat.setEndDate(zahtevZaSertifikat.getEndDate());
         sertifikat.setSubjectEmail(zahtevZaSertifikat.getEmailPotvrda());
@@ -93,6 +95,12 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
     @Override
     public List<ZahtevZaSertifikat> findAll() {
         return zahtevZaSertifikatRepository.findAll();
+    }
+
+    public List<ZahtevZaSertifikat>findAllZaMusteriju(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Korisnik korisnik = (Korisnik) auth.getPrincipal();
+        return zahtevZaSertifikatRepository.findAllByMusterijaIs(korisnikRepository.findByEmail(korisnik.getEmail()));
     }
 
     @Override
@@ -134,12 +142,12 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
         }
 
         zahtevZaSertifikatRepository.save(entity);
-        potvrdaZahteva(entity);
+        pravljenjePotvrdeZahteva(entity);
         return null;
     }
 
     @Async
-    public void potvrdaZahteva(ZahtevZaSertifikat zahtevSertifikat){
+    public void pravljenjePotvrdeZahteva(ZahtevZaSertifikat zahtevSertifikat){
         String komeSalje = zahtevSertifikat.getEmailPotvrda();
         String naslov = "Potvrda zahteva";
 
@@ -151,14 +159,9 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
         Date date = verificationToken.calculateExpiryDate(1440);
         verificationToken.setExpiryDate(date);
         verificationTokenRepository.save(verificationToken);
-        String confirmURL = "/potvrdaZahteva/"+token;
 
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-
-        simpleMailMessage.setTo(komeSalje);
-        simpleMailMessage.setSubject(naslov);
-        simpleMailMessage.setText(poruka+ "\r\n"+"http://localhost:4200"+confirmURL);
-        javaMailSender.send(simpleMailMessage);
+        VerifikacioniTokenSlanjeEmail thread = new VerifikacioniTokenSlanjeEmail(token,"/potvrdaZahteva",komeSalje,javaMailSender);
+        thread.start();
     }
 
     public void potvrdaZahteva(String token) throws Exception {

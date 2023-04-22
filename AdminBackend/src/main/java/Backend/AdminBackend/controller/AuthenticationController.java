@@ -1,5 +1,6 @@
 package Backend.AdminBackend.controller;
 
+import Backend.AdminBackend.dto.MusterijaDTO;
 import Backend.AdminBackend.dto.TokenDTO;
 import Backend.AdminBackend.dto.UserLoginDTO;
 import Backend.AdminBackend.dto.UserTokenStateDTO;
@@ -61,6 +62,25 @@ public class AuthenticationController {
         SecurityContextHolder.clearContext();
         return new ResponseEntity<>("You successfully logged out!", HttpStatus.OK);
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<?>registracijaMusterije(@RequestBody MusterijaDTO musterijaDTO){
+        userDetailsService.register(musterijaDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/verifikacijaRegistracijaMusterija/{token}")
+    public ResponseEntity<?>VerifikacijaRegistracije(@PathVariable String token) throws Exception {
+        userDetailsService.potvrdaNaloga(token);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/verifikacijaAdminNalog/{token}")
+    public ResponseEntity<?>VerifikacijaAdminNaloga(@PathVariable String token) throws Exception {
+        userDetailsService.potvrdaNaloga(token);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     public AuthenticationController() {
     }

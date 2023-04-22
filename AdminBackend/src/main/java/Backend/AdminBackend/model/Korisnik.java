@@ -39,6 +39,12 @@ public class Korisnik implements UserDetails {
     @Column(nullable=false)
     private String lozinka;
 
+    @Column(nullable = false)
+    private boolean potvrdjen;
+
+    @Column(nullable = false)
+    private boolean odobrenOdAdmina;
+
     @ManyToMany()
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Uloga> uloge;
@@ -46,8 +52,11 @@ public class Korisnik implements UserDetails {
     @OneToMany(mappedBy = "korisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Sertifikat> sertifikats=new HashSet<>();
 
-    @OneToMany(mappedBy = "korisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<ZahtevZaSertifikat> zahtevZaSertifikats = new HashSet<>();
+    @OneToMany(mappedBy = "musterija", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ZahtevZaSertifikat> zahtevZaSertifikatsMusterija = new HashSet<>();
+
+    @OneToMany(mappedBy = "admin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ZahtevZaSertifikat> zahtevZaSertifikatsAdmin = new HashSet<>();
 
     public Korisnik(Integer id, String ime, String prezime, String email, String lozinka) {
         this.id = id;
@@ -55,6 +64,16 @@ public class Korisnik implements UserDetails {
         this.prezime = prezime;
         this.email = email;
         this.lozinka = lozinka;
+    }
+
+    public Korisnik(String ime, String prezime, String email, String lozinka, boolean potvrdjen, boolean odobrenOdAdmina, List<Uloga> uloge) {
+        this.ime = ime;
+        this.prezime = prezime;
+        this.email = email;
+        this.lozinka = lozinka;
+        this.potvrdjen = potvrdjen;
+        this.odobrenOdAdmina = odobrenOdAdmina;
+        this.uloge = uloge;
     }
 
     @Override

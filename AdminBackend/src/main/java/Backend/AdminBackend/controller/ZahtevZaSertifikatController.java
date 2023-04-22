@@ -66,7 +66,7 @@ public class ZahtevZaSertifikatController {
     @PreAuthorize("hasRole('ROLE_MUSTERIJA')")
     @GetMapping("/dajListuZahtevaZaSertifikatMoji")
     public ResponseEntity<List<ZahtevZaSertifikatDTO>> dajListuZahtevaZaSertifikatMoji(){
-        List<ZahtevZaSertifikat> lista = zahtevZaSertifikatService.findAll();
+        List<ZahtevZaSertifikat> lista = zahtevZaSertifikatService.findAllZaMusteriju();
         List<ZahtevZaSertifikatDTO>listaDTO = new ArrayList<>();
         for (ZahtevZaSertifikat zahtevZaSertifikat : lista)
             listaDTO.add(zahtevZaSertifikatMapper.toDto(zahtevZaSertifikat));

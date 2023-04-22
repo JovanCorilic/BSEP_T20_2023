@@ -1,8 +1,11 @@
 package Backend.AdminBackend.repository;
 
+import Backend.AdminBackend.model.Korisnik;
 import Backend.AdminBackend.model.ZahtevZaSertifikat;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ZahtevZaSertifikatRepository extends JpaRepository<ZahtevZaSertifikat,Integer> {
+import java.util.List;
 
+public interface ZahtevZaSertifikatRepository extends JpaRepository<ZahtevZaSertifikat,Integer> {
+    List<ZahtevZaSertifikat> findAllByMusterijaIs(Korisnik korisnik);
 }
