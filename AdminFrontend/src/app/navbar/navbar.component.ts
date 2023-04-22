@@ -65,9 +65,12 @@ export class NavbarComponent {
   }
 
   logOut() {
-    /*localStorage.removeItem('user');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('uloga');*/
+    /*
+    localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('uloga');
+    
+    this.router.navigate(['']);*/
     this.authenticationService.logout().subscribe(
 			result => {
         localStorage.removeItem('user');

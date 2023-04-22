@@ -8,6 +8,7 @@ import Backend.AdminBackend.ostalo.VerifikacioniTokenSlanjeEmail;
 import Backend.AdminBackend.repository.KorisnikRepository;
 import Backend.AdminBackend.repository.UlogaRepository;
 import Backend.AdminBackend.repository.VerificationTokenRepository;
+import Backend.AdminBackend.security.password.CustomPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
@@ -31,6 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private JavaMailSender javaMailSender;
     @Autowired
     private VerificationTokenRepository verificationTokenRepository;
+    private final CustomPasswordEncoder customPasswordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -38,14 +40,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException(String.format("No user found with username '%s'.", email));
         } else {
-            if (!user.isPotvrdjen())
+            if (!user.isOdobrenOdAdmina() || !user.isPotvrdjen())
                 throw new UsernameNotFoundException(String.format("Korisnik nije odobren od strane admina '%s'.", email));
             return user;
         }
     }
 
     public List<Korisnik> SveMusterije(){
-        return userRepository.findAllByUlogeContainingAndPotvrdjenIsTrue(ulogaRepository.findById(3).orElse(null));
+        return userRepository.findAllByUlogeContainingAndPotvrdjenIsTrueAndOdobrenOdAdminaIsFalse(ulogaRepository.findById(3).orElse(null));
     }
 
     public void potvrdiMusteriju(String email){
@@ -58,18 +60,22 @@ public class CustomUserDetailsService implements UserDetailsService {
         List<Uloga>listaUloga = new ArrayList<>();
         listaUloga.add(ulogaRepository.findById(3).orElse(null));
         Korisnik korisnik = new Korisnik(musterijaDTO.getIme(), musterijaDTO.getPrezime(), musterijaDTO.getEmail(), musterijaDTO.getLozinka(), false,false,listaUloga);
-        pravljenjePotvrde(userRepository.save(korisnik));
+        korisnik.setId(userRepository.findAll().size()+1);
+        korisnik.setLozinka(customPasswordEncoder.encode(korisnik.getLozinka()));
+        pravljenjePotvrde(userRepository.save(korisnik),"/verifikacijaRegistracija");
     }
 
     public void pravljenjeAdminNaloga(MusterijaDTO musterijaDTO){
         List<Uloga>listaUloga = new ArrayList<>();
         listaUloga.add(ulogaRepository.findById(1).orElse(null));
         Korisnik korisnik = new Korisnik(musterijaDTO.getIme(), musterijaDTO.getPrezime(), musterijaDTO.getEmail(), musterijaDTO.getLozinka(), false,true,listaUloga);
-        pravljenjePotvrde(userRepository.save(korisnik));
+        korisnik.setId(userRepository.findAll().size()+1);
+        korisnik.setLozinka(customPasswordEncoder.encode(korisnik.getLozinka()));
+        pravljenjePotvrde(userRepository.save(korisnik),"/VerifikacijaAdminPravljenje");
     }
 
     @Async
-    public void pravljenjePotvrde(Korisnik korisnik){
+    public void pravljenjePotvrde(Korisnik korisnik,String adresa){
         String komeSalje = korisnik.getEmail();
         String naslov = "Potvrda zahteva";
 
@@ -82,7 +88,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         verificationToken.setExpiryDate(date);
         verificationTokenRepository.save(verificationToken);
 
-        VerifikacioniTokenSlanjeEmail thread = new VerifikacioniTokenSlanjeEmail(token,"/potvrdaZahteva",komeSalje,javaMailSender);
+        VerifikacioniTokenSlanjeEmail thread = new VerifikacioniTokenSlanjeEmail(token,adresa,komeSalje,javaMailSender);
         thread.start();
     }
 
@@ -96,5 +102,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         else
             throw new Exception("Istekao");
         userRepository.save(korisnik);
+    }
+
+    public CustomUserDetailsService() {
+        this.customPasswordEncoder = new CustomPasswordEncoder();
     }
 }

@@ -1,6 +1,8 @@
 package Backend.AdminBackend.controller;
 
+import Backend.AdminBackend.dto.KorisnikDTO;
 import Backend.AdminBackend.dto.MusterijaDTO;
+import Backend.AdminBackend.mapper.KorisnikMapper;
 import Backend.AdminBackend.model.Korisnik;
 import Backend.AdminBackend.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,6 +21,7 @@ import java.util.List;
 public class KorisnikController {
     @Autowired
     private CustomUserDetailsService userDetailsService;
+    private KorisnikMapper korisnikMapper;
 
     @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
     @PostMapping("/napraviAdmina")
@@ -34,9 +38,17 @@ public class KorisnikController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/napraviMusteriju")
-    public ResponseEntity<List<Korisnik>> SveMusterije(){
+    @GetMapping("/sveMusterije")
+    public ResponseEntity<List<KorisnikDTO>> SveMusterije(){
         List<Korisnik>lista = userDetailsService.SveMusterije();
-        return new ResponseEntity<>(lista,HttpStatus.OK);
+        List<KorisnikDTO>listaDTO = new ArrayList<>();
+        for (Korisnik korisnik : lista){
+            listaDTO.add(korisnikMapper.toDto(korisnik));
+        }
+        return new ResponseEntity<>(listaDTO,HttpStatus.OK);
+    }
+
+    public KorisnikController() {
+        this.korisnikMapper = new KorisnikMapper();
     }
 }
