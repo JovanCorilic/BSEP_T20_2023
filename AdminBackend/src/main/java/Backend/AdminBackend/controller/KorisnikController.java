@@ -21,7 +21,7 @@ import java.util.List;
 public class KorisnikController {
     @Autowired
     private CustomUserDetailsService userDetailsService;
-    private KorisnikMapper korisnikMapper;
+    private final KorisnikMapper korisnikMapper;
 
     @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
     @PostMapping("/napraviAdmina")

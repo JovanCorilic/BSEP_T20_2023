@@ -2,6 +2,7 @@ package Backend.AdminBackend.security.certificate;
 
 import Backend.AdminBackend.security.certificate.data.IssuerData;
 import Backend.AdminBackend.security.certificate.data.SubjectData;
+import org.bouncycastle.asn1.x509.*;
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
@@ -56,3 +57,41 @@ public class CertificateGenerator {
         return null;
     }
 }
+
+//Ekstenzija
+
+//CA
+//AuthorityKeyIdentifier - Koristis public key
+//BasicConstraints
+//KeyUsage KeyUsage keyUsage = new KeyUsage(KeyUsage.cRLSign | KeyUsage.keyEncipherment); nesto = nesto | KeyUsage.decipherOnly;
+//SubjectKeyIdentifier
+
+//SSL Server
+//AuthorityKeyIdentifier
+//ExtendedKeyUsage
+//KeyUsage
+// nema Subject Alternatice name
+//SubjectKeyIdentifier
+
+//SSLClient
+//AuthorityKeyIdentifier
+//ExtendedKeyUsage
+//KeyUsage
+//SubjectKeyIdentifier
+
+//Code Signing
+//AuthorityKeyIdentifier
+//ExtendedKeyUsage
+//KeyUsage
+//SubjectKeyIdentifier
+
+//Ekstenzije
+//AuthorityKeyIdentifierEkstenzije
+//BasicConstraintsEkstenzije
+//KeyUsageEkstenzije
+//SubjectKeyIdentifierEkstenzije
+//ExtendedKeyUsageEkstenzije
+//SubjectAlternaticeNameEkstenzije
+
+
+

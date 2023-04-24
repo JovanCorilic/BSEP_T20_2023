@@ -39,7 +39,11 @@ public class Sertifikat {
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinColumn
-    private Korisnik korisnik;
+    private Korisnik admin;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Korisnik musterija;
 
     @OneToOne(targetEntity = ZaKorisnika.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = true)

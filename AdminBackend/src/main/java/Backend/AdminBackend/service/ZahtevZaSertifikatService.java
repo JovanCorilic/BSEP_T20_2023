@@ -57,6 +57,11 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
                 zaKorisnikaRepository.save(zahtevZaSertifikat.getZaKorisnika());
                 break;
         }*/
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Korisnik korisnik = (Korisnik) auth.getPrincipal();
+        zahtevZaSertifikat.setAdmin(korisnikRepository.findByEmail(korisnik.getEmail()));
+
         zahtevZaSertifikatRepository.save(zahtevZaSertifikat);
         Sertifikat sertifikat = new Sertifikat();
         switch (zahtevZaSertifikat.getNamena()) {
@@ -81,9 +86,10 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
                 sertifikat.setNamena(zahtevZaSertifikat.getNamena());
                 break;
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Korisnik korisnik = (Korisnik) auth.getPrincipal();
-        sertifikat.setKorisnik(korisnikRepository.findByEmail(korisnik.getEmail()));
+
+        sertifikat.setAdmin(zahtevZaSertifikat.getAdmin());
+        sertifikat.setMusterija(zahtevZaSertifikat.getMusterija());
+
         sertifikat.setStartDate(zahtevZaSertifikat.getStartDate());
         sertifikat.setEndDate(zahtevZaSertifikat.getEndDate());
         sertifikat.setSubjectEmail(zahtevZaSertifikat.getEmailPotvrda());
@@ -140,6 +146,10 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
                 entity.setZaMojaKucaAplikacija(zaMojaKucaAplikacija);
             }
         }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Korisnik korisnik = (Korisnik) auth.getPrincipal();
+        entity.setMusterija(korisnikRepository.findByEmail(korisnik.getEmail()));
 
         zahtevZaSertifikatRepository.save(entity);
         pravljenjePotvrdeZahteva(entity);

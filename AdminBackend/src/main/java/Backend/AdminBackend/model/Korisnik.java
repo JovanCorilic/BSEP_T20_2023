@@ -49,8 +49,11 @@ public class Korisnik implements UserDetails {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Uloga> uloge;
 
-    @OneToMany(mappedBy = "korisnik", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Sertifikat> sertifikats=new HashSet<>();
+    @OneToMany(mappedBy = "admin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Sertifikat> sertifikatsAdmin=new HashSet<>();
+
+    @OneToMany(mappedBy = "musterija", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Sertifikat> sertifikatsMusterija=new HashSet<>();
 
     @OneToMany(mappedBy = "musterija", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ZahtevZaSertifikat> zahtevZaSertifikatsMusterija = new HashSet<>();
