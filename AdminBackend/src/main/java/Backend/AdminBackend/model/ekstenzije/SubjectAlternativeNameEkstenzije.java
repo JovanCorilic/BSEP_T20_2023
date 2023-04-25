@@ -6,13 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class BasicConstraintsEkstenzije {
+public class SubjectAlternativeNameEkstenzije {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,16 +25,12 @@ public class BasicConstraintsEkstenzije {
     @Column
     private boolean isCritical;
 
-    @Column
-    private boolean isCA;
+    @OneToMany(mappedBy = "subjectAlternativeNameEkstenzije", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<AlternativeName> alternativeNames =new HashSet<>();
 
-    @Column
-    private int maxPathLen;
-
-    public BasicConstraintsEkstenzije(boolean daLiKoristi, boolean isCritical, boolean isCA, int maxPathLen) {
+    public SubjectAlternativeNameEkstenzije(boolean daLiKoristi, boolean isCritical, Set<AlternativeName> alternativeNames) {
         this.daLiKoristi = daLiKoristi;
         this.isCritical = isCritical;
-        this.isCA = isCA;
-        this.maxPathLen = maxPathLen;
+        this.alternativeNames = alternativeNames;
     }
 }

@@ -4,10 +4,11 @@ import Backend.AdminBackend.dto.*;
 import Backend.AdminBackend.model.Sertifikat;
 
 public class SertifikatMapper implements MapperInterface<Sertifikat, SertifikatDTO> {
-    private ZaKorisnikaMapper zaKorisnikaMapper;
-    private ZaMojaKucaAplikacijaMapper zaMojaKucaAplikacijaMapper;
-    private ZaUredjajMapper zaUredjajMapper;
-    private KorisnikMapper korisnikMapper;
+    private final ZaKorisnikaMapper zaKorisnikaMapper;
+    private final ZaMojaKucaAplikacijaMapper zaMojaKucaAplikacijaMapper;
+    private final ZaUredjajMapper zaUredjajMapper;
+    private final KorisnikMapper korisnikMapper;
+    private final EkstenzijeMapper ekstenzijeMapper;
 
     @Override
     public Sertifikat toModel(SertifikatDTO dto) {
@@ -23,21 +24,22 @@ public class SertifikatMapper implements MapperInterface<Sertifikat, SertifikatD
         switch (entity.getNamena()) {
             case "Uredjaj":
                 zaUredjajDTO = zaUredjajMapper.toDto(entity.getZaUredjaj());
-                zaUredjajDTO.setId(null);
+
                 break;
             case "Moja kuca aplikacija":
                 zaMojaKucaAplikacijaDTO = zaMojaKucaAplikacijaMapper.toDto(entity.getZaMojaKucaAplikacija());
-                zaMojaKucaAplikacijaDTO.setId(null);
+
                 break;
             case "Korisnik":
                 zaKorisnikaDTO = zaKorisnikaMapper.toDto(entity.getZaKorisnika());
-                zaKorisnikaDTO.setId(null);
+
                 break;
         }
-        KorisnikDTO korisnikDTO = korisnikMapper.toDto(entity.getKorisnik());
 
         return new SertifikatDTO(entity.getAlias(), entity.getNamena(), entity.getStartDate(),entity.getEndDate(),
-                entity.getSubjectEmail(),korisnikDTO,zaKorisnikaDTO,zaUredjajDTO,zaMojaKucaAplikacijaDTO);
+                entity.getSubjectEmail(),zaKorisnikaDTO,zaUredjajDTO,zaMojaKucaAplikacijaDTO,
+                korisnikMapper.toDto(entity.getMusterija()),korisnikMapper.toDto(entity.getAdmin()),
+                ekstenzijeMapper.toDto(entity.getEkstenzije()));
     }
 
     public SertifikatMapper() {
@@ -45,5 +47,6 @@ public class SertifikatMapper implements MapperInterface<Sertifikat, SertifikatD
         this.zaMojaKucaAplikacijaMapper = new ZaMojaKucaAplikacijaMapper();
         this.zaUredjajMapper = new ZaUredjajMapper();
         this.korisnikMapper = new KorisnikMapper();
+        this.ekstenzijeMapper = new EkstenzijeMapper();
     }
 }

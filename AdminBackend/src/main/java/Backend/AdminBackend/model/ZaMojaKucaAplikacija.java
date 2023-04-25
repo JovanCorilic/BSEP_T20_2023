@@ -25,8 +25,7 @@ public class ZaMojaKucaAplikacija {
     @JoinColumn
     private ZahtevZaSertifikat zahtevZaSertifikat;
 
-    public ZaMojaKucaAplikacija(Integer id, String serijskiBroj) {
-        this.id = id;
+    public ZaMojaKucaAplikacija( String serijskiBroj) {
         this.serijskiBroj = serijskiBroj;
     }
 

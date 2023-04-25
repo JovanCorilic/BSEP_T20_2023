@@ -6,11 +6,11 @@ import Backend.AdminBackend.model.ZaMojaKucaAplikacija;
 public class ZaMojaKucaAplikacijaMapper implements MapperInterface<ZaMojaKucaAplikacija, ZaMojaKucaAplikacijaDTO> {
     @Override
     public ZaMojaKucaAplikacija toModel(ZaMojaKucaAplikacijaDTO dto) {
-        return new ZaMojaKucaAplikacija(dto.getId(),dto.getSerijskiBroj());
+        return new ZaMojaKucaAplikacija(dto.getSerijskiBroj());
     }
 
     @Override
     public ZaMojaKucaAplikacijaDTO toDto(ZaMojaKucaAplikacija entity) {
-        return new ZaMojaKucaAplikacijaDTO(entity.getId(),entity.getSerijskiBroj());
+        return new ZaMojaKucaAplikacijaDTO(entity.getSerijskiBroj());
     }
 }

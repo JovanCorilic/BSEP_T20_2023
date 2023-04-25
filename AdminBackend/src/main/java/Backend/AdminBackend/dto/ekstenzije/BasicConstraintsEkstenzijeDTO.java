@@ -1,19 +1,26 @@
-package Backend.AdminBackend.model.ekstenzije;
+package Backend.AdminBackend.dto.ekstenzije;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectAlternaticeNameEkstenzije {
+
+public class BasicConstraintsEkstenzijeDTO {
+
+
     private boolean daLiKoristi;
+
     private boolean isCritical;
-    private List<AlternaticeName>listOfAlternativeNames;
+
+    private boolean isCA;
+
+    private int maxPathLen;
 
 }

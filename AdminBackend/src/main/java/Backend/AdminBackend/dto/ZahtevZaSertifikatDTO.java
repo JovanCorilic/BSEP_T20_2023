@@ -1,8 +1,17 @@
 package Backend.AdminBackend.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.Date;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ZahtevZaSertifikatDTO {
     private Integer id;
     private Date startDate;
@@ -15,100 +24,8 @@ public class ZahtevZaSertifikatDTO {
     private ZaKorisnikaDTO zaKorisnika;
     private ZaUredjajDTO zaUredjaj;
     private ZaMojaKucaAplikacijaDTO zaMojaKucaAplikacija;
+    private KorisnikDTO musterija;
+    private KorisnikDTO admin;
+    private EkstenzijeDTO ekstenzije;
 
-    public ZahtevZaSertifikatDTO() {
-    }
-
-    public ZahtevZaSertifikatDTO(Integer id, Date startDate, Date endDate, String namena, String emailPotvrda, Boolean potvrdjenZahtev, Boolean prihvacen, ZaKorisnikaDTO zaKorisnika, ZaUredjajDTO zaUredjaj, ZaMojaKucaAplikacijaDTO zaMojaKucaAplikacija) {
-        this.id = id;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.namena = namena;
-        this.emailPotvrda = emailPotvrda;
-        this.potvrdjenZahtev = potvrdjenZahtev;
-        this.prihvacen = prihvacen;
-        this.zaKorisnika = zaKorisnika;
-        this.zaUredjaj = zaUredjaj;
-        this.zaMojaKucaAplikacija = zaMojaKucaAplikacija;
-    }
-
-    public String getEmailPotvrda() {
-        return emailPotvrda;
-    }
-
-    public void setEmailPotvrda(String emailPotvrda) {
-        this.emailPotvrda = emailPotvrda;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getNamena() {
-        return namena;
-    }
-
-    public void setNamena(String namena) {
-        this.namena = namena;
-    }
-
-    public Boolean getPotvrdjenZahtev() {
-        return potvrdjenZahtev;
-    }
-
-    public void setPotvrdjenZahtev(Boolean potvrdjenZahtev) {
-        this.potvrdjenZahtev = potvrdjenZahtev;
-    }
-
-    public Boolean getPrihvacen() {
-        return prihvacen;
-    }
-
-    public void setPrihvacen(Boolean prihvacen) {
-        this.prihvacen = prihvacen;
-    }
-
-    public ZaKorisnikaDTO getZaKorisnika() {
-        return zaKorisnika;
-    }
-
-    public void setZaKorisnika(ZaKorisnikaDTO zaKorisnika) {
-        this.zaKorisnika = zaKorisnika;
-    }
-
-    public ZaUredjajDTO getZaUredjaj() {
-        return zaUredjaj;
-    }
-
-    public void setZaUredjaj(ZaUredjajDTO zaUredjaj) {
-        this.zaUredjaj = zaUredjaj;
-    }
-
-    public ZaMojaKucaAplikacijaDTO getZaMojaKucaAplikacija() {
-        return zaMojaKucaAplikacija;
-    }
-
-    public void setZaMojaKucaAplikacija(ZaMojaKucaAplikacijaDTO zaMojaKucaAplikacija) {
-        this.zaMojaKucaAplikacija = zaMojaKucaAplikacija;
-    }
 }

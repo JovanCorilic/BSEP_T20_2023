@@ -31,8 +31,7 @@ public class ZaUredjaj {
     @JoinColumn
     private ZahtevZaSertifikat zahtevZaSertifikat;
 
-    public ZaUredjaj(Integer id, String naziv, String svrha, String serijskiBroj) {
-        this.id = id;
+    public ZaUredjaj(String naziv, String svrha, String serijskiBroj) {
         this.naziv = naziv;
         this.svrha = svrha;
         this.serijskiBroj = serijskiBroj;

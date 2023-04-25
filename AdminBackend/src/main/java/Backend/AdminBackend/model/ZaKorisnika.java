@@ -30,8 +30,7 @@ public class ZaKorisnika {
     @JoinColumn
     private ZahtevZaSertifikat zahtevZaSertifikat;
 
-    public ZaKorisnika(Integer id, String email, String ime, String prezime) {
-        this.id = id;
+    public ZaKorisnika( String email, String ime, String prezime) {
         this.email = email;
         this.ime = ime;
         this.prezime = prezime;

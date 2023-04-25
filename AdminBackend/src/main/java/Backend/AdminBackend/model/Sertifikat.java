@@ -37,13 +37,7 @@ public class Sertifikat {
     @Column
     private  String subjectEmail;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn
-    private Korisnik admin;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    @JoinColumn
-    private Korisnik musterija;
 
     @OneToOne(targetEntity = ZaKorisnika.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = true)
@@ -56,6 +50,18 @@ public class Sertifikat {
     @OneToOne(targetEntity = ZaMojaKucaAplikacija.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = true)
     private ZaMojaKucaAplikacija zaMojaKucaAplikacija;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Korisnik musterija;
+
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Korisnik admin;
+
+    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Ekstenzije ekstenzije;
 
     public Sertifikat(String alias, String namena) {
         this.alias = alias;

@@ -56,6 +56,10 @@ public class ZahtevZaSertifikat {
     @JoinColumn
     private Korisnik admin;
 
+    @OneToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn
+    private Ekstenzije ekstenzije;
+
     public void Update(ZahtevZaSertifikat zahtevZaSertifikat){
         this.startDate = zahtevZaSertifikat.getStartDate();
         this.endDate = zahtevZaSertifikat.getEndDate();
