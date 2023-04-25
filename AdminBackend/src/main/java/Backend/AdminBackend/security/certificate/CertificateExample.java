@@ -1,5 +1,6 @@
 package Backend.AdminBackend.security.certificate;
 
+import Backend.AdminBackend.model.Ekstenzije;
 import Backend.AdminBackend.security.Base64Utility;
 import Backend.AdminBackend.security.keystores.KeyStoreReader;
 import Backend.AdminBackend.security.keystores.KeyStoreWriter;
@@ -31,7 +32,7 @@ public class CertificateExample {
 
             // Generise se sertifikat za subjekta, potpisan od strane issuer-a
             CertificateGenerator cg = new CertificateGenerator();
-            X509Certificate cert = cg.generateCertificate(subjectData, issuerData);
+            X509Certificate cert = cg.generateCertificate(subjectData, issuerData, new Ekstenzije(),keyPairIssuer);
 
             System.out.println("\n===== Podaci o izdavacu sertifikata =====");
             System.out.println(cert.getIssuerX500Principal().getName());

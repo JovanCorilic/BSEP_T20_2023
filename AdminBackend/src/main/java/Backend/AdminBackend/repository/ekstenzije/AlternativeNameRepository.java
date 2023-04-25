@@ -1,4 +1,4 @@
-package Backend.AdminBackend.repository;
+package Backend.AdminBackend.repository.ekstenzije;
 
 import Backend.AdminBackend.model.ekstenzije.AlternativeName;
 import org.springframework.data.jpa.repository.JpaRepository;

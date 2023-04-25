@@ -1,8 +1,10 @@
 package Backend.AdminBackend.service;
 
 import Backend.AdminBackend.model.*;
+import Backend.AdminBackend.model.ekstenzije.AlternativeName;
 import Backend.AdminBackend.ostalo.VerifikacioniTokenSlanjeEmail;
 import Backend.AdminBackend.repository.*;
+import Backend.AdminBackend.repository.ekstenzije.*;
 import Backend.AdminBackend.security.certificate.PravljenjeSertifikata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,9 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSertifikat> {
@@ -39,6 +39,24 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
     private SertifikatRepository sertifikatRepository;
     @Autowired
     private KorisnikRepository korisnikRepository;
+
+    //Ekstenzije
+    @Autowired
+    private AlternativeNameRepository alternativeNameRepository;
+    @Autowired
+    private AuthorityKeyIdentifierEkstenzijeRepository authorityKeyIdentifierEkstenzijeRepository;
+    @Autowired
+    private BasicConstraintsEkstenzijeRepository basicConstraintsEkstenzijeRepository;
+    @Autowired
+    private ExtendedKeyUsageEkstenzijeRepository extendedKeyUsageEkstenzijeRepository;
+    @Autowired
+    private KeyUsageEkstenzijeRepository keyUsageEkstenzijeRepository;
+    @Autowired
+    private SubjectAlternativeNameEkstenzijeRepository subjectAlternativeNameEkstenzijeRepository;
+    @Autowired
+    private SubjectKeyIdentifierEkstenzijeRepository subjectKeyIdentifierEkstenzijeRepository;
+    @Autowired
+    private EkstenzijeRepository ekstenzijeRepository;
 
     public void napraviSertifikatOdZahteva(ZahtevZaSertifikat zahtevZaSertifikat){
         if (!zahtevZaSertifikat.getPotvrdjenZahtev())
@@ -93,6 +111,7 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
         sertifikat.setStartDate(zahtevZaSertifikat.getStartDate());
         sertifikat.setEndDate(zahtevZaSertifikat.getEndDate());
         sertifikat.setSubjectEmail(zahtevZaSertifikat.getEmailPotvrda());
+        sertifikat.setEkstenzije(zahtevZaSertifikat.getEkstenzije());
         Sertifikat temp = sertifikatRepository.save(sertifikat);
         temp.setPublicKey(PravljenjeSertifikata.pravljenje(temp));
         sertifikatRepository.save(temp);
@@ -151,9 +170,37 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
         Korisnik korisnik = (Korisnik) auth.getPrincipal();
         entity.setMusterija(korisnikRepository.findByEmail(korisnik.getEmail()));
 
+        Ekstenzije ekstenzije = ekstenzijeRepository.save(dodavanjeEkstenzijaUBazu(entity.getEkstenzije()));
+        entity.setEkstenzije(ekstenzije);
+
         zahtevZaSertifikatRepository.save(entity);
         pravljenjePotvrdeZahteva(entity);
         return null;
+    }
+
+    public Ekstenzije dodavanjeEkstenzijaUBazu(Ekstenzije ekstenzije){
+        if (ekstenzije.getAuthorityKeyIdentifierEkstenzije().isDaLiKoristi()){
+            authorityKeyIdentifierEkstenzijeRepository.save(ekstenzije.getAuthorityKeyIdentifierEkstenzije());
+        }
+        if (ekstenzije.getBasicConstraintsEkstenzije().isDaLiKoristi()){
+            basicConstraintsEkstenzijeRepository.save(ekstenzije.getBasicConstraintsEkstenzije());
+        }
+        if (ekstenzije.getExtendedKeyUsageEkstenzije().isDaLiKoristi()){
+            extendedKeyUsageEkstenzijeRepository.save(ekstenzije.getExtendedKeyUsageEkstenzije());
+        }
+        if (ekstenzije.getKeyUsageEkstenzije().isDaLiKoristi()){
+            keyUsageEkstenzijeRepository.save(ekstenzije.getKeyUsageEkstenzije());
+        }
+        if (ekstenzije.getSubjectAlternativeNameEkstenzije().isDaLiKoristi()){
+            List<AlternativeName>lista = alternativeNameRepository.saveAll(ekstenzije.getSubjectAlternativeNameEkstenzije().getAlternativeNames());
+            Set<AlternativeName> listaPrava = new HashSet<>(lista);
+            ekstenzije.getSubjectAlternativeNameEkstenzije().setAlternativeNames(listaPrava);
+            subjectAlternativeNameEkstenzijeRepository.save(ekstenzije.getSubjectAlternativeNameEkstenzije());
+        }
+        if (ekstenzije.getSubjectKeyIdentifierEkstenzije().isDaLiKoristi()){
+            subjectKeyIdentifierEkstenzijeRepository.save(ekstenzije.getSubjectKeyIdentifierEkstenzije());
+        }
+        return ekstenzije;
     }
 
     @Async

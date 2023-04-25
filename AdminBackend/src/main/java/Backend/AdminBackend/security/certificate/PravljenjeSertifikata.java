@@ -31,7 +31,7 @@ public class PravljenjeSertifikata {
             IssuerData issuerData = generateIssuerData(keyPairIssuer.getPrivate(), sertifikat.getAdmin());
 
             CertificateGenerator cg = new CertificateGenerator();
-            X509Certificate cert = cg.generateCertificate(subjectData, issuerData);
+            X509Certificate cert = cg.generateCertificate(subjectData, issuerData, sertifikat.getEkstenzije(),keyPairIssuer);
             
 
             System.out.println("\n===== Podaci o izdavacu sertifikata =====");
