@@ -1,17 +1,23 @@
 import { ZaMojaKucaAplikacija } from './ZaMojaKucaAplikacija';
 import { ZaUredjaj } from './ZaUredjaj';
 import { ZaKorisnika } from './ZaKorisnika';
+import { Korisnik } from './Korisnik';
+import { Ekstenzije } from './Ekstenzije';
 export class ZahtevZaSertifikat {
-    id: number;
-    startDate: Date;
-    endDate: Date;
-    namena: string;
-    emailPotvrda: string;
-    potvrdjenZahtev: boolean;
-    prihvacen: boolean;
-    zaKorisnika: ZaKorisnika;
-    zaUredjaj: ZaUredjaj;
-    zaMojaKucaAplikacija: ZaMojaKucaAplikacija;
+    id: number
+    startDate: Date
+    endDate: Date
+    namena: string
+    emailPotvrda: string
+    potvrdjenZahtev: boolean
+    prihvacen: boolean
+    zaKorisnika: ZaKorisnika
+    zaUredjaj: ZaUredjaj
+    zaMojaKucaAplikacija: ZaMojaKucaAplikacija
+    musterija: Korisnik
+    admin: Korisnik
+    ekstenzije: Ekstenzije
+
     constructor(
         id: number,
         startDate: Date,
@@ -22,7 +28,10 @@ export class ZahtevZaSertifikat {
         prihvacen: boolean,
         zaKorisnika: ZaKorisnika,
         zaUredjaj: ZaUredjaj,
-        zaMojaKucaAplikacija: ZaMojaKucaAplikacija
+        zaMojaKucaAplikacija: ZaMojaKucaAplikacija,
+        musterija: Korisnik,
+        admin: Korisnik,
+        ekstenzije: Ekstenzije
     ) {
         this.id = id
         this.startDate = startDate
@@ -34,5 +43,8 @@ export class ZahtevZaSertifikat {
         this.zaKorisnika = zaKorisnika
         this.zaUredjaj = zaUredjaj
         this.zaMojaKucaAplikacija = zaMojaKucaAplikacija
+        this.musterija = musterija
+        this.admin = admin
+        this.ekstenzije = ekstenzije
     }
 }

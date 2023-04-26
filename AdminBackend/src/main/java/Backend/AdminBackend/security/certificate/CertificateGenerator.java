@@ -50,6 +50,7 @@ public class CertificateGenerator {
                     subjectData.getEndDate(),
                     subjectData.getX500name(),
                     subjectData.getPublicKey());
+
             // Add the extension
             JcaX509ExtensionUtils extUtils = new JcaX509ExtensionUtils();
             if (ekstenzije.getAuthorityKeyIdentifierEkstenzije().isDaLiKoristi()){
