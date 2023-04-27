@@ -22,7 +22,7 @@
                 *ngIf="createForm.controls.emailPotvrda.touched && createForm.controls.emailPotvrda.errors?.required">
                 Email Potvrda je obavezna</small>
         </div>
-        <p>Templejt</p>
+        <p>Namena sertifikata</p>
         <div [ngClass]="['form-group','block','select is-rounded']">
             <select formControlName="namena" (change)="pokazivanjeElemenata($event)">
                 <option value="Korisnik">Korisnik</option>
@@ -85,9 +85,130 @@
                     *ngIf="createForm.controls.serijskiBroj.touched && createForm.controls.serijskiBroj.errors?.required">
                     Serijski Broj is required</small>
             </div>
-        </div><br>
+        </div>
+        <div class="block">
+            <button class="btn btn-lg btn-outline-primary" 
+                (click)="open(ekstenzije)">
+                Ekstenzije
+            </button>
+        </div>
+        <br>
         <div [ngClass]="['form-group','block']">
     		<button type="submit" [ngClass]="['btn btn-primary btn-block',status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" [disabled]="createForm.invalid">Posalji zahtev</button>
 		</div>
     </form>
 </div>
+
+<ng-template #ekstenzije let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" 
+            id="modal-basic-title">
+            Ekstenzije
+        </h4>
+        <button type="button" class="close"
+                aria-label="Close" (click)=
+                "modal.dismiss('Cross click')">
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+    <div class="modal-body">
+        
+        <div class="form-group">
+            <label for="templ">
+                Templejt
+            </label>
+            <div class="input-group" id="templ">
+                <select (change)="pokazivanjeTemplejta($event)">
+                    <option value="CA">CA</option>
+                    <option value="SSL Server">SSL Server</option>
+                    <option value="SSL Client">SSL Client</option>
+                    <option value="Code Signing">Code Signing</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <div *ngIf="templejt.authorityKeyIdentifierEkstenzije" class="block">
+                    <button class="button is-danger is-outlined">Authority Key Identifier</button>&nbsp;&nbsp;
+                    <button (click)="templejt.authorityKeyIdentifierEkstenzije = false;" class="button is-danger" >X</button>
+                </div>
+                <div *ngIf="templejt.basicConstraintsEkstenzije" class="block">
+                    <button class="button is-danger is-outlined" (click)="open(basicConstraintsEkstenzije)">Basic Constraints</button>&nbsp;&nbsp;
+                    <button (click)="templejt.basicConstraintsEkstenzije = false;" class="button is-danger" >X</button>
+                </div>
+                <div *ngIf="templejt.extendedKeyUsageEkstenzije" class="block">
+                    <button class="button is-danger is-outlined">Extended Key Usage</button>&nbsp;&nbsp;
+                    <button (click)="templejt.extendedKeyUsageEkstenzije = false;" class="button is-danger" >X</button>
+                </div>
+                <div *ngIf="templejt.keyUsageEkstenzije" class="block">
+                    <button class="button is-danger is-outlined">Key Usage</button>&nbsp;&nbsp;
+                    <button (click)="templejt.keyUsageEkstenzije = false;" class="button is-danger" >X</button>
+                </div>
+                <div *ngIf="templejt.subjectAlternativeNameEkstenzije" class="block">
+                    <button class="button is-danger is-outlined">Subject Alternative Name</button>&nbsp;&nbsp;
+                    <button (click)="templejt.subjectAlternativeNameEkstenzije = false;" class="button is-danger" >X</button>
+                </div>
+                <div *ngIf="templejt.subjectKeyIdentifierEkstenzije" class="block">
+                    <button class="button is-danger is-outlined">Subject Key Identifier</button>&nbsp;&nbsp;
+                    <button (click)="templejt.subjectKeyIdentifierEkstenzije = false;" class="button is-danger" >X</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" 
+            class="btn btn-outline-dark" 
+            (click)="modal.close('Save click')">
+            Sacuvaj
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #basicConstraintsEkstenzije let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" 
+            id="modal-basic-title">
+            Basic Constraints
+        </h4>
+        <button type="button" class="close"
+                aria-label="Close" (click)=
+                "modal.dismiss('Cross click')">
+  
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label for="dateOfBirth">
+                    Date of birth
+                </label>
+                <div class="input-group">
+                    <input id="dateOfBirth" 
+                        class="form-control" 
+                        placeholder="yyyy-mm-dd" 
+                        name="dp" ngbDatepicker
+                        #dp="ngbDatepicker">
+  
+                    <div class="input-group-append">
+                        <button class="btn 
+                            btn-outline-secondary calendar"
+                            (click)="dp.toggle()"
+                            type="button">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" 
+            class="btn btn-outline-dark" 
+            (click)="modal.close('Save click')">
+            Sacuvaj
+        </button>
+    </div>
+</ng-template>

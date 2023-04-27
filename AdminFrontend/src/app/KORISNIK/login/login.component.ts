@@ -18,7 +18,7 @@ export class LoginComponent {
   constructor(
     private fBuilder:FormBuilder,
     private router:Router,
-    private authenticationService: AuthenticationService,
+    private authenticationService: AuthenticationService
   ) {
     this.logForm = this.fBuilder.group({
       email: ["",[Validators.required]],
@@ -26,6 +26,8 @@ export class LoginComponent {
       test: ""
     });
    }
+
+   
 
   ngOnInit():void {
   }

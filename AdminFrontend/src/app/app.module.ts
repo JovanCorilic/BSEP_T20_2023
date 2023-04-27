@@ -22,8 +22,7 @@ import { PregledSvihKorisnikaComponent } from './KORISNIK/pregled-svih-korisnika
 import { PravljenjeAdminaComponent } from './KORISNIK/pravljenje-admina/pravljenje-admina.component';
 import { PotvrdaEmailRegistracijeComponent } from './SECURITY/potvrda-email-registracije/potvrda-email-registracije.component';
 import { PotvrdaEmailAdminaKreacijaComponent } from './SECURITY/potvrda-email-admina-kreacija/potvrda-email-admina-kreacija.component';
-
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -51,6 +50,7 @@ import { PotvrdaEmailAdminaKreacijaComponent } from './SECURITY/potvrda-email-ad
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgbModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}],
   bootstrap: [AppComponent]

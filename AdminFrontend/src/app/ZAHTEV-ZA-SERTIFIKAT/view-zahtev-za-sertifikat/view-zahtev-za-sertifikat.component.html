@@ -22,7 +22,7 @@
                 *ngIf="createForm.controls.emailPotvrda.touched && createForm.controls.emailPotvrda.errors?.required">
                 Email Potvrda je obavezna</small>
         </div>
-        <p>Templejt</p>
+        <p>Namena sertifikata</p>
         <div [ngClass]="['form-group','block','select is-rounded']">
             <select formControlName="namena" (change)="pokazivanjeElemenata($event)">
                 <option value="Korisnik">Korisnik</option>
