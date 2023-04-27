@@ -1,6 +1,6 @@
 import { ZahtevZaSertifikat } from '../../MODEL/ZahtevZaSertifikat';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ZaKorisnika } from 'src/app/MODEL/ZaKorisnika';
 import { ZaMojaKucaAplikacija } from 'src/app/MODEL/ZaMojaKucaAplikacija';
@@ -70,11 +70,13 @@ export class CreateZahtevZaSertifikatComponent {
     })
 
     this.basicConstraintsForm = this.fBuilder.group({
+      isCritical : false,
       isCA : true,
-      maxPathLen : ["",[Validators.required]]
+      maxPathLen : ["",[Validators.required,this.notANumber()]]
     })
 
     this.extendedKeyUsageForm = this.fBuilder.group({
+      isCritical : false,
       anyExtendedKeyUsage : false,
       id_kp_codeSigning : false,
       id_kp_emailProtection: false,
@@ -86,6 +88,7 @@ export class CreateZahtevZaSertifikatComponent {
     })
 
     this.keyUsageForm = this.fBuilder.group({
+      isCritical : false,
       digitalSignature: false,
       nonRepudiation: false,
       keyEncipherment: false,
@@ -98,6 +101,7 @@ export class CreateZahtevZaSertifikatComponent {
     })
 
     this.subjectAlternativeNameForm = this.fBuilder.group({
+      isCritical : false,
       
     })
 
@@ -150,6 +154,39 @@ export class CreateZahtevZaSertifikatComponent {
     }
   }
 
+  napraviBasicConstraints(){
+    this.ekstenzije.basicConstraintsEkstenzije.isCA = this.basicConstraintsForm.value.isCA;
+    this.ekstenzije.basicConstraintsEkstenzije.maxPathLen = this.basicConstraintsForm.value.maxPathLen;
+    this.ekstenzije.basicConstraintsEkstenzije.isCritical = this.basicConstraintsForm.value.isCritical;
+  }
+
+  napraviextendedKeyUsageEkstenzije(){
+    let temp = this.ekstenzije.extendedKeyUsageEkstenzije;
+    temp.isCritical = this.extendedKeyUsageForm.value.isCritical;
+    temp.anyExtendedKeyUsage = this.extendedKeyUsageForm.value.anyExtendedKeyUsage;
+    temp.id_kp_codeSigning = this.extendedKeyUsageForm.value.id_kp_codeSigning;
+    temp.id_kp_emailProtection = this.extendedKeyUsageForm.value.id_kp_emailProtection;
+    temp.id_kp_ipsecEndSystem = this.extendedKeyUsageForm.value.id_kp_ipsecEndSystem;
+    temp.id_kp_ipsecUser = this.extendedKeyUsageForm.value.id_kp_ipsecUser;
+    temp.id_kp_timeStamping = this.extendedKeyUsageForm.value.id_kp_timeStamping;
+    temp.id_kp_OCSPSigning = this.extendedKeyUsageForm.value.id_kp_OCSPSigning;
+    temp.id_kp_smartcardlogon = this.extendedKeyUsageForm.value.id_kp_smartcardlogon;
+  }
+
+  napravikeyUsageEkstenzije(){
+    let temp = this.ekstenzije.keyUsageEkstenzije;
+    temp.isCritical = this.keyUsageForm.value.isCritical;
+    temp.digitalSignature = this.keyUsageForm.value.digitalSignature;
+    temp.nonRepudiation = this.keyUsageForm.value.nonRepudiation;
+    temp.keyEncipherment = this.keyUsageForm.value.keyEncipherment;
+    temp.dataEncipherment = this.keyUsageForm.value.dataEncipherment;
+    temp.keyAgreement = this.keyUsageForm.value.keyAgreement;
+    temp.keyCertSign = this.keyUsageForm.value.keyCertSign;
+    temp.cRLSign = this.keyUsageForm.value.cRLSign;
+    temp.encipherOnly = this.keyUsageForm.value.encipherOnly;
+    temp.decipherOnly = this.keyUsageForm.value.decipherOnly;
+  }
+
   napravi(){
       this.status = !this.status; 
       this.zahtev.startDate = this.createForm.value.startDate;
@@ -198,5 +235,16 @@ export class CreateZahtevZaSertifikatComponent {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  notANumber(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      const value = control.value
+      let nV = value
+      if (typeof value == 'string') {
+        nV = value.replace(',', '.')
+      }
+      return (Number.isNaN(Number(nV)) && !control.pristine) ? {notANumber: true} : null;
+    };
   }
 }

@@ -87,7 +87,7 @@
             </div>
         </div>
         <div class="block">
-            <button class="btn btn-lg btn-outline-primary" 
+            <button type="button" class="btn btn-lg btn-outline-primary" 
                 (click)="open(ekstenzije)">
                 Ekstenzije
             </button>
@@ -119,8 +119,8 @@
             <label for="templ">
                 Templejt
             </label>
-            <div class="input-group" id="templ">
-                <select (change)="pokazivanjeTemplejta($event)">
+            <div [ngClass]="['input-group','select is-rounded']" >
+                <select (change)="pokazivanjeTemplejta($event)" id="templ">
                     <option value="CA">CA</option>
                     <option value="SSL Server">SSL Server</option>
                     <option value="SSL Client">SSL Client</option>
@@ -137,11 +137,11 @@
                     <button (click)="templejt.basicConstraintsEkstenzije = false;" class="button is-danger" >X</button>
                 </div>
                 <div *ngIf="templejt.extendedKeyUsageEkstenzije" class="block">
-                    <button class="button is-danger is-outlined">Extended Key Usage</button>&nbsp;&nbsp;
+                    <button class="button is-danger is-outlined" (click)="open(extendedKeyUsageEkstenzije)">Extended Key Usage</button>&nbsp;&nbsp;
                     <button (click)="templejt.extendedKeyUsageEkstenzije = false;" class="button is-danger" >X</button>
                 </div>
                 <div *ngIf="templejt.keyUsageEkstenzije" class="block">
-                    <button class="button is-danger is-outlined">Key Usage</button>&nbsp;&nbsp;
+                    <button class="button is-danger is-outlined" (click)="open(keyUsageEkstenzije)">Key Usage</button>&nbsp;&nbsp;
                     <button (click)="templejt.keyUsageEkstenzije = false;" class="button is-danger" >X</button>
                 </div>
                 <div *ngIf="templejt.subjectAlternativeNameEkstenzije" class="block">
@@ -180,35 +180,152 @@
             </span>
         </button>
     </div>
-    <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <label for="dateOfBirth">
-                    Date of birth
-                </label>
-                <div class="input-group">
-                    <input id="dateOfBirth" 
-                        class="form-control" 
-                        placeholder="yyyy-mm-dd" 
-                        name="dp" ngbDatepicker
-                        #dp="ngbDatepicker">
-  
-                    <div class="input-group-append">
-                        <button class="btn 
-                            btn-outline-secondary calendar"
-                            (click)="dp.toggle()"
-                            type="button">
-                        </button>
+    <form [formGroup]="basicConstraintsForm" (ngSubmit)="napraviBasicConstraints()">
+        <div class="modal-body">
+                <div class="form-group">
+                    <label for="maxLen">
+                        Maksimalna duzina
+                    </label>
+                    <div class="input-group">
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="isCritical">Da li je kriticno</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="isCA">Da li je CA</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <input id="maxLen" type="text" [ngClass]="['form-control','input']" formControlName="maxPathLen" placeholder="50">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button type="button" 
-            class="btn btn-outline-dark" 
-            (click)="modal.close('Save click')">
-            Sacuvaj
+        </div>
+        <div [ngClass]="['modal-footer','form-group']">
+            <button type="submit"
+                class="btn btn-outline-dark" 
+                (click)="modal.close('Save click')"  [disabled]="basicConstraintsForm.invalid">
+                Sacuvaj
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #extendedKeyUsageEkstenzije let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" 
+            id="modal-basic-title">
+            Extended Key Usage
+        </h4>
+        <button type="button" class="close"
+                aria-label="Close" (click)=
+                "modal.dismiss('Cross click')">
+  
+            <span aria-hidden="true">
+                ×
+            </span>
         </button>
     </div>
+    <form [formGroup]="extendedKeyUsageForm" (ngSubmit)="napraviextendedKeyUsageEkstenzije()">
+        <div class="modal-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="isCritical">Da li je kriticno</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="anyExtendedKeyUsage">Extended key usage</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="id_kp_codeSigning">Code signing</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="id_kp_emailProtection">Email protection</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="id_kp_ipsecEndSystem">IP Security End System</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="id_kp_ipsecUser">IP Security User</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="id_kp_timeStamping">Time Stamping</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="id_kp_OCSPSigning">OCSP Signing</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="id_kp_smartcardlogon">Smartcard logon</mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div [ngClass]="['modal-footer','form-group']">
+            <button type="submit"
+                class="btn btn-outline-dark" 
+                (click)="modal.close('Save click')"  [disabled]="extendedKeyUsageForm.invalid">
+                Sacuvaj
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #keyUsageEkstenzije let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" 
+            id="modal-basic-title">
+            Key Usage
+        </h4>
+        <button type="button" class="close"
+                aria-label="Close" (click)=
+                "modal.dismiss('Cross click')">
+  
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+    <form [formGroup]="keyUsageForm" (ngSubmit)="napravikeyUsageEkstenzije()">
+        <div class="modal-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="isCritical">Da li je kriticno</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="digitalSignature">Digital Signature</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="nonRepudiation">Non Repudation</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="keyEncipherment">Key Encipherment</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="dataEncipherment">Data Encipherment</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="keyAgreement">Key Agreement</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="keyCertSign">Key Certificate Signing</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="cRLSign">CRL Sign</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="encipherOnly">Encipher Only</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox formControlName="decipherOnly">Decipher Only</mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div [ngClass]="['modal-footer','form-group']">
+            <button type="submit"
+                class="btn btn-outline-dark" 
+                (click)="modal.close('Save click')"  [disabled]="keyUsageForm.invalid">
+                Sacuvaj
+            </button>
+        </div>
+    </form>
 </ng-template>
