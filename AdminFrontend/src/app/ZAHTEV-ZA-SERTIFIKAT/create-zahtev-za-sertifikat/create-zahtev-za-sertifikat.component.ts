@@ -16,6 +16,7 @@ import { ExtendedKeyUsageEkstenzije } from 'src/app/MODEL/EKSTENZIJE/ExtendedKey
 import { KeyUsageEkstenzije } from 'src/app/MODEL/EKSTENZIJE/KeyUsageEkstenzije';
 import { SubjectAlternativeNameEkstenzije } from 'src/app/MODEL/EKSTENZIJE/SubjectAlternativeNameEkstenzije';
 import { SubjectKeyIdentifierEkstenzije } from 'src/app/MODEL/EKSTENZIJE/SubjectKeyIdentifierEkstenzije';
+import { AlternativeName } from 'src/app/MODEL/EKSTENZIJE/AlternativeName';
 
 @Component({
   selector: 'app-create-zahtev-za-sertifikat',
@@ -35,6 +36,7 @@ export class CreateZahtevZaSertifikatComponent {
   extendedKeyUsageForm : FormGroup;
   keyUsageForm : FormGroup;
   subjectAlternativeNameForm : FormGroup;
+  alternativeNamesForm : FormGroup;
 
   constructor(
     private sertifikatService:SertifikatService,
@@ -51,6 +53,7 @@ export class CreateZahtevZaSertifikatComponent {
     this.ekstenzije.keyUsageEkstenzije = <KeyUsageEkstenzije>{};
     this.ekstenzije.subjectAlternativeNameEkstenzije = <SubjectAlternativeNameEkstenzije>{};
     this.ekstenzije.subjectKeyIdentifierEkstenzije = <SubjectKeyIdentifierEkstenzije>{};
+    this.ekstenzije.subjectAlternativeNameEkstenzije.alternativeNames = [];
 
     this.createForm = this.fBuilder.group({
       startDate: ["",[Validators.required]],
@@ -103,6 +106,11 @@ export class CreateZahtevZaSertifikatComponent {
     this.subjectAlternativeNameForm = this.fBuilder.group({
       isCritical : false,
       
+    })
+
+    this.alternativeNamesForm = this.fBuilder.group({
+      generalNameType : "DNS Name",
+      generalNameContent : ["",[Validators.required]]
     })
 
   }
@@ -187,6 +195,18 @@ export class CreateZahtevZaSertifikatComponent {
     temp.decipherOnly = this.keyUsageForm.value.decipherOnly;
   }
 
+  subjectAlternativeNameEkstenzijeMetoda(){
+    let temp = this.ekstenzije.subjectAlternativeNameEkstenzije;
+    temp.isCritical = this.subjectAlternativeNameForm.value.isCritical;
+  }
+
+  alternativeNameMetoda(){
+    let temp = <AlternativeName>{};
+    temp.generalNameType = this.alternativeNamesForm.value.generalNameType;
+    temp.generalNameContent = this.alternativeNamesForm.value.generalNameContent;
+    this.ekstenzije.subjectAlternativeNameEkstenzije.alternativeNames.push(temp);
+  }
+
   napravi(){
       this.status = !this.status; 
       this.zahtev.startDate = this.createForm.value.startDate;
@@ -209,11 +229,22 @@ export class CreateZahtevZaSertifikatComponent {
         this.zahtev.zaUredjaj.svrha=this.createForm.value.svrha;
         this.zahtev.zaUredjaj.serijskiBroj=this.createForm.value.serijskiBroj;
       }
+      this.provera();
+
       this.zahtevZaSertifikatService.createZahtevZaSertifikat(this.zahtev).subscribe(
         res=>{
           this.router.navigate(['/viewAllZahtevSertifikat']);
         }
       );
+  }
+
+  provera(){
+    this.ekstenzije.authorityKeyIdentifierEkstenzije.daLiKoristi = this.templejt.authorityKeyIdentifierEkstenzije;
+    this.ekstenzije.basicConstraintsEkstenzije.daLiKoristi = this.templejt.basicConstraintsEkstenzije;
+    this.ekstenzije.extendedKeyUsageEkstenzije.daLiKoristi = this.templejt.extendedKeyUsageEkstenzije;
+    this.ekstenzije.keyUsageEkstenzije.daLiKoristi = this.templejt.keyUsageEkstenzije;
+    this.ekstenzije.subjectAlternativeNameEkstenzije.daLiKoristi = this.templejt.subjectAlternativeNameEkstenzije;
+    this.ekstenzije.subjectKeyIdentifierEkstenzije.daLiKoristi = this.templejt.subjectKeyIdentifierEkstenzije;
   }
 
   open(content:any) {
