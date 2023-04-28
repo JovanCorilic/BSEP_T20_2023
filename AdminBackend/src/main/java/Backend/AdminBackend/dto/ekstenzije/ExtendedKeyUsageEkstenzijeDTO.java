@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class ExtendedKeyUsageEkstenzijeDTO {
     private boolean daLiKoristi;
 
-    private boolean isCritical;
+    private boolean daLiJeKriticno;
 
     private boolean anyExtendedKeyUsage;
 

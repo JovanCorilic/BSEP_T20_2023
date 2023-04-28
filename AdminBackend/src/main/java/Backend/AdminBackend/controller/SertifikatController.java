@@ -83,6 +83,17 @@ public class SertifikatController {
         return new ResponseEntity<>(lista,HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_MUSTERIJA')")
+    @GetMapping("/dajSveSertifikateMusterija")
+    public ResponseEntity<List<SertifikatDTO>>getAllSertifikateMusterija(){
+        List<Sertifikat> sertifikats = sertifikatService.findAllByMusterija();
+        List<SertifikatDTO>lista = new ArrayList<>();
+        for (Sertifikat sertifikat : sertifikats){
+            lista.add(sertifikatMapper.toDto(sertifikat));
+        }
+        return new ResponseEntity<>(lista,HttpStatus.OK);
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/dajSertifikat/{alias}")
     public ResponseEntity<SertifikatDTO> getSertifikat(@PathVariable String alias){
@@ -99,15 +110,7 @@ public class SertifikatController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/dajListuZahtevaZaSertifikat")
-    public ResponseEntity<List<ZahtevZaSertifikatDTO>> dajListuZahtevaZaSertifikat(){
-        List<ZahtevZaSertifikat> lista = zahtevZaSertifikatService.findAll();
-        List<ZahtevZaSertifikatDTO>listaDTO = new ArrayList<>();
-        for (ZahtevZaSertifikat zahtevZaSertifikat : lista)
-            listaDTO.add(zahtevZaSertifikatMapper.toDto(zahtevZaSertifikat));
-        return new ResponseEntity<>(listaDTO, HttpStatus.OK);
-    }
+
 
     /*@PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/izbrisiZahtevZaSertifikat/{id}")

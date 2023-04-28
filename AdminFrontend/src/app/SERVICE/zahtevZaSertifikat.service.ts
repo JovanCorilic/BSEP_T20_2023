@@ -14,7 +14,7 @@ export class ZahtevZaSertifikatService{
         return this.http.put(this.path+"/potvrdaZahteva"+`/${token}`,null);
     }
 
-    public createZahtevZaSertifikat(zahtev:ZahtevZaSertifikat){
+    public createZahtevZaSertifikat(zahtev:any){
         return this.http.post(this.path+"/createZahtevZaSertifikat",zahtev);
     }
 
@@ -28,5 +28,9 @@ export class ZahtevZaSertifikatService{
 
     public dajListuZahtevaZaSertifikat():Observable<ZahtevZaSertifikat[]>{
         return this.http.get<ZahtevZaSertifikat[]>(this.path+"/dajListuZahtevaZaSertifikat");
+    }
+
+    public dajListuZahtevaZaSertifikatMusterija():Observable<ZahtevZaSertifikat[]>{
+        return this.http.get<ZahtevZaSertifikat[]>(this.path+"/dajListuZahtevaZaSertifikatMoji");
     }
 }

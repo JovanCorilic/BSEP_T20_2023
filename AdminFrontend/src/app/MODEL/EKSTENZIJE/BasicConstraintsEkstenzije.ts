@@ -1,20 +1,20 @@
 export class BasicConstraintsEkstenzije {
     daLiKoristi: boolean;
 
-    isCritical: boolean;
+    daLiJeKriticno: boolean;
 
-    isCA: boolean;
+    daLiJeCA: boolean;
 
     maxPathLen: number;
     constructor(
         daLiKoristi: boolean,
-        isCritical: boolean,
-        isCA: boolean,
+        daLiJeKriticno: boolean,
+        daLiJeCA: boolean,
         maxPathLen: number
     ) {
         this.daLiKoristi = daLiKoristi
-        this.isCritical = isCritical
-        this.isCA = isCA
+        this.daLiJeKriticno = daLiJeKriticno
+        this.daLiJeCA = daLiJeCA
         this.maxPathLen = maxPathLen
     }
 }

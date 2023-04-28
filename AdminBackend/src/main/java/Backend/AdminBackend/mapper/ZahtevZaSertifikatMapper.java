@@ -1,13 +1,7 @@
 package Backend.AdminBackend.mapper;
 
-import Backend.AdminBackend.dto.ZaKorisnikaDTO;
-import Backend.AdminBackend.dto.ZaMojaKucaAplikacijaDTO;
-import Backend.AdminBackend.dto.ZaUredjajDTO;
-import Backend.AdminBackend.dto.ZahtevZaSertifikatDTO;
-import Backend.AdminBackend.model.ZaKorisnika;
-import Backend.AdminBackend.model.ZaMojaKucaAplikacija;
-import Backend.AdminBackend.model.ZaUredjaj;
-import Backend.AdminBackend.model.ZahtevZaSertifikat;
+import Backend.AdminBackend.dto.*;
+import Backend.AdminBackend.model.*;
 
 public class ZahtevZaSertifikatMapper implements MapperInterface<ZahtevZaSertifikat, ZahtevZaSertifikatDTO> {
     private final ZaKorisnikaMapper zaKorisnikaMapper;
@@ -56,9 +50,13 @@ public class ZahtevZaSertifikatMapper implements MapperInterface<ZahtevZaSertifi
                 zaKorisnikaDTO = zaKorisnikaMapper.toDto(entity.getZaKorisnika());
                 break;
         }
+        KorisnikDTO adminDTO = null;
+        if (entity.getAdmin()!=null)
+            adminDTO = korisnikMapper.toDto(entity.getAdmin());
+
         return new ZahtevZaSertifikatDTO(entity.getId(),entity.getStartDate(),entity.getEndDate(),entity.getNamena(),
                 entity.getEmailPotvrda(),entity.getPotvrdjenZahtev(),entity.getPrihvacen(),zaKorisnikaDTO,zaUredjajDTO,
-                zaMojaKucaAplikacijaDTO,korisnikMapper.toDto(entity.getMusterija()),korisnikMapper.toDto(entity.getAdmin()),
+                zaMojaKucaAplikacijaDTO,korisnikMapper.toDto(entity.getMusterija()),adminDTO,
                 ekstenzijeMapper.toDto(entity.getEkstenzije()));
     }
 

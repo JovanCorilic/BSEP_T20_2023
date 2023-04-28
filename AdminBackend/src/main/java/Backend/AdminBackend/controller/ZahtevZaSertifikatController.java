@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin
@@ -67,6 +68,16 @@ public class ZahtevZaSertifikatController {
     @GetMapping("/dajListuZahtevaZaSertifikatMoji")
     public ResponseEntity<List<ZahtevZaSertifikatDTO>> dajListuZahtevaZaSertifikatMoji(){
         List<ZahtevZaSertifikat> lista = zahtevZaSertifikatService.findAllZaMusteriju();
+        List<ZahtevZaSertifikatDTO>listaDTO = new ArrayList<>();
+        for (ZahtevZaSertifikat zahtevZaSertifikat : lista)
+            listaDTO.add(zahtevZaSertifikatMapper.toDto(zahtevZaSertifikat));
+        return new ResponseEntity<>(listaDTO, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/dajListuZahtevaZaSertifikat")
+    public ResponseEntity<List<ZahtevZaSertifikatDTO>> dajListuZahtevaZaSertifikat(){
+        List<ZahtevZaSertifikat> lista = zahtevZaSertifikatService.findAll();
         List<ZahtevZaSertifikatDTO>listaDTO = new ArrayList<>();
         for (ZahtevZaSertifikat zahtevZaSertifikat : lista)
             listaDTO.add(zahtevZaSertifikatMapper.toDto(zahtevZaSertifikat));

@@ -16,15 +16,19 @@ public class SubjectAlternativeNameEkstenzijeMapper implements MapperInterface<S
 
     @Override
     public SubjectAlternativeNameEkstenzije toModel(SubjectAlternativeNameEkstenzijeDTO dto) {
+        if (dto == null)
+            return null;
         Set<AlternativeName>nameSet = new HashSet<>();
         for (AlternativeNameDTO nameDTO : dto.getAlternativeNames()){
             nameSet.add(alternativeNameMapper.toModel(nameDTO));
         }
-        return new SubjectAlternativeNameEkstenzije(dto.isDaLiKoristi(),dto.isCritical(),nameSet);
+        return new SubjectAlternativeNameEkstenzije(dto.isDaLiKoristi(),dto.isDaLiJeKriticno(),nameSet);
     }
 
     @Override
     public SubjectAlternativeNameEkstenzijeDTO toDto(SubjectAlternativeNameEkstenzije entity) {
+        if (entity == null)
+            return null;
         List<AlternativeNameDTO>lista = new ArrayList<>();
         for (AlternativeName name : entity.getAlternativeNames()){
             lista.add(alternativeNameMapper.toDto(name));

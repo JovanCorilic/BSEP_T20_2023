@@ -37,6 +37,8 @@ export class CreateZahtevZaSertifikatComponent {
   keyUsageForm : FormGroup;
   subjectAlternativeNameForm : FormGroup;
   alternativeNamesForm : FormGroup;
+  isCriticalAuthorityKey = false;
+  isCriticalSubjectKey = false;
 
   constructor(
     private sertifikatService:SertifikatService,
@@ -163,14 +165,14 @@ export class CreateZahtevZaSertifikatComponent {
   }
 
   napraviBasicConstraints(){
-    this.ekstenzije.basicConstraintsEkstenzije.isCA = this.basicConstraintsForm.value.isCA;
+    this.ekstenzije.basicConstraintsEkstenzije.daLiJeCA = this.basicConstraintsForm.value.isCA;
     this.ekstenzije.basicConstraintsEkstenzije.maxPathLen = this.basicConstraintsForm.value.maxPathLen;
-    this.ekstenzije.basicConstraintsEkstenzije.isCritical = this.basicConstraintsForm.value.isCritical;
+    this.ekstenzije.basicConstraintsEkstenzije.daLiJeKriticno = this.basicConstraintsForm.value.isCritical;
   }
 
   napraviextendedKeyUsageEkstenzije(){
     let temp = this.ekstenzije.extendedKeyUsageEkstenzije;
-    temp.isCritical = this.extendedKeyUsageForm.value.isCritical;
+    temp.daLiJeKriticno = this.extendedKeyUsageForm.value.isCritical;
     temp.anyExtendedKeyUsage = this.extendedKeyUsageForm.value.anyExtendedKeyUsage;
     temp.id_kp_codeSigning = this.extendedKeyUsageForm.value.id_kp_codeSigning;
     temp.id_kp_emailProtection = this.extendedKeyUsageForm.value.id_kp_emailProtection;
@@ -183,21 +185,21 @@ export class CreateZahtevZaSertifikatComponent {
 
   napravikeyUsageEkstenzije(){
     let temp = this.ekstenzije.keyUsageEkstenzije;
-    temp.isCritical = this.keyUsageForm.value.isCritical;
+    temp.daLiJeKriticno = this.keyUsageForm.value.isCritical;
     temp.digitalSignature = this.keyUsageForm.value.digitalSignature;
     temp.nonRepudiation = this.keyUsageForm.value.nonRepudiation;
     temp.keyEncipherment = this.keyUsageForm.value.keyEncipherment;
     temp.dataEncipherment = this.keyUsageForm.value.dataEncipherment;
     temp.keyAgreement = this.keyUsageForm.value.keyAgreement;
     temp.keyCertSign = this.keyUsageForm.value.keyCertSign;
-    temp.cRLSign = this.keyUsageForm.value.cRLSign;
+    temp.da_li_jecrlsign = this.keyUsageForm.value.cRLSign;
     temp.encipherOnly = this.keyUsageForm.value.encipherOnly;
     temp.decipherOnly = this.keyUsageForm.value.decipherOnly;
   }
 
   subjectAlternativeNameEkstenzijeMetoda(){
     let temp = this.ekstenzije.subjectAlternativeNameEkstenzije;
-    temp.isCritical = this.subjectAlternativeNameForm.value.isCritical;
+    temp.daLiJeKriticno = this.subjectAlternativeNameForm.value.isCritical;
   }
 
   alternativeNameMetoda(){
@@ -230,7 +232,7 @@ export class CreateZahtevZaSertifikatComponent {
         this.zahtev.zaUredjaj.serijskiBroj=this.createForm.value.serijskiBroj;
       }
       this.provera();
-
+      console.log(this.zahtev);
       this.zahtevZaSertifikatService.createZahtevZaSertifikat(this.zahtev).subscribe(
         res=>{
           this.router.navigate(['/viewAllZahtevSertifikat']);
@@ -240,11 +242,13 @@ export class CreateZahtevZaSertifikatComponent {
 
   provera(){
     this.ekstenzije.authorityKeyIdentifierEkstenzije.daLiKoristi = this.templejt.authorityKeyIdentifierEkstenzije;
+    this.ekstenzije.authorityKeyIdentifierEkstenzije.daLiJeKriticno = this.isCriticalAuthorityKey;
     this.ekstenzije.basicConstraintsEkstenzije.daLiKoristi = this.templejt.basicConstraintsEkstenzije;
     this.ekstenzije.extendedKeyUsageEkstenzije.daLiKoristi = this.templejt.extendedKeyUsageEkstenzije;
     this.ekstenzije.keyUsageEkstenzije.daLiKoristi = this.templejt.keyUsageEkstenzije;
     this.ekstenzije.subjectAlternativeNameEkstenzije.daLiKoristi = this.templejt.subjectAlternativeNameEkstenzije;
     this.ekstenzije.subjectKeyIdentifierEkstenzije.daLiKoristi = this.templejt.subjectKeyIdentifierEkstenzije;
+    this.ekstenzije.subjectKeyIdentifierEkstenzije.daLiJeKriticno = this.isCriticalSubjectKey;
   }
 
   open(content:any) {

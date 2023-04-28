@@ -1,7 +1,7 @@
 export class ExtendedKeyUsageEkstenzije {
     daLiKoristi: boolean
 
-    isCritical: boolean
+    daLiJeKriticno: boolean
 
     anyExtendedKeyUsage: boolean
 
@@ -25,7 +25,7 @@ export class ExtendedKeyUsageEkstenzije {
     id_kp_smartcardlogon: boolean
     constructor(
         daLiKoristi: boolean,
-        isCritical: boolean,
+        daLiJeKriticno: boolean,
         anyExtendedKeyUsage: boolean,
         id_kp_codeSigning: boolean,
         id_kp_emailProtection: boolean,
@@ -36,7 +36,7 @@ export class ExtendedKeyUsageEkstenzije {
         id_kp_smartcardlogon: boolean
     ) {
         this.daLiKoristi = daLiKoristi
-        this.isCritical = isCritical
+        this.daLiJeKriticno = daLiJeKriticno
         this.anyExtendedKeyUsage = anyExtendedKeyUsage
         this.id_kp_codeSigning = id_kp_codeSigning
         this.id_kp_emailProtection = id_kp_emailProtection

@@ -101,6 +101,8 @@ public class PravljenjeSertifikata {
 
         // klasa X500NameBuilder pravi X500Name objekat koji predstavlja podatke o vlasniku
         X500NameBuilder builder = new X500NameBuilder(BCStyle.INSTANCE);
+
+
         switch (sertifikat.getNamena()) {
             case "Korisnik":
                 builder.addRDN(BCStyle.CN, sertifikat.getZaKorisnika().getIme() + " " + sertifikat.getZaKorisnika().getPrezime());

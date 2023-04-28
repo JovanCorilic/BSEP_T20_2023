@@ -15,5 +15,5 @@ public class SubjectKeyIdentifierEkstenzijeDTO {
 
     private boolean daLiKoristi;
 
-    private boolean isCritical;
+    private boolean daLiJeKriticno;
 }

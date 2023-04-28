@@ -16,5 +16,5 @@ public class AuthorityKeyIdentifierEkstenzijeDTO {
 
     private boolean daLiKoristi;
 
-    private boolean isCritical;
+    private boolean daLiJeKriticno;
 }

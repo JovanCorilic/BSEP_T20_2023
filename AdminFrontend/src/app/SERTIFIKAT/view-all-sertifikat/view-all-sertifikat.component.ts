@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Sertifikat } from 'src/app/MODEL/Sertifikat';
 import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
 
@@ -19,11 +20,23 @@ export class ViewAllSertifikatComponent {
   }
 
   ngOnInit():void{
-    this.sertifikatService.dajSveSertifikate().subscribe(
-      res=>{
-        this.lista = res;
-      }
-    )
+    const item = localStorage.getItem('user');
+		const jwt: JwtHelperService = new JwtHelperService();
+		const decodedItem = JSON.parse(item!);
+    const info = jwt.decodeToken(decodedItem.accessToken);
+    if (info['uloga'] === "ROLE_MUSTERIJA"){
+      this.sertifikatService.dajSveSertifikateMusterije().subscribe(
+        res=>{
+          this.lista = res;
+        }
+      )
+    }else if (info['uloga'] === "ROLE_ADMIN"){
+      this.sertifikatService.dajSveSertifikate().subscribe(
+        res=>{
+          this.lista = res;
+        }
+      )
+    }
   }
 
   idiNaZahtev(alias:string){

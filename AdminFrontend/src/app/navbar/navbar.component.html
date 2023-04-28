@@ -9,6 +9,7 @@
         <span aria-hidden="true" *ngIf="getRole()==='ROLE_ADMIN'"></span>
         <span aria-hidden="true" *ngIf="getRole()==='ROLE_MUSTERIJA'"></span>
         <span aria-hidden="true" *ngIf="getRole()==='ROLE_MUSTERIJA'"></span>
+        <span aria-hidden="true" *ngIf="getRole()==='ROLE_MUSTERIJA'"></span>
         <span aria-hidden="true" *ngIf="getRole()==='ROLE_SUPERADMIN'"></span>
         <span aria-hidden="true" ></span>
       </a>
@@ -22,6 +23,10 @@
 
         <a  class="navbar-item" (click)="goToSviZahteviSertifikat()" *ngIf="getRole()==='ROLE_MUSTERIJA'">
           Svi moji zahtevi za sertifikat
+        </a>
+
+        <a class="navbar-item" (click)="goToSviSertifikati()" *ngIf="getRole()==='ROLE_MUSTERIJA'">
+          Svi moji sertifikati
         </a>
 
         <a  class="navbar-item" (click)="goToPravljenjeAdmina()" *ngIf="getRole()==='ROLE_SUPERADMIN'">

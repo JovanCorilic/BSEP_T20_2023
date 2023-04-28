@@ -18,7 +18,7 @@ import java.util.Set;
 public class SubjectAlternativeNameEkstenzijeDTO {
 
     private boolean daLiKoristi;
-    private boolean isCritical;
+    private boolean daLiJeKriticno;
     private List<AlternativeNameDTO> alternativeNames =new ArrayList<>();
 
 }

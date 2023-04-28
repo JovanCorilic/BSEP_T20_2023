@@ -1,8 +1,8 @@
 export class AuthorityKeyIdentifierEkstenzije {
     daLiKoristi: boolean;
-    isCritical: boolean;
-    constructor(daLiKoristi: boolean, isCritical: boolean) {
+    daLiJeKriticno: boolean;
+    constructor(daLiKoristi: boolean, daLiJeKriticno: boolean) {
         this.daLiKoristi = daLiKoristi
-        this.isCritical = isCritical
+        this.daLiJeKriticno = daLiJeKriticno
     }
 }

@@ -1,9 +1,12 @@
 package Backend.AdminBackend.service;
 
+import Backend.AdminBackend.model.Korisnik;
 import Backend.AdminBackend.model.PovlacenjeSertifikata;
 import Backend.AdminBackend.model.Sertifikat;
 import Backend.AdminBackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,9 @@ public class SertifikatService implements ServiceInterface<Sertifikat>{
 
     @Autowired
     private PovlacenjeSertifikataRepository povlacenjeSertifikataRepository;
+
+    @Autowired
+    private KorisnikRepository korisnikRepository;
 
     public void povlacenjeSertifikata(String alias,String razlog){
         PovlacenjeSertifikata povlacenjeSertifikata = new PovlacenjeSertifikata();
@@ -35,6 +41,13 @@ public class SertifikatService implements ServiceInterface<Sertifikat>{
     @Override
     public List<Sertifikat> findAll() {
         return sertifikatRepository.findAll();
+    }
+
+    public List<Sertifikat> findAllByMusterija(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Korisnik korisnik = (Korisnik) auth.getPrincipal();
+        korisnik = korisnikRepository.findByEmail(korisnik.getEmail());
+        return sertifikatRepository.findAllByMusterija(korisnik);
     }
 
     @Override

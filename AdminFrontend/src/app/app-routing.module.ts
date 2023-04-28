@@ -33,7 +33,7 @@ const routes: Routes = [
     path: 'viewAllSertifikat',
     component: ViewAllSertifikatComponent,
     canActivate: [RoleGuard],
-    data: {expectedRoles: 'ROLE_ADMIN'}
+    data: {expectedRoles: 'ROLE_ADMIN|ROLE_MUSTERIJA'}
   },
   {
     path: 'viewSertifikat/:alias',

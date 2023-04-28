@@ -16,7 +16,7 @@ public class KeyUsageEkstenzijeDTO {
 
     private boolean daLiKoristi;
 
-    private boolean isCritical;
+    private boolean daLiJeKriticno;
 
     private boolean digitalSignature;
 
@@ -30,7 +30,7 @@ public class KeyUsageEkstenzijeDTO {
 
     private boolean keyCertSign;
 
-    private boolean cRLSign;
+    private boolean da_li_jecrlsign;
 
     private boolean encipherOnly;
 

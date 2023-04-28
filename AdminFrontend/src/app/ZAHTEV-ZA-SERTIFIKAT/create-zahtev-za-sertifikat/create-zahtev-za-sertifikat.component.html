@@ -87,6 +87,7 @@
             </div>
         </div>
         <div class="block">
+            <br>
             <button type="button" class="btn btn-lg btn-outline-primary" 
                 (click)="open(ekstenzije2)">
                 Ekstenzije
@@ -119,22 +120,25 @@
             <label for="templ">
                 Templejt
             </label>
-            <div [ngClass]="['input-group','select is-rounded']" >
+            <br>
+            <div [ngClass]="['select']" >
                 <select (change)="pokazivanjeTemplejta($event)" id="templ">
+                    <option value=""></option>
                     <option value="CA">CA</option>
                     <option value="SSL Server">SSL Server</option>
                     <option value="SSL Client">SSL Client</option>
                     <option value="Code Signing">Code Signing</option>
                 </select>
             </div>
-            <div class="input-group">
-                <div *ngIf="templejt.authorityKeyIdentifierEkstenzije" class="block">
-                    <button class="button is-danger is-outlined">Authority Key Identifier</button>&nbsp;&nbsp;
+            <div >
+                <div *ngIf="templejt.authorityKeyIdentifierEkstenzije" class="block"><br>
+                    <button class="button is-danger">Authority Key Identifier</button>&nbsp;&nbsp;
+                    <mat-checkbox [(ngModel)]="isCriticalAuthorityKey">Da li je kriticno</mat-checkbox>&nbsp;&nbsp;
                     <button (click)="templejt.authorityKeyIdentifierEkstenzije = false;" class="button is-danger" >X</button><br>
                 </div>
                 <div *ngIf="templejt.basicConstraintsEkstenzije" class="block">
                     <button class="button is-danger is-outlined" (click)="open(basicConstraintsEkstenzije)">Basic Constraints</button>&nbsp;&nbsp;
-                    <button (click)="templejt.basicConstraintsEkstenzije = false;" class="button is-danger" >X</button><br>
+                    <button (click)="templejt.basicConstraintsEkstenzije = false;" class="button is-danger" >X</button>
                 </div>
                 <div *ngIf="templejt.extendedKeyUsageEkstenzije" class="block">
                     <button class="button is-danger is-outlined" (click)="open(extendedKeyUsageEkstenzije)">Extended Key Usage</button>&nbsp;&nbsp;
@@ -145,11 +149,12 @@
                     <button (click)="templejt.keyUsageEkstenzije = false;" class="button is-danger" >X</button><br>
                 </div>
                 <div *ngIf="templejt.subjectAlternativeNameEkstenzije" class="block">
-                    <button class="button is-danger is-outlined">Subject Alternative Name</button>&nbsp;&nbsp;
+                    <button class="button is-danger is-outlined" (click)="open(subjectAlternativeNameEkstenzije)">Subject Alternative Name</button>&nbsp;&nbsp;
                     <button (click)="templejt.subjectAlternativeNameEkstenzije = false;" class="button is-danger" >X</button><br>
                 </div>
                 <div *ngIf="templejt.subjectKeyIdentifierEkstenzije" class="block">
-                    <button class="button is-danger is-outlined">Subject Key Identifier</button>&nbsp;&nbsp;
+                    <button class="button is-danger">Subject Key Identifier</button>&nbsp;&nbsp;
+                    <mat-checkbox [(ngModel)]="isCriticalSubjectKey">Da li je kriticno</mat-checkbox>&nbsp;&nbsp;
                     <button (click)="templejt.subjectKeyIdentifierEkstenzije = false;" class="button is-danger" >X</button>
                 </div>
             </div>
@@ -348,7 +353,7 @@
     <form [formGroup]="subjectAlternativeNameForm" (ngSubmit)="subjectAlternativeNameEkstenzijeMetoda()">
         <div class="modal-body">
                 <div class="form-group">
-                    <div class="input-group">
+                    <div>
                         <div [ngClass]="['block']">
                             <mat-checkbox formControlName="isCritical">Da li je kriticno</mat-checkbox>
                         </div>
@@ -356,9 +361,11 @@
                             <button class="button is-danger is-outlined" (click)="open(alternativeNamesEkstenzija)">Dodaj Alternativni Naziv</button>
                         </div>
                         <div *ngFor="let name of ekstenzije.subjectAlternativeNameEkstenzije.alternativeNames" class="block">
-                            <button type="button" class="button is-danger is-outlined">
+                            <button type="button" class="button is-warning">
                                 {{name.generalNameType}} : {{name.generalNameContent}}
-                            </button><br>
+                            </button>&nbsp;&nbsp;
+                            <button (click)="ekstenzije.subjectAlternativeNameEkstenzije.alternativeNames.splice(ekstenzije.subjectAlternativeNameEkstenzije.alternativeNames.indexOf(name),1);" class="button is-danger" >X</button>
+                            <br>
                         </div>
                     </div>
                 </div>
@@ -395,7 +402,7 @@
                         Vrednost
                     </label>
                     <div class="input-group">
-                        <div [ngClass]="['block','select is-rounded']">
+                        <div [ngClass]="['block','select']">
                             <select formControlName="generalNameType">
                                 <option value="DNS Name">DNS Name</option>
                                 <option value="Directory Name">Directory Name</option>
@@ -405,7 +412,8 @@
                                 <option value="URI">URI</option>
                             </select>
                         </div>
-                        
+                    </div>
+                    <div class="input-group">
                         <div [ngClass]="['block']">
                             <input id="generalNameContent" type="text" [ngClass]="['form-control','input']" formControlName="generalNameContent" placeholder="">
                         </div>

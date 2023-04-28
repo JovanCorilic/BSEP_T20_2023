@@ -24,6 +24,10 @@ export class SertifikatService{
         return this.http.get<Sertifikat[]>(this.path+"/dajSveSertifikate");
     }
 
+    public dajSveSertifikateMusterije():Observable<Sertifikat[]>{
+        return this.http.get<Sertifikat[]>(this.path+"/dajSveSertifikateMusterija");
+    }
+
     public dajSertifikat(alias:string):Observable<Sertifikat>{
         return this.http.get<Sertifikat>(this.path+"/dajSertifikat"+`/${alias}`);
     }

@@ -2,6 +2,7 @@ package Backend.AdminBackend.service;
 
 import Backend.AdminBackend.model.*;
 import Backend.AdminBackend.model.ekstenzije.AlternativeName;
+import Backend.AdminBackend.model.ekstenzije.SubjectAlternativeNameEkstenzije;
 import Backend.AdminBackend.ostalo.VerifikacioniTokenSlanjeEmail;
 import Backend.AdminBackend.repository.*;
 import Backend.AdminBackend.repository.ekstenzije.*;
@@ -181,25 +182,41 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
     public Ekstenzije dodavanjeEkstenzijaUBazu(Ekstenzije ekstenzije){
         if (ekstenzije.getAuthorityKeyIdentifierEkstenzije().isDaLiKoristi()){
             authorityKeyIdentifierEkstenzijeRepository.save(ekstenzije.getAuthorityKeyIdentifierEkstenzije());
-        }
+        }else
+            ekstenzije.setAuthorityKeyIdentifierEkstenzije(null);
+
         if (ekstenzije.getBasicConstraintsEkstenzije().isDaLiKoristi()){
             basicConstraintsEkstenzijeRepository.save(ekstenzije.getBasicConstraintsEkstenzije());
-        }
+        }else
+            ekstenzije.setBasicConstraintsEkstenzije(null);
+
         if (ekstenzije.getExtendedKeyUsageEkstenzije().isDaLiKoristi()){
             extendedKeyUsageEkstenzijeRepository.save(ekstenzije.getExtendedKeyUsageEkstenzije());
-        }
+        }else
+            ekstenzije.setExtendedKeyUsageEkstenzije(null);
+
         if (ekstenzije.getKeyUsageEkstenzije().isDaLiKoristi()){
             keyUsageEkstenzijeRepository.save(ekstenzije.getKeyUsageEkstenzije());
-        }
+        }else
+            ekstenzije.setKeyUsageEkstenzije(null);
+
         if (ekstenzije.getSubjectAlternativeNameEkstenzije().isDaLiKoristi()){
             List<AlternativeName>lista = alternativeNameRepository.saveAll(ekstenzije.getSubjectAlternativeNameEkstenzije().getAlternativeNames());
             Set<AlternativeName> listaPrava = new HashSet<>(lista);
             ekstenzije.getSubjectAlternativeNameEkstenzije().setAlternativeNames(listaPrava);
-            subjectAlternativeNameEkstenzijeRepository.save(ekstenzije.getSubjectAlternativeNameEkstenzije());
-        }
+            SubjectAlternativeNameEkstenzije subjectAlternativeNameEkstenzije = subjectAlternativeNameEkstenzijeRepository.save(ekstenzije.getSubjectAlternativeNameEkstenzije());
+            for (AlternativeName name : lista){
+                name.setSubjectAlternativeNameEkstenzije(subjectAlternativeNameEkstenzije);
+            }
+            alternativeNameRepository.saveAll(lista);
+        }else
+            ekstenzije.setSubjectAlternativeNameEkstenzije(null);
+
         if (ekstenzije.getSubjectKeyIdentifierEkstenzije().isDaLiKoristi()){
             subjectKeyIdentifierEkstenzijeRepository.save(ekstenzije.getSubjectKeyIdentifierEkstenzije());
-        }
+        }else
+            ekstenzije.setSubjectKeyIdentifierEkstenzije(null);
+
         return ekstenzije;
     }
 

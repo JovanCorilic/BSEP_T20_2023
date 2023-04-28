@@ -16,10 +16,9 @@ public class BasicConstraintsEkstenzijeDTO {
 
 
     private boolean daLiKoristi;
+    private boolean daLiJeKriticno;
 
-    private boolean isCritical;
-
-    private boolean isCA;
+    private boolean daLiJeCA;
 
     private int maxPathLen;
 

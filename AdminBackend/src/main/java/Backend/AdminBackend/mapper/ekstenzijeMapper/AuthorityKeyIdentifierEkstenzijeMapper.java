@@ -7,11 +7,15 @@ import Backend.AdminBackend.model.ekstenzije.AuthorityKeyIdentifierEkstenzije;
 public class AuthorityKeyIdentifierEkstenzijeMapper implements MapperInterface<AuthorityKeyIdentifierEkstenzije, AuthorityKeyIdentifierEkstenzijeDTO> {
     @Override
     public AuthorityKeyIdentifierEkstenzije toModel(AuthorityKeyIdentifierEkstenzijeDTO dto) {
-        return new AuthorityKeyIdentifierEkstenzije(dto.isDaLiKoristi(),dto.isCritical());
+        if (dto == null)
+            return null;
+        return new AuthorityKeyIdentifierEkstenzije(dto.isDaLiKoristi(),dto.isDaLiJeKriticno());
     }
 
     @Override
     public AuthorityKeyIdentifierEkstenzijeDTO toDto(AuthorityKeyIdentifierEkstenzije entity) {
+        if (entity == null)
+            return null;
         return new AuthorityKeyIdentifierEkstenzijeDTO(entity.isDaLiKoristi(),entity.isCritical());
     }
 }
