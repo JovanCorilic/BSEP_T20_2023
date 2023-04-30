@@ -20,7 +20,7 @@ export class ViewAllSertifikatComponent {
   }
 
   ngOnInit():void{
-    const item = localStorage.getItem('user');
+    const item = sessionStorage.getItem('user');
 		const jwt: JwtHelperService = new JwtHelperService();
 		const decodedItem = JSON.parse(item!);
     const info = jwt.decodeToken(decodedItem.accessToken);

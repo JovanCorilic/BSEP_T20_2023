@@ -7,14 +7,17 @@ import { Musterija } from '../MODEL/Musterija';
 	providedIn: 'root'
 })
 export class AuthenticationService {
-  private headers = new HttpHeaders({'Content-Type': 'application/json'});
+  private headers = new HttpHeaders({
+	'Accept': 'application/json',
+	'Content-Type': 'application/json'
+	});
 	private path = "http://localhost:8080/auth";
 	constructor(
 		private http: HttpClient
 	) { }
 
 	login(auth: any): Observable<any> {
-		return this.http.post(this.path+'/log-in', {username: auth.username, password: auth.password}, {headers: this.headers, responseType: 'json'});
+		return this.http.post(this.path+'/log-in', {username: auth.username, password: auth.password}, {headers: this.headers, responseType: 'json',withCredentials:true});
 	}
 
 	logout(): Observable<any> {
@@ -34,7 +37,7 @@ export class AuthenticationService {
     }
 
 	isLoggedIn(): boolean {
-		if (!localStorage.getItem('user')) {
+		if (!sessionStorage.getItem('user')) {
 				return false;
 		}
 		return true;

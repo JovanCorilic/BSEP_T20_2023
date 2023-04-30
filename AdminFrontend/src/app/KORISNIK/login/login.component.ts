@@ -41,14 +41,16 @@ export class LoginComponent {
 		this.authenticationService.login(auth).subscribe(
 			result => {
         //OVAKO DOBIJEM TOKEN
-        localStorage.setItem('email',auth.username);
-        localStorage.setItem('user', JSON.stringify(result));
-        const item = localStorage.getItem('user');
+        //console.log(result.headers)
+        sessionStorage.setItem('email',auth.username);
+        sessionStorage.setItem('user', JSON.stringify(result));
+        const item = sessionStorage.getItem('user');
 		    const decodedItem = JSON.parse(item!);
-        localStorage.setItem('accessToken', decodedItem.accessToken);
+        sessionStorage.setItem('accessToken', decodedItem.accessToken);
         const jwt: JwtHelperService = new JwtHelperService();
         const info = jwt.decodeToken(decodedItem.accessToken);
-        localStorage.setItem('uloga', info['uloga']);
+        //console.log(info);
+        sessionStorage.setItem('uloga', info['uloga']);
         //console.log(info['uloga']);
 				this.router.navigate(['']);
         

@@ -59,6 +59,14 @@ public class SertifikatService implements ServiceInterface<Sertifikat>{
         return sertifikatRepository.findByAlias(alias);
     }
 
+    public Sertifikat findAliasMusterija(String alias){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Korisnik korisnik = (Korisnik) auth.getPrincipal();
+        korisnik = korisnikRepository.findByEmail(korisnik.getEmail());
+        return sertifikatRepository.findByAliasAndMusterija(alias,korisnik);
+    }
+
+
     @Override
     public Sertifikat create(Sertifikat entity) {
         return null;

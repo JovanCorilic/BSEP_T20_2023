@@ -16,7 +16,7 @@ export class NavbarComponent {
   ){}
 
   getRole():string{
-    const item = localStorage.getItem('user');
+    const item = sessionStorage.getItem('user');
 
     if(!item){
       return "";
@@ -66,16 +66,16 @@ export class NavbarComponent {
 
   logOut() {
     /*
-    localStorage.removeItem('user');
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('uloga');
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('uloga');
     
     this.router.navigate(['']);*/
     this.authenticationService.logout().subscribe(
 			result => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('uloga');
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('accessToken');
+        sessionStorage.removeItem('uloga');
 				
 				this.router.navigate(['']);
 			}

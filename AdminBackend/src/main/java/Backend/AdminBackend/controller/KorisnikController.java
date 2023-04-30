@@ -16,28 +16,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping(value = "/korisnik", produces = MediaType.APPLICATION_JSON_VALUE)
 public class KorisnikController {
     @Autowired
     private CustomUserDetailsService userDetailsService;
     private final KorisnikMapper korisnikMapper;
 
-    @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
+    @PreAuthorize("hasAuthority('RAD_SA_ADMINOM')")
     @PostMapping("/napraviAdmina")
     public ResponseEntity<?> napraviAdmina(@RequestBody MusterijaDTO musterijaDTO){
         userDetailsService.pravljenjeAdminNaloga(musterijaDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('RAD_SA_MUSTERIJOM')")
     @GetMapping("/napraviMusteriju/{email}")
     public ResponseEntity<?> potvrdiMusterijuOdStraneAdmina(@PathVariable String email){
         userDetailsService.potvrdiMusteriju(email);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('RAD_SA_MUSTERIJOM')")
     @GetMapping("/sveMusterije")
     public ResponseEntity<List<KorisnikDTO>> SveMusterije(){
         List<Korisnik>lista = userDetailsService.SveMusterije();

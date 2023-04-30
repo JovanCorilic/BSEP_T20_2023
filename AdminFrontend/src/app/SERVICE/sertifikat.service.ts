@@ -31,6 +31,10 @@ export class SertifikatService{
     public dajSertifikat(alias:string):Observable<Sertifikat>{
         return this.http.get<Sertifikat>(this.path+"/dajSertifikat"+`/${alias}`);
     }
+
+    public dajSertifikatMusterija(alias:string):Observable<Sertifikat>{
+        return this.http.get<Sertifikat>(this.path+"/dajSertifikatMusterija"+`/${alias}`);
+    }
     
     public createSertifikat(zahtev:ZahtevZaSertifikat){
         return this.http.post(this.path+"/napravi",zahtev);

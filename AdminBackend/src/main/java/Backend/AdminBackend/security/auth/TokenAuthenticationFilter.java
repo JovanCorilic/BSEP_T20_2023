@@ -32,6 +32,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         String username;
         String authToken = tokenUtils.getToken(httpServletRequest);
 
+        //String fingerprint = tokenUtils.getFingerprintFromToken(authToken);
+        String fingerprint = tokenUtils.getFingerprintFromCookie(httpServletRequest);
+
         if (authToken != null) {
             // uzmi username iz tokena
             username = tokenUtils.getUsernameFromToken(authToken);
@@ -41,7 +44,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                 // proveri da li je prosledjeni token validan
-                if (tokenUtils.validateToken(authToken, userDetails)) {
+                if (tokenUtils.validateToken(authToken, userDetails,fingerprint)) {
                     // kreiraj autentifikaciju
                     TokenBasedAuthentication authentication = new TokenBasedAuthentication(userDetails);
                     authentication.setToken(authToken);

@@ -26,6 +26,10 @@ export class ZahtevZaSertifikatService{
         return this.http.get<ZahtevZaSertifikat>(this.path+"/dajZahtevZaSertifikat"+`/${id}`);
     }
 
+    public dajZahtevZaSertifikatMusterija(id:number):Observable<ZahtevZaSertifikat>{
+        return this.http.get<ZahtevZaSertifikat>(this.path+"/dajZahtevZaSertifikatMusterija"+`/${id}`);
+    }
+
     public dajListuZahtevaZaSertifikat():Observable<ZahtevZaSertifikat[]>{
         return this.http.get<ZahtevZaSertifikat[]>(this.path+"/dajListuZahtevaZaSertifikat");
     }

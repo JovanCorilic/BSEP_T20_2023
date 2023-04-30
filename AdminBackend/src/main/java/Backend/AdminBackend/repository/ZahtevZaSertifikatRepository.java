@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ZahtevZaSertifikatRepository extends JpaRepository<ZahtevZaSertifikat,Integer> {
     List<ZahtevZaSertifikat> findAllByMusterijaIs(Korisnik korisnik);
+
+    ZahtevZaSertifikat findByIdAndMusterija(Integer id,Korisnik musterija);
 }

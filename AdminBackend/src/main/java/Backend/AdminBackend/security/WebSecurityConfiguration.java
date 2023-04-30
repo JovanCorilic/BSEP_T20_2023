@@ -89,6 +89,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                         BasicAuthenticationFilter.class);
         // zbog jednostavnosti primera
         http.csrf().disable();
+
+        // Aktiviramo ugrađenu zaštitu od XSS napada da browser ne bi izvršavao maliciozne skripte
+        http
+            .headers()
+            .xssProtection()
+            .and()
+            .contentSecurityPolicy("script-src 'self'");
     }
 
     // Generalna bezbednost aplikacije

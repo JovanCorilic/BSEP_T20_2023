@@ -10,8 +10,10 @@ import Backend.AdminBackend.security.TokenUtils;
 import Backend.AdminBackend.service.CustomUserDetailsService;
 import Backend.AdminBackend.service.ZahtevZaSertifikatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +25,7 @@ import org.springframework.http.HttpStatus;
 
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
     @Autowired
@@ -48,15 +50,25 @@ public class AuthenticationController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        // Kreiraj token za tog korisnika
         Korisnik user = (Korisnik) authentication.getPrincipal();
-        String jwt = tokenUtils.generateToken(user.getEmail(),user.getUloge().get(0).getAuthority());
+        String fingerprint = tokenUtils.generateFingerprint();
+        String jwt = tokenUtils.generateToken(user.getEmail(),user.getUloge().get(0).getAuthority(),fingerprint);
         int expiresIn = tokenUtils.getExpiredIn();
 
+        // Kreiraj cookie
+        // String cookie = "__Secure-Fgp=" + fingerprint + "; SameSite=Strict; HttpOnly; Path=/; Secure";  // kasnije mozete probati da postavite i ostale atribute, ali tek nakon sto podesite https
+        String cookie = "Fingerprint=" + fingerprint + "; HttpOnly; Path=/";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Set-Cookie", cookie);
+
         // Vrati token kao odgovor na uspesnu autentifikaciju
-        return ResponseEntity.ok(new UserTokenStateDTO(jwt, expiresIn));
+        return ResponseEntity.ok().headers(headers).body(new UserTokenStateDTO(jwt, expiresIn));
     }
 
-    @GetMapping(value = "/log-out", produces = MediaType.TEXT_PLAIN_VALUE)
+    @PreAuthorize("hasAuthority('LOGOUT')")
+    @GetMapping( "/log-out")
     public ResponseEntity<?> logoutUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         SecurityContextHolder.clearContext();

@@ -10,10 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -81,7 +78,11 @@ public class Korisnik implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.uloge;
+        List<GrantedAuthority> permissions = new ArrayList<>(20);
+        for (Uloga role : this.uloge) {
+            permissions.addAll(role.getPrivilegijes());
+        }
+        return permissions;
     }
 
     @Override

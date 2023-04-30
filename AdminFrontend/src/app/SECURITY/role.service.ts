@@ -15,7 +15,7 @@ export class RoleGuard implements CanActivate {
 
 	canActivate(route: ActivatedRouteSnapshot): boolean {
 		const expectedRoles: string = route.data.expectedRoles;
-		const item = localStorage.getItem('user');
+		const item = sessionStorage.getItem('user');
 		const jwt: JwtHelperService = new JwtHelperService();
 
 

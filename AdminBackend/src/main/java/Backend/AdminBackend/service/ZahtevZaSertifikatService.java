@@ -134,6 +134,13 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
         return zahtevZaSertifikatRepository.findById(id).orElse(null);
     }
 
+    public ZahtevZaSertifikat findOneMusterija(Integer id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Korisnik korisnik = (Korisnik) auth.getPrincipal();
+        korisnik = korisnikRepository.findByEmail(korisnik.getEmail());
+        return zahtevZaSertifikatRepository.findByIdAndMusterija(id,korisnik);
+    }
+
     @Override
     public ZahtevZaSertifikat create(ZahtevZaSertifikat entity){
 

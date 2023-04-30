@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping(value = "/zahtevZaSertifikat", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ZahtevZaSertifikatController {
     @Autowired
@@ -28,7 +28,7 @@ public class ZahtevZaSertifikatController {
         this.zahtevZaSertifikatMapper = new ZahtevZaSertifikatMapper();
     }
 
-    @PreAuthorize("hasRole('ROLE_MUSTERIJA')")
+    @PreAuthorize("hasAuthority('OPERACIJE_ZAHTEVA_ZA_SERTIFIKAT_MUSTERIJA')")
     @PutMapping("/potvrdaZahteva/{token}")
     public ResponseEntity<Void> potvrdaZahteva(@PathVariable String token){
         try {
@@ -39,7 +39,7 @@ public class ZahtevZaSertifikatController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_MUSTERIJA')")
+    @PreAuthorize("hasAuthority('OPERACIJE_ZAHTEVA_ZA_SERTIFIKAT_MUSTERIJA')")
     @PostMapping("/createZahtevZaSertifikat")
     public ResponseEntity<?> createZahtevZaSertifikat(@RequestBody ZahtevZaSertifikatDTO zahtevZaSertifikatDTO){
         ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatMapper.toModel(zahtevZaSertifikatDTO);
@@ -49,7 +49,7 @@ public class ZahtevZaSertifikatController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_MUSTERIJA')")
+    @PreAuthorize("hasAuthority('OPERACIJE_ZAHTEVA_ZA_SERTIFIKAT_MUSTERIJA')")
     @PutMapping("/updateZahtevZaSertifikat")
     public ResponseEntity<?> updateZahtevZaSertifikat(@RequestBody ZahtevZaSertifikatDTO zahtevZaSertifikatDTO){
         ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatMapper.toModel(zahtevZaSertifikatDTO);
@@ -57,14 +57,21 @@ public class ZahtevZaSertifikatController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_MUSTERIJA','ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('OPERACIJE_SERTIFIKATA_ADMIN')")
     @GetMapping("/dajZahtevZaSertifikat/{id}")
     public ResponseEntity<ZahtevZaSertifikatDTO> dajZahtevZaSertifikat(@PathVariable Integer id){
         ZahtevZaSertifikat zahtevZaSertifikat  = zahtevZaSertifikatService.findOne(id);
         return new ResponseEntity<>(zahtevZaSertifikatMapper.toDto(zahtevZaSertifikat),HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_MUSTERIJA')")
+    @PreAuthorize("hasAuthority('OPERACIJE_ZAHTEVA_ZA_SERTIFIKAT_MUSTERIJA')")
+    @GetMapping("/dajZahtevZaSertifikatMusterija/{id}")
+    public ResponseEntity<ZahtevZaSertifikatDTO> dajZahtevZaSertifikatMusterija(@PathVariable Integer id){
+        ZahtevZaSertifikat zahtevZaSertifikat  = zahtevZaSertifikatService.findOneMusterija(id);
+        return new ResponseEntity<>(zahtevZaSertifikatMapper.toDto(zahtevZaSertifikat),HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('OPERACIJE_ZAHTEVA_ZA_SERTIFIKAT_MUSTERIJA')")
     @GetMapping("/dajListuZahtevaZaSertifikatMoji")
     public ResponseEntity<List<ZahtevZaSertifikatDTO>> dajListuZahtevaZaSertifikatMoji(){
         List<ZahtevZaSertifikat> lista = zahtevZaSertifikatService.findAllZaMusteriju();
@@ -74,7 +81,7 @@ public class ZahtevZaSertifikatController {
         return new ResponseEntity<>(listaDTO, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('OPERACIJE_SERTIFIKATA_ADMIN')")
     @GetMapping("/dajListuZahtevaZaSertifikat")
     public ResponseEntity<List<ZahtevZaSertifikatDTO>> dajListuZahtevaZaSertifikat(){
         List<ZahtevZaSertifikat> lista = zahtevZaSertifikatService.findAll();

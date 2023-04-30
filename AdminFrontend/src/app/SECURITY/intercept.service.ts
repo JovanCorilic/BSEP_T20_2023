@@ -8,17 +8,18 @@ export class Interceptor implements HttpInterceptor {
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-		const item = localStorage.getItem('accessToken');
+		const item = sessionStorage.getItem('accessToken');
 		//const decodedItem = JSON.parse(item);
 
 		if (item) {
-			const cloned = req.clone({
-				headers: req.headers.set('Authorization','Bearer '+item)
-			});
-
-			return next.handle(cloned);
-		} else {
-			return next.handle(req);
-		}
+			req = req.clone({
+				setHeaders: {
+				  Authorization: `Bearer ${item}`
+				},
+				withCredentials: true
+			  });
+			}
+		
+		return next.handle(req);
 	}
 }

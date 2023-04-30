@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Sertifikat } from 'src/app/MODEL/Sertifikat';
 import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
 
@@ -27,11 +28,23 @@ export class ViewSertifikatComponent {
   }
 
   ngOnInit():void{
-    this.sertifikatService.dajSertifikat(this.alias).subscribe(
-      res=>{
-        this.sertifikat=res;
-      }
-    )
+    const item = sessionStorage.getItem('user');
+		const jwt: JwtHelperService = new JwtHelperService();
+		const decodedItem = JSON.parse(item!);
+    const info = jwt.decodeToken(decodedItem.accessToken);
+    if (info['uloga'] === "ROLE_MUSTERIJA"){
+      this.sertifikatService.dajSertifikatMusterija(this.alias).subscribe(
+        res=>{
+          this.sertifikat=res;
+        }
+      )
+    }else if (info['uloga'] === "ROLE_ADMIN"){
+      this.sertifikatService.dajSertifikat(this.alias).subscribe(
+        res=>{
+          this.sertifikat=res;
+        }
+      )
+    }
   }
 
   povlacenjeSertifikata(){

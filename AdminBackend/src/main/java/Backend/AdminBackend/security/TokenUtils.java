@@ -2,6 +2,7 @@ package Backend.AdminBackend.security;
 
 import Backend.AdminBackend.model.Korisnik;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -9,8 +10,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.DatatypeConverter;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 // Utility klasa za rad sa JSON Web Tokenima
 @Component
@@ -24,13 +35,17 @@ public class TokenUtils {
     @Value("somesecret")
     public String SECRET;
 
-    // Period vazenja
+    // Period vazenja (900000 - 15 min)
     @Value("1800000") // 5h
     private int EXPIRES_IN;
 
     // Naziv headera kroz koji ce se prosledjivati JWT u komunikaciji server-klijent
     @Value("Authorization")
     private String AUTH_HEADER;
+
+    // Naziv headera kroz koji ce se prosledjivati cookie u komunikaciji server-klijent
+    @Value("Cookie")
+    private String COOKIE_HEADER;
 
     // Moguce je generisati JWT za razlicite klijente (npr. web i mobilni klijenti nece imati isto trajanje JWT, JWT za mobilne klijente ce trajati duze jer se mozda aplikacija redje koristi na taj nacin)
     private static final String AUDIENCE_UNKNOWN = "unknown";
@@ -41,8 +56,14 @@ public class TokenUtils {
     // Algoritam za potpisivanje JWT
     private SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
 
+    private final SecureRandom secureRandom = new SecureRandom();
+
     // Funkcija za generisanje JWT token
-    public String generateToken(String username,String uloga) {
+    public String generateToken(String username,String uloga, String fingerprint) {
+        // moguce je postavljanje proizvoljnih podataka u telo JWT tokena pozivom funkcije .claim("key", value), npr. .claim("role", user.getRole())
+
+        // Kreiranje tokena sa fingerprint-om
+        String fingerprintHash = generateFingerprintHash(fingerprint);
         return Jwts.builder()
                 .setIssuer(APP_NAME)
                 .setSubject(username)
@@ -50,8 +71,29 @@ public class TokenUtils {
                 .setIssuedAt(new Date())
                 .setExpiration(generateExpirationDate())
                 .claim("uloga",uloga)
+                .claim("userFingerprint", fingerprintHash)
                 // .claim("key", value) //moguce je postavljanje proizvoljnih podataka u telo JWT tokena
-                .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
+                .signWith(SIGNATURE_ALGORITHM, SECRET)
+                .compact();
+    }
+
+    public String generateFingerprint() {
+        // Generisanje random string-a koji ce predstavljati fingerprint za korisnika
+        byte[] randomFgp = new byte[50];
+        this.secureRandom.nextBytes(randomFgp);
+        return DatatypeConverter.printHexBinary(randomFgp);
+    }
+
+    private String generateFingerprintHash(String userFingerprint) {
+        // Generisanje hash-a za fingerprint koji stavljamo u token (sprecavamo XSS da procita fingerprint i sam postavi ocekivani cookie)
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] userFingerprintDigest = digest.digest(userFingerprint.getBytes(StandardCharsets.UTF_8));
+            return DatatypeConverter.printHexBinary(userFingerprintDigest);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     private String generateAudience() {
@@ -94,13 +136,83 @@ public class TokenUtils {
                 && (!(this.isTokenExpired(token)) || this.ignoreTokenExpiration(token)));
     }
 
-    // Funkcija za validaciju JWT tokena
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    // ============= Funkcije za validaciju JWT tokena =============
+
+    /**
+     * Funkcija za validaciju JWT tokena.
+     *
+     * @param token       JWT token.
+     * @param userDetails Informacije o korisniku koji je vlasnik JWT tokena.
+     * @return Informacija da li je token validan ili ne.
+     */
+    public Boolean validateToken(String token, UserDetails userDetails, String fingerprint) {
         Korisnik user = (Korisnik) userDetails;
         final String username = getUsernameFromToken(token);
         final Date created = getIssuedAtDateFromToken(token);
 
-        return (username != null && username.equals(((Korisnik) userDetails).getUsername()));
+        // Token je validan kada:
+        boolean isUsernameValid = username != null // korisnicko ime nije null
+                && username.equals(userDetails.getUsername()); // korisnicko ime iz tokena se podudara sa korisnickom imenom koje pise u bazi
+                //&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()); // nakon kreiranja tokena korisnik nije menjao svoju lozinku
+
+        // Validiranje fingerprint-a
+        System.out.println("FGP ===> " + fingerprint);
+        boolean isFingerprintValid = false;
+        boolean isAlgorithmValid = false;
+        if (fingerprint != null) {
+            isFingerprintValid = validateTokenFingerprint(fingerprint, token);
+            isAlgorithmValid = SIGNATURE_ALGORITHM.getValue().equals(getAlgorithmFromToken(token));
+        }
+        return isUsernameValid && isFingerprintValid && isAlgorithmValid;
+    }
+
+    private String getAlgorithmFromToken(String token) {
+        String algorithm;
+        try {
+            algorithm = Jwts.parser()
+                    .setSigningKey(SECRET)
+                    .parseClaimsJws(token)
+                    .getHeader()
+                    .getAlgorithm();
+        } catch (ExpiredJwtException ex) {
+            throw ex;
+        } catch (Exception e) {
+            algorithm = null;
+        }
+        return algorithm;
+    }
+
+    private boolean validateTokenFingerprint(String fingerprint, String token) {
+        // Hesiranje fingerprint-a radi poređenja sa hesiranim fingerprint-om u tokenu
+        String fingerprintHash = generateFingerprintHash(fingerprint);
+        String fingerprintFromToken = getFingerprintFromToken(token);
+        return fingerprintFromToken.equals(fingerprintHash);
+    }
+
+    public String getFingerprintFromToken(String token) {
+        String fingerprint;
+        try {
+            final Claims claims = this.getAllClaimsFromToken(token);
+            fingerprint = claims.get("userFingerprint").toString();
+        } catch (ExpiredJwtException ex) {
+            throw ex;
+        } catch (Exception e) {
+            fingerprint = null;
+        }
+        return fingerprint;
+    }
+
+    public String getFingerprintFromCookie(HttpServletRequest request) {
+        String userFingerprint = null;
+        if (request.getCookies() != null && request.getCookies().length > 0) {
+            List<Cookie> cookies = Arrays.stream(request.getCookies()).collect(Collectors.toList());
+            Optional<Cookie> cookie = cookies.stream().filter(c -> "Fingerprint".equals(c.getName())).findFirst();
+
+            if (cookie.isPresent()) {
+                userFingerprint = cookie.get().getValue();
+            }
+        }
+        return userFingerprint;
     }
 
     public String getUsernameFromToken(String token) {
@@ -147,6 +259,11 @@ public class TokenUtils {
         return expiration;
     }
 
+    /**
+     * Funkcija za preuzimanje perioda važenja tokena.
+     *
+     * @return Period važenja tokena.
+     */
     public int getExpiredIn() {
         return EXPIRES_IN;
     }
@@ -164,10 +281,23 @@ public class TokenUtils {
         return null;
     }
 
+    /**
+     * Funkcija za preuzimanje sadržaja AUTH_HEADER-a iz zahteva.
+     *
+     * @param request HTTP zahtev.
+     * @return Sadrzaj iz AUTH_HEADER-a.
+     */
     public String getAuthHeaderFromHeader(HttpServletRequest request) {
         return request.getHeader(AUTH_HEADER);
     }
 
+    /**
+     * Funkcija proverava da li je lozinka korisnika izmenjena nakon izdavanja tokena.
+     *
+     * @param created           Datum kreiranja tokena.
+     * @param lastPasswordReset Datum poslednje izmene lozinke.
+     * @return Informacija da li je token kreiran pre poslednje izmene lozinke ili ne.
+     */
     private Boolean isCreatedBeforeLastPasswordReset(Date created, Date lastPasswordReset) {
         return (lastPasswordReset != null && created.before(lastPasswordReset));
     }

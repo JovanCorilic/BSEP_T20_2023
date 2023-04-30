@@ -10,4 +10,6 @@ public interface SertifikatRepository extends JpaRepository<Sertifikat,Integer> 
     Sertifikat findByAlias(String alias);
 
     List<Sertifikat> findAllByMusterija(Korisnik korisnik);
+
+    Sertifikat findByAliasAndMusterija(String id, Korisnik musterija);
 }

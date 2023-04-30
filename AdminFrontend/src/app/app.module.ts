@@ -24,6 +24,10 @@ import { PotvrdaEmailRegistracijeComponent } from './SECURITY/potvrda-email-regi
 import { PotvrdaEmailAdminaKreacijaComponent } from './SECURITY/potvrda-email-admina-kreacija/potvrda-email-admina-kreacija.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AuthenticationService } from './SERVICE/authentication.service';
+import { KorisnikService } from './SERVICE/korisnik.service';
+import { SertifikatService } from './SERVICE/sertifikat.service';
+import { ZahtevZaSertifikatService } from './SERVICE/zahtevZaSertifikat.service';
 
 @NgModule({
   declarations: [
@@ -54,7 +58,17 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     NgbModule,
     MatCheckboxModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: Interceptor, 
+      multi: true
+    },
+    AuthenticationService,
+    KorisnikService,
+    SertifikatService,
+    ZahtevZaSertifikatService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

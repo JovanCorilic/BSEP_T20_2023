@@ -61,32 +61,65 @@ export class ViewZahtevZaSertifikatComponent {
   }
 //this.createForm.controls.emailPotvrda.setValue(this.zahtev.emailPotvrda);
   ngOnInit():void{
-    this.zahtevZaSertifikatService.dajZahtevZaSertifikat(Number.parseInt(this.id)).subscribe(
-      res=>{
-        this.zahtev=res;
-        if(this.zahtev.namena==="Korisnik"){
-          this.pokazivanje=1;
-          this.createForm.controls.email.setValue(this.zahtev.zaKorisnika.email);
-          this.createForm.controls.ime.setValue(this.zahtev.zaKorisnika.ime);
-          this.createForm.controls.prezime.setValue(this.zahtev.zaKorisnika.prezime);
+    const item = sessionStorage.getItem('user');
+		const jwt: JwtHelperService = new JwtHelperService();
+		const decodedItem = JSON.parse(item!);
+    const info = jwt.decodeToken(decodedItem.accessToken);
+    if (info['uloga'] === "ROLE_MUSTERIJA"){
+      this.zahtevZaSertifikatService.dajZahtevZaSertifikatMusterija(Number.parseInt(this.id)).subscribe(
+        res=>{
+          this.zahtev=res;
+          if(this.zahtev.namena==="Korisnik"){
+            this.pokazivanje=1;
+            this.createForm.controls.email.setValue(this.zahtev.zaKorisnika.email);
+            this.createForm.controls.ime.setValue(this.zahtev.zaKorisnika.ime);
+            this.createForm.controls.prezime.setValue(this.zahtev.zaKorisnika.prezime);
+          }
+          else if(this.zahtev.namena==="Moja kuca aplikacija"){
+            this.pokazivanje=2;
+            this.createForm.controls.serijskiBroj.setValue(this.zahtev.zaMojaKucaAplikacija.serijskiBroj);
+          }
+          else if(this.zahtev.namena==="Uredjaj"){
+            this.pokazivanje=3;
+            this.createForm.controls.naziv.setValue(this.zahtev.zaUredjaj.naziv);
+            this.createForm.controls.svrha.setValue(this.zahtev.zaUredjaj.svrha);
+            this.createForm.controls.serijskiBroj.setValue(this.zahtev.zaUredjaj.serijskiBroj);
+          }
+          this.createForm.controls.startDate.setValue(formatDate(this.zahtev.startDate,'yyyy-MM-ddThh:mm',this.locale));
+          this.createForm.controls.endDate.setValue(formatDate(this.zahtev.endDate,'yyyy-MM-ddThh:mm',this.locale));
+          this.createForm.controls.namena.setValue(this.zahtev.namena);
+          this.createForm.controls.emailPotvrda.setValue(this.zahtev.emailPotvrda);
+        
         }
-        else if(this.zahtev.namena==="Moja kuca aplikacija"){
-          this.pokazivanje=2;
-          this.createForm.controls.serijskiBroj.setValue(this.zahtev.zaMojaKucaAplikacija.serijskiBroj);
+      )
+    }else if(info['uloga'] === "ROLE_ADMIN"){
+      this.zahtevZaSertifikatService.dajZahtevZaSertifikat(Number.parseInt(this.id)).subscribe(
+        res=>{
+          this.zahtev=res;
+          if(this.zahtev.namena==="Korisnik"){
+            this.pokazivanje=1;
+            this.createForm.controls.email.setValue(this.zahtev.zaKorisnika.email);
+            this.createForm.controls.ime.setValue(this.zahtev.zaKorisnika.ime);
+            this.createForm.controls.prezime.setValue(this.zahtev.zaKorisnika.prezime);
+          }
+          else if(this.zahtev.namena==="Moja kuca aplikacija"){
+            this.pokazivanje=2;
+            this.createForm.controls.serijskiBroj.setValue(this.zahtev.zaMojaKucaAplikacija.serijskiBroj);
+          }
+          else if(this.zahtev.namena==="Uredjaj"){
+            this.pokazivanje=3;
+            this.createForm.controls.naziv.setValue(this.zahtev.zaUredjaj.naziv);
+            this.createForm.controls.svrha.setValue(this.zahtev.zaUredjaj.svrha);
+            this.createForm.controls.serijskiBroj.setValue(this.zahtev.zaUredjaj.serijskiBroj);
+          }
+          this.createForm.controls.startDate.setValue(formatDate(this.zahtev.startDate,'yyyy-MM-ddThh:mm',this.locale));
+          this.createForm.controls.endDate.setValue(formatDate(this.zahtev.endDate,'yyyy-MM-ddThh:mm',this.locale));
+          this.createForm.controls.namena.setValue(this.zahtev.namena);
+          this.createForm.controls.emailPotvrda.setValue(this.zahtev.emailPotvrda);
+        
         }
-        else if(this.zahtev.namena==="Uredjaj"){
-          this.pokazivanje=3;
-          this.createForm.controls.naziv.setValue(this.zahtev.zaUredjaj.naziv);
-          this.createForm.controls.svrha.setValue(this.zahtev.zaUredjaj.svrha);
-          this.createForm.controls.serijskiBroj.setValue(this.zahtev.zaUredjaj.serijskiBroj);
-        }
-        this.createForm.controls.startDate.setValue(formatDate(this.zahtev.startDate,'yyyy-MM-ddThh:mm',this.locale));
-        this.createForm.controls.endDate.setValue(formatDate(this.zahtev.endDate,'yyyy-MM-ddThh:mm',this.locale));
-        this.createForm.controls.namena.setValue(this.zahtev.namena);
-        this.createForm.controls.emailPotvrda.setValue(this.zahtev.emailPotvrda);
-      
-      }
-    )
+      )
+    }
   }
 
   pokazivanjeElemenata(broj:any){
@@ -147,7 +180,7 @@ export class ViewZahtevZaSertifikatComponent {
   }
 
   getRole():string{
-    const item = localStorage.getItem('user');
+    const item = sessionStorage.getItem('user');
 
     if(!item){
       return "";
