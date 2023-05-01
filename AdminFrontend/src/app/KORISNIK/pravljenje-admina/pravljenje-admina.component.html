@@ -17,9 +17,15 @@
             <small style="color: red;"
                 *ngIf="adminRegisterForm.controls.lozinka.touched && adminRegisterForm.controls.lozinka.errors?.required">
                 Lozinka je potrebna</small>
+                <small style="color: red;"
+                *ngIf="adminRegisterForm.controls.lozinka.touched && adminRegisterForm.controls.lozinka.errors?.minlength">
+                Lozinka treba da ima najmanje 12 znaka.</small>
             <small style="color: red;"
-            *ngIf="adminRegisterForm.controls.lozinka.touched && adminRegisterForm.controls.lozinka.errors?.minlength">
-            Lozinka treba da ima najmanje 4 znaka</small>
+                *ngIf="adminRegisterForm.controls.lozinka.touched && adminRegisterForm.controls.lozinka.errors?.daLiImaBroj">
+                Lozinka treba da ima barem jedan broj.</small>
+            <small style="color: red;"
+                *ngIf="adminRegisterForm.controls.lozinka.touched && adminRegisterForm.controls.lozinka.errors?.daLiImaSpecijalanKarakter">
+                Lozinka treba da ima barem jedan specijalan karakter.</small>
         </div>
         <div [ngClass]="['form-group','block']">
             <p>Ime</p>

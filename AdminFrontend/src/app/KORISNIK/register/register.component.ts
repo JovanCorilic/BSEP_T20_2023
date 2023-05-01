@@ -40,17 +40,6 @@ export class RegisterComponent {
     )
   }
 
-  notANumber(): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      const value = control.value
-      let nV = value
-      if (typeof value == 'string') {
-        nV = value.replace(',', '.')
-      }
-      return (Number.isNaN(Number(nV)) && !control.pristine) ? {notANumber: true} : null;
-    };
-  }
-
   daLiImaBroj(): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} | null => {
       const value = control.value
