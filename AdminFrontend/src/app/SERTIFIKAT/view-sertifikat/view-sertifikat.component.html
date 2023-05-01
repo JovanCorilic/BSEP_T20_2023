@@ -4,9 +4,12 @@
     <p>
         Alias : {{sertifikat.alias}}<br>
         Namena : {{sertifikat.namena}}<br>
-        Start Date : {{sertifikat.startDate}}<br>
-        End Date : {{sertifikat.endDate}}<br>
+        Datum početka : {{sertifikat.startDate}}<br>
+        Datum završetka : {{sertifikat.endDate}}<br>
         Subject Email : {{sertifikat.subjectEmail}}<br>
+        Organizaciona Jedinica : {{sertifikat.organizacionaJedinica}}<br>
+        Naziv Organizacije : {{sertifikat.nazivOrganizacije}}<br>
+        Skraceni Naziv Zemlje : {{sertifikat.skraceniNazivZemlje}}<br>
     </p>
     <h3>Issuer</h3>
     <p>
@@ -48,9 +51,9 @@
             Serijski Broj : {{sertifikat.zaUredjaj.serijskiBroj}}
         </p>
     </div>
-    <div *ngIf="sertifikat.namena==='Admin aplikacija'">
+    <div *ngIf="sertifikat.namena==='Za mene'">
         <h3>
-            Admin aplikacija sertifikat
+            Za mene
         </h3>
     </div>
     <button class="button is-outlined" (click)="natrag()">Natrag</button>&nbsp;&nbsp;

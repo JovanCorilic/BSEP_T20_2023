@@ -102,13 +102,11 @@ public class PravljenjeSertifikata {
         // klasa X500NameBuilder pravi X500Name objekat koji predstavlja podatke o vlasniku
         X500NameBuilder builder = new X500NameBuilder(BCStyle.INSTANCE);
 
-
         switch (sertifikat.getNamena()) {
             case "Korisnik":
-                builder.addRDN(BCStyle.CN, sertifikat.getZaKorisnika().getIme() + " " + sertifikat.getZaKorisnika().getPrezime());
-                builder.addRDN(BCStyle.SURNAME, sertifikat.getZaKorisnika().getPrezime());
-                builder.addRDN(BCStyle.GIVENNAME, sertifikat.getZaKorisnika().getIme());
-                builder.addRDN(BCStyle.EmailAddress, sertifikat.getZaKorisnika().getEmail());
+                builder.addRDN(BCStyle.DESCRIPTION, sertifikat.getZaKorisnika().getIme() + " "
+                        + sertifikat.getZaKorisnika().getPrezime()
+                        + " "+sertifikat.getZaKorisnika().getEmail());
                 builder.addRDN(BCStyle.UID, sertifikat.getZaKorisnika().getId() + "");
                 break;
             case "Moja kuca aplikacija":
@@ -122,13 +120,18 @@ public class PravljenjeSertifikata {
                 builder.addRDN(BCStyle.UID, sertifikat.getZaUredjaj().getId() + "");
                 break;
             default:
-                builder.addRDN(BCStyle.UID, "1");
+                builder.addRDN(BCStyle.UID, sertifikat.getMusterija().getId()+"");
                 break;
         }
-        builder.addRDN(BCStyle.BUSINESS_CATEGORY, sertifikat.getNamena());
-        builder.addRDN(BCStyle.O, "UNS-FTN");
-        builder.addRDN(BCStyle.OU, "Katedra za informatiku");
-        builder.addRDN(BCStyle.C, "RS");
+
+        builder.addRDN(BCStyle.CN, sertifikat.getMusterija().getIme() + " "+sertifikat.getMusterija().getPrezime());
+        builder.addRDN(BCStyle.SURNAME, sertifikat.getMusterija().getPrezime());
+        builder.addRDN(BCStyle.GIVENNAME, sertifikat.getMusterija().getIme());
+
+        //builder.addRDN(BCStyle.BUSINESS_CATEGORY, sertifikat.getNamena());
+        builder.addRDN(BCStyle.O, sertifikat.getNazivOrganizacije());
+        builder.addRDN(BCStyle.OU, sertifikat.getOrganizacionaJedinica());
+        builder.addRDN(BCStyle.C, sertifikat.getSkraceniNazivZemlje());
 
         builder.addRDN(BCStyle.E, sertifikat.getSubjectEmail());
 

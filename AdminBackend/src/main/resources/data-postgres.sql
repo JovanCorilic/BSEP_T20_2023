@@ -1,6 +1,6 @@
-INSERT into korisnik(user_id,email,ime,lozinka, prezime, potvrdjen,odobren_od_admina)values (1,'1','1','swPQNMuG2bPB+gomyKJuuAnliiuoDx6k+5vTjGx9lrl2mr6UFFeXIZCwPWJYBnVMo3EE1xUYBXNg/kxRt81fV6k=n4SHMZCgPEL1yLSz/Qm0J7a3e7kkD6/muGiLE0Fckg==','1', true,true)
-INSERT into korisnik(user_id,email,ime,lozinka, prezime, potvrdjen,odobren_od_admina)values (2,'2','1','swPQNMuG2bPB+gomyKJuuAnliiuoDx6k+5vTjGx9lrl2mr6UFFeXIZCwPWJYBnVMo3EE1xUYBXNg/kxRt81fV6k=n4SHMZCgPEL1yLSz/Qm0J7a3e7kkD6/muGiLE0Fckg==','1', true,true)
-INSERT into korisnik(user_id,email,ime,lozinka, prezime, potvrdjen,odobren_od_admina)values (3,'3','1','swPQNMuG2bPB+gomyKJuuAnliiuoDx6k+5vTjGx9lrl2mr6UFFeXIZCwPWJYBnVMo3EE1xUYBXNg/kxRt81fV6k=n4SHMZCgPEL1yLSz/Qm0J7a3e7kkD6/muGiLE0Fckg==','1', true,true)
+INSERT into korisnik(user_id,email,ime,lozinka, prezime, potvrdjen,odobren_od_admina)values (1,'1','Jovan','swPQNMuG2bPB+gomyKJuuAnliiuoDx6k+5vTjGx9lrl2mr6UFFeXIZCwPWJYBnVMo3EE1xUYBXNg/kxRt81fV6k=n4SHMZCgPEL1yLSz/Qm0J7a3e7kkD6/muGiLE0Fckg==','Šćepić', true,true)
+INSERT into korisnik(user_id,email,ime,lozinka, prezime, potvrdjen,odobren_od_admina)values (2,'2','Goran','swPQNMuG2bPB+gomyKJuuAnliiuoDx6k+5vTjGx9lrl2mr6UFFeXIZCwPWJYBnVMo3EE1xUYBXNg/kxRt81fV6k=n4SHMZCgPEL1yLSz/Qm0J7a3e7kkD6/muGiLE0Fckg==','Nikolić', true,true)
+INSERT into korisnik(user_id,email,ime,lozinka, prezime, potvrdjen,odobren_od_admina)values (3,'3','Siniša','swPQNMuG2bPB+gomyKJuuAnliiuoDx6k+5vTjGx9lrl2mr6UFFeXIZCwPWJYBnVMo3EE1xUYBXNg/kxRt81fV6k=n4SHMZCgPEL1yLSz/Qm0J7a3e7kkD6/muGiLE0Fckg==','Pantić', true,true)
 
 insert into uloga(id,name)values(1,'ROLE_ADMIN')
 insert into uloga(id,name)values(2,'ROLE_SUPERADMIN')

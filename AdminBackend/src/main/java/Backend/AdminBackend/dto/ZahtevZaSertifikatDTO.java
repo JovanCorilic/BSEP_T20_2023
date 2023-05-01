@@ -17,8 +17,12 @@ public class ZahtevZaSertifikatDTO {
     private Date startDate;
     private Date endDate;
     private String namena;
-
     private String emailPotvrda;
+
+    private String organizacionaJedinica;
+    private String nazivOrganizacije;
+    private String skraceniNazivZemlje;
+
     private Boolean potvrdjenZahtev;
     private Boolean prihvacen;
     private ZaKorisnikaDTO zaKorisnika;

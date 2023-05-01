@@ -37,7 +37,8 @@ public class SertifikatMapper implements MapperInterface<Sertifikat, SertifikatD
         }
 
         return new SertifikatDTO(entity.getAlias(), entity.getNamena(), entity.getStartDate(),entity.getEndDate(),
-                entity.getSubjectEmail(),zaKorisnikaDTO,zaUredjajDTO,zaMojaKucaAplikacijaDTO,
+                entity.getSubjectEmail(),entity.getOrganizacionaJedinica(),entity.getNazivOrganizacije(),entity.getSkraceniNazivZemlje(),
+                zaKorisnikaDTO,zaUredjajDTO,zaMojaKucaAplikacijaDTO,
                 korisnikMapper.toDto(entity.getMusterija()),korisnikMapper.toDto(entity.getAdmin()),
                 ekstenzijeMapper.toDto(entity.getEkstenzije()));
     }

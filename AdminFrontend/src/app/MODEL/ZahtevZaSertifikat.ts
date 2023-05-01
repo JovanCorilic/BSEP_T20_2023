@@ -9,6 +9,11 @@ export class ZahtevZaSertifikat {
     endDate: Date
     namena: string
     emailPotvrda: string
+
+    organizacionaJedinica: string
+    nazivOrganizacije: string
+    skraceniNazivZemlje: string
+
     potvrdjenZahtev: boolean
     prihvacen: boolean
     zaKorisnika: ZaKorisnika
@@ -24,6 +29,9 @@ export class ZahtevZaSertifikat {
         endDate: Date,
         namena: string,
         emailPotvrda: string,
+        organizacionaJedinica: string,
+        nazivOrganizacije: string,
+        skraceniNazivZemlje: string,
         potvrdjenZahtev: boolean,
         prihvacen: boolean,
         zaKorisnika: ZaKorisnika,
@@ -38,6 +46,9 @@ export class ZahtevZaSertifikat {
         this.endDate = endDate
         this.namena = namena
         this.emailPotvrda = emailPotvrda
+        this.organizacionaJedinica = organizacionaJedinica
+        this.nazivOrganizacije = nazivOrganizacije
+        this.skraceniNazivZemlje = skraceniNazivZemlje
         this.potvrdjenZahtev = potvrdjenZahtev
         this.prihvacen = prihvacen
         this.zaKorisnika = zaKorisnika

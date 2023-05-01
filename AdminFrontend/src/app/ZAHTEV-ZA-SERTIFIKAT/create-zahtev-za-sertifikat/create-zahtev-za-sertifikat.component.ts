@@ -60,8 +60,11 @@ export class CreateZahtevZaSertifikatComponent {
     this.createForm = this.fBuilder.group({
       startDate: ["",[Validators.required]],
       endDate: ["",[Validators.required]],
-      namena: ["Admin aplikacija"],
+      namena: ["Za mene"],
       emailPotvrda: ["",[Validators.required]],
+      organizacionaJedinica: ["",[Validators.required]],
+      nazivOrganizacije: ["",[Validators.required]],
+      skraceniNazivZemlje: ["",[Validators.required]],
 
       email: [""],
       ime: [""],
@@ -129,7 +132,7 @@ export class CreateZahtevZaSertifikatComponent {
       this.pokazivanje=2;
     }else if(broj.target.value==="Uredjaj"){
       this.pokazivanje=3;
-    }else if(broj.target.value==="Admin aplikacija"){
+    }else if(broj.target.value==="Za mene"){
       this.pokazivanje=0;
     }
   }
@@ -215,6 +218,9 @@ export class CreateZahtevZaSertifikatComponent {
       this.zahtev.endDate=this.createForm.value.endDate;
       this.zahtev.namena=this.createForm.value.namena;
       this.zahtev.emailPotvrda=this.createForm.value.emailPotvrda;
+      this.zahtev.organizacionaJedinica = this.createForm.value.organizacionaJedinica;
+      this.zahtev.nazivOrganizacije = this.createForm.value.nazivOrganizacije;
+      this.zahtev.skraceniNazivZemlje = this.createForm.value.skraceniNazivZemlje;
       this.zahtev.potvrdjenZahtev = false;
       this.zahtev.prihvacen=false;
       if(this.pokazivanje==1){

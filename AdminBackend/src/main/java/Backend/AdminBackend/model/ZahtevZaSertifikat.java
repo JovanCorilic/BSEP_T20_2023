@@ -31,6 +31,15 @@ public class ZahtevZaSertifikat {
     private String emailPotvrda;
 
     @Column
+    private String organizacionaJedinica;
+
+    @Column
+    private String nazivOrganizacije;
+
+    @Column
+    private String skraceniNazivZemlje;
+
+    @Column
     private Boolean potvrdjenZahtev;
 
     @Column
@@ -65,8 +74,11 @@ public class ZahtevZaSertifikat {
         this.endDate = zahtevZaSertifikat.getEndDate();
         this.namena = zahtevZaSertifikat.getNamena();
         this.emailPotvrda = zahtevZaSertifikat.getEmailPotvrda();
-        this.potvrdjenZahtev = zahtevZaSertifikat.getPotvrdjenZahtev();
-        this.prihvacen=zahtevZaSertifikat.getPrihvacen();
+        this.organizacionaJedinica = zahtevZaSertifikat.getOrganizacionaJedinica();
+        this.nazivOrganizacije = zahtevZaSertifikat.getNazivOrganizacije();
+        this.skraceniNazivZemlje = zahtevZaSertifikat.getSkraceniNazivZemlje();
+        //this.potvrdjenZahtev = zahtevZaSertifikat.getPotvrdjenZahtev();
+        //this.prihvacen=zahtevZaSertifikat.getPrihvacen();
         if (zahtevZaSertifikat.getZaKorisnika() !=null)
             this.zaKorisnika.Update(zahtevZaSertifikat.getZaKorisnika());
         if (zahtevZaSertifikat.getZaUredjaj() != null)

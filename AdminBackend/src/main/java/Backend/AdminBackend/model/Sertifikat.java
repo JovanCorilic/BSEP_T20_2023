@@ -37,7 +37,14 @@ public class Sertifikat {
     @Column
     private  String subjectEmail;
 
+    @Column
+    private String organizacionaJedinica;
 
+    @Column
+    private String nazivOrganizacije;
+
+    @Column
+    private String skraceniNazivZemlje;
 
     @OneToOne(targetEntity = ZaKorisnika.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = true)

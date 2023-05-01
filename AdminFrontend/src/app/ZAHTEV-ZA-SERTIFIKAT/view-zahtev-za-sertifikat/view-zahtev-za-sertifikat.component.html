@@ -22,13 +22,34 @@
                 *ngIf="createForm.controls.emailPotvrda.touched && createForm.controls.emailPotvrda.errors?.required">
                 Email Potvrda je obavezna</small>
         </div>
+        <div [ngClass]="['form-group','block']">
+            <p>Organizaciona Jedinica</p>
+            <input type="text" [ngClass]="['form-control','input']" formControlName="organizacionaJedinica" placeholder="Katedra Informatike">
+            <small style="color: red;"
+                *ngIf="createForm.controls.organizacionaJedinica.touched && createForm.controls.organizacionaJedinica.errors?.required">
+                Organizaciona Jedinica je obavezna</small>
+        </div>
+        <div [ngClass]="['form-group','block']">
+            <p>Naziv Organizacije</p>
+            <input type="text" [ngClass]="['form-control','input']" formControlName="nazivOrganizacije" placeholder="Email Potvrda">
+            <small style="color: red;"
+                *ngIf="createForm.controls.nazivOrganizacije.touched && createForm.controls.nazivOrganizacije.errors?.required">
+                Naziv Organizacije je obavezna</small>
+        </div>
+        <div [ngClass]="['form-group','block']">
+            <p>Skraceni Naziv Zemlje</p>
+            <input type="text" [ngClass]="['form-control','input']" formControlName="skraceniNazivZemlje" placeholder="Email Potvrda">
+            <small style="color: red;"
+                *ngIf="createForm.controls.skraceniNazivZemlje.touched && createForm.controls.skraceniNazivZemlje.errors?.required">
+                Skraceni Naziv Zemlje je obavezno</small>
+        </div>
         <p>Namena sertifikata</p>
         <div [ngClass]="['form-group','block','select is-rounded']">
             <select formControlName="namena" (change)="pokazivanjeElemenata($event)">
                 <option value="Korisnik">Korisnik</option>
                 <option value="Moja kuca aplikacija">Moja kuca aplikacija</option>
                 <option value="Uredjaj">Uredjaj</option>
-                <option value="Admin aplikacija">Admin aplikacija</option>
+                <option value="Za mene">Za mene</option>
             </select>
         </div>
         <div *ngIf="pokazivanje===1">

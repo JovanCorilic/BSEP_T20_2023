@@ -47,6 +47,9 @@ export class ViewZahtevZaSertifikatComponent {
       endDate: ["",[Validators.required]],
       namena: [""],
       emailPotvrda: ["",[Validators.required]],
+      organizacionaJedinica: ["",[Validators.required]],
+      nazivOrganizacije: ["",[Validators.required]],
+      skraceniNazivZemlje: ["",[Validators.required]],
 
       email: [""],
       ime: [""],
@@ -89,6 +92,9 @@ export class ViewZahtevZaSertifikatComponent {
           this.createForm.controls.endDate.setValue(formatDate(this.zahtev.endDate,'yyyy-MM-ddThh:mm',this.locale));
           this.createForm.controls.namena.setValue(this.zahtev.namena);
           this.createForm.controls.emailPotvrda.setValue(this.zahtev.emailPotvrda);
+          this.createForm.controls.organizacionaJedinica.setValue(this.zahtev.organizacionaJedinica);
+          this.createForm.controls.nazivOrganizacije.setValue(this.zahtev.nazivOrganizacije);
+          this.createForm.controls.skraceniNazivZemlje.setValue(this.zahtev.skraceniNazivZemlje);
         
         }
       )
@@ -116,7 +122,9 @@ export class ViewZahtevZaSertifikatComponent {
           this.createForm.controls.endDate.setValue(formatDate(this.zahtev.endDate,'yyyy-MM-ddThh:mm',this.locale));
           this.createForm.controls.namena.setValue(this.zahtev.namena);
           this.createForm.controls.emailPotvrda.setValue(this.zahtev.emailPotvrda);
-        
+          this.createForm.controls.organizacionaJedinica.setValue(this.zahtev.organizacionaJedinica);
+          this.createForm.controls.nazivOrganizacije.setValue(this.zahtev.nazivOrganizacije);
+          this.createForm.controls.skraceniNazivZemlje.setValue(this.zahtev.skraceniNazivZemlje);
         }
       )
     }
@@ -129,7 +137,7 @@ export class ViewZahtevZaSertifikatComponent {
       this.pokazivanje=2;
     }else if(broj.target.value==="Uredjaj"){
       this.pokazivanje=3;
-    }else if(broj.target.value==="Admin aplikacija"){
+    }else if(broj.target.value==="Za mene"){
       this.pokazivanje=0;
     }
   }
@@ -140,7 +148,9 @@ export class ViewZahtevZaSertifikatComponent {
       this.zahtev.endDate=this.createForm.value.endDate;
       this.zahtev.namena=this.createForm.value.namena;
       this.zahtev.emailPotvrda=this.createForm.value.emailPotvrda;
-
+      this.zahtev.organizacionaJedinica = this.createForm.value.organizacionaJedinica;
+      this.zahtev.nazivOrganizacije = this.createForm.value.nazivOrganizacije;
+      this.zahtev.skraceniNazivZemlje = this.createForm.value.skraceniNazivZemlje;
       if(this.pokazivanje==1){
         this.zahtev.zaKorisnika = <ZaKorisnika>{};
         this.zahtev.zaKorisnika.email=this.createForm.value.email;

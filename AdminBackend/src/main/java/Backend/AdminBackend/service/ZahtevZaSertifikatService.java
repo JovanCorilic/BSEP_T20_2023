@@ -99,9 +99,9 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
                 sertifikat.setNamena(zahtevZaSertifikat.getNamena());
                 sertifikat.setZaUredjaj(sertifikat.getZaUredjaj());
                 break;
-            case "Admin aplikacija":
+            case "Za mene":
                 //ponavljanje kod admina
-                sertifikat.setAlias("admin");
+                sertifikat.setAlias("zaMene"+zahtevZaSertifikat.getMusterija().getEmail());
                 sertifikat.setNamena(zahtevZaSertifikat.getNamena());
                 break;
         }

@@ -10,6 +10,11 @@ export class Sertifikat {
     startDate: Date
     endDate: Date
     subjectEmail: string
+
+    organizacionaJedinica: string
+    nazivOrganizacije: string
+    skraceniNazivZemlje: string
+
     zaKorisnika: ZaKorisnika
     zaUredjaj: ZaUredjaj
     zaMojaKucaAplikacija: ZaMojaKucaAplikacija
@@ -22,6 +27,9 @@ export class Sertifikat {
         startDate: Date,
         endDate: Date,
         subjectEmail: string,
+        organizacionaJedinica: string,
+        nazivOrganizacije: string,
+        skraceniNazivZemlje: string,
         zaKorisnika: ZaKorisnika,
         zaUredjaj: ZaUredjaj,
         zaMojaKucaAplikacija: ZaMojaKucaAplikacija,
@@ -34,6 +42,9 @@ export class Sertifikat {
         this.startDate = startDate
         this.endDate = endDate
         this.subjectEmail = subjectEmail
+        this.organizacionaJedinica = organizacionaJedinica
+        this.nazivOrganizacije = nazivOrganizacije
+        this.skraceniNazivZemlje = skraceniNazivZemlje
         this.zaKorisnika = zaKorisnika
         this.zaUredjaj = zaUredjaj
         this.zaMojaKucaAplikacija = zaMojaKucaAplikacija

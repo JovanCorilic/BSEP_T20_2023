@@ -28,7 +28,8 @@ public class ZahtevZaSertifikatMapper implements MapperInterface<ZahtevZaSertifi
         }
 
         return new ZahtevZaSertifikat(dto.getId(),dto.getStartDate(),dto.getEndDate(),dto.getNamena(),
-                dto.getEmailPotvrda(),dto.getPotvrdjenZahtev(),dto.getPrihvacen(),zaKorisnika,zaUredjaj,
+                dto.getEmailPotvrda(),dto.getOrganizacionaJedinica(),dto.getNazivOrganizacije(),dto.getSkraceniNazivZemlje(),
+                dto.getPotvrdjenZahtev(),dto.getPrihvacen(),zaKorisnika,zaUredjaj,
                 zaMojaKucaAplikacija,korisnikMapper.toModel(dto.getMusterija()),korisnikMapper.toModel(dto.getAdmin()),
                 ekstenzijeMapper.toModel(dto.getEkstenzije()));
     }
@@ -55,7 +56,8 @@ public class ZahtevZaSertifikatMapper implements MapperInterface<ZahtevZaSertifi
             adminDTO = korisnikMapper.toDto(entity.getAdmin());
 
         return new ZahtevZaSertifikatDTO(entity.getId(),entity.getStartDate(),entity.getEndDate(),entity.getNamena(),
-                entity.getEmailPotvrda(),entity.getPotvrdjenZahtev(),entity.getPrihvacen(),zaKorisnikaDTO,zaUredjajDTO,
+                entity.getEmailPotvrda(),entity.getOrganizacionaJedinica(),entity.getNazivOrganizacije(),entity.getSkraceniNazivZemlje(),
+                entity.getPotvrdjenZahtev(),entity.getPrihvacen(),zaKorisnikaDTO,zaUredjajDTO,
                 zaMojaKucaAplikacijaDTO,korisnikMapper.toDto(entity.getMusterija()),adminDTO,
                 ekstenzijeMapper.toDto(entity.getEkstenzije()));
     }

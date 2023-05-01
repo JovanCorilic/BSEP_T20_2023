@@ -17,6 +17,11 @@ public class SertifikatDTO {
     private Date startDate;
     private Date endDate;
     private  String subjectEmail;
+
+    private String organizacionaJedinica;
+    private String nazivOrganizacije;
+    private String skraceniNazivZemlje;
+
     private ZaKorisnikaDTO zaKorisnika;
     private ZaUredjajDTO zaUredjaj;
     private ZaMojaKucaAplikacijaDTO zaMojaKucaAplikacija;
