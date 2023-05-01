@@ -31,14 +31,14 @@
         </div>
         <div [ngClass]="['form-group','block']">
             <p>Naziv Organizacije</p>
-            <input type="text" [ngClass]="['form-control','input']" formControlName="nazivOrganizacije" placeholder="Email Potvrda">
+            <input type="text" [ngClass]="['form-control','input']" formControlName="nazivOrganizacije" placeholder="UNS-FTN">
             <small style="color: red;"
                 *ngIf="createForm.controls.nazivOrganizacije.touched && createForm.controls.nazivOrganizacije.errors?.required">
                 Naziv Organizacije je obavezna</small>
         </div>
         <div [ngClass]="['form-group','block']">
             <p>Skraceni Naziv Zemlje</p>
-            <input type="text" [ngClass]="['form-control','input']" formControlName="skraceniNazivZemlje" placeholder="Email Potvrda">
+            <input type="text" [ngClass]="['form-control','input']" formControlName="skraceniNazivZemlje" placeholder="RS">
             <small style="color: red;"
                 *ngIf="createForm.controls.skraceniNazivZemlje.touched && createForm.controls.skraceniNazivZemlje.errors?.required">
                 Skraceni Naziv Zemlje je obavezno</small>

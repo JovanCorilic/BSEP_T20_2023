@@ -1,3 +1,4 @@
+import { Ekstenzije } from './../../MODEL/Ekstenzije';
 import { formatDate } from '@angular/common';
 import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -21,7 +22,7 @@ export class ViewZahtevZaSertifikatComponent {
   createForm: FormGroup;
   pokazivanje:number = 0;
   zahtev = <ZahtevZaSertifikat>{};
-  ekstenzije = this.zahtev.ekstenzije;
+  ekstenzije = <Ekstenzije>{};
   status: boolean = true;
   status2: boolean = true;
   closeResult = '';
@@ -99,7 +100,7 @@ export class ViewZahtevZaSertifikatComponent {
           this.createForm.controls.organizacionaJedinica.setValue(this.zahtev.organizacionaJedinica);
           this.createForm.controls.nazivOrganizacije.setValue(this.zahtev.nazivOrganizacije);
           this.createForm.controls.skraceniNazivZemlje.setValue(this.zahtev.skraceniNazivZemlje);
-        
+          this.ekstenzije = this.zahtev.ekstenzije;
         }
       )
     }else if(info['uloga'] === "ROLE_ADMIN"){
@@ -129,6 +130,7 @@ export class ViewZahtevZaSertifikatComponent {
           this.createForm.controls.organizacionaJedinica.setValue(this.zahtev.organizacionaJedinica);
           this.createForm.controls.nazivOrganizacije.setValue(this.zahtev.nazivOrganizacije);
           this.createForm.controls.skraceniNazivZemlje.setValue(this.zahtev.skraceniNazivZemlje);
+          this.ekstenzije = this.zahtev.ekstenzije;
         }
       )
     }

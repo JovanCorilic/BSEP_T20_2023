@@ -131,22 +131,20 @@
         </button>
     </div>
         <div class="modal-body">
-                <div class="form-group">
-                    <label for="maxLen">
-                        Maksimalna duzina
-                    </label>
-                    <div class="input-group">
-                        <div [ngClass]="['block']">
-                            <mat-checkbox [(ngModel)]="ekstenzije.basicConstraintsEkstenzije.daLiJeKriticno">Da li je kriticno</mat-checkbox>
-                        </div>
-                        <div [ngClass]="['block']">
-                            <mat-checkbox [(ngModel)]="ekstenzije.basicConstraintsEkstenzije.daLiJeCA">Da li je CA</mat-checkbox>
-                        </div>
-                        <div [ngClass]="['block']">
-                            <p id="maxLen">{{ekstenzije.basicConstraintsEkstenzije.maxPathLen}}</p>
-                        </div>
+            <div >
+                   
+                <div >
+                    <div [ngClass]="['block']">
+                        <mat-checkbox [(ngModel)]="ekstenzije.basicConstraintsEkstenzije.daLiJeKriticno">Da li je kriticno</mat-checkbox>
+                    </div>
+                    <div [ngClass]="['block']">
+                        <mat-checkbox [(ngModel)]="ekstenzije.basicConstraintsEkstenzije.daLiJeCA">Da li je CA</mat-checkbox>
+                    </div>
+                    <div [ngClass]="['block']">
+                        <p id="maxLen">Maksimalna duzina : {{ekstenzije.basicConstraintsEkstenzije.maxPathLen}}</p>
                     </div>
                 </div>
+            </div>
         </div>
         <div [ngClass]="['modal-footer','form-group']">
 

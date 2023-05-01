@@ -112,11 +112,11 @@
 		</div>
     </form><br>
     <div class="block">
-        <br>
             <button type="button" class="btn btn-lg btn-outline-primary" 
                         (click)="open(ekstenzije2)">
                         Ekstenzije
             </button><br>
+            <br>
         <button class="button is-outlined" (click)="natrag()">Natrag</button>&nbsp;&nbsp;
         
         <button *ngIf="getRole()==='ROLE_ADMIN'" [ngClass]="[status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" (click)="napraviSertifikat()">Napravi sertifikat</button>
@@ -141,7 +141,7 @@
         
         <div class="form-group">
             <div >
-                <div *ngIf="ekstenzije.authorityKeyIdentifierEkstenzije !== null" class="block"><br>
+                <div *ngIf="ekstenzije.authorityKeyIdentifierEkstenzije !==null" class="block"><br>
                     <button class="button is-danger">Authority Key Identifier</button>&nbsp;&nbsp;
                     <mat-checkbox [(ngModel)]="ekstenzije.authorityKeyIdentifierEkstenzije.daLiJeKriticno">Da li je kriticno</mat-checkbox><br>
                 </div>
@@ -190,11 +190,9 @@
         </button>
     </div>
         <div class="modal-body">
-                <div class="form-group">
-                    <label for="maxLen">
-                        Maksimalna duzina
-                    </label>
-                    <div class="input-group">
+                <div >
+                   
+                    <div >
                         <div [ngClass]="['block']">
                             <mat-checkbox [(ngModel)]="ekstenzije.basicConstraintsEkstenzije.daLiJeKriticno">Da li je kriticno</mat-checkbox>
                         </div>
@@ -202,7 +200,7 @@
                             <mat-checkbox [(ngModel)]="ekstenzije.basicConstraintsEkstenzije.daLiJeCA">Da li je CA</mat-checkbox>
                         </div>
                         <div [ngClass]="['block']">
-                            <p id="maxLen">{{ekstenzije.basicConstraintsEkstenzije.maxPathLen}}</p>
+                            <p id="maxLen">Maksimalna duzina : {{ekstenzije.basicConstraintsEkstenzije.maxPathLen}}</p>
                         </div>
                     </div>
                 </div>

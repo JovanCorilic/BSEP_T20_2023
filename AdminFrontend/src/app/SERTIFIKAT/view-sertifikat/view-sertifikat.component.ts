@@ -1,3 +1,4 @@
+import { Ekstenzije } from './../../MODEL/Ekstenzije';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,7 +15,7 @@ import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
 export class ViewSertifikatComponent {
   alias=<string>{};
   sertifikat=<Sertifikat>{};
-  ekstenzije = this.sertifikat.ekstenzije
+  ekstenzije = <Ekstenzije>{};
   closeResult = '';
 
   constructor(
@@ -40,12 +41,14 @@ export class ViewSertifikatComponent {
       this.sertifikatService.dajSertifikatMusterija(this.alias).subscribe(
         res=>{
           this.sertifikat=res;
+          this.ekstenzije=this.sertifikat.ekstenzije;
         }
       )
     }else if (info['uloga'] === "ROLE_ADMIN"){
       this.sertifikatService.dajSertifikat(this.alias).subscribe(
         res=>{
           this.sertifikat=res;
+          this.ekstenzije=this.sertifikat.ekstenzije;
         }
       )
     }
