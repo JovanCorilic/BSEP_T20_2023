@@ -4,8 +4,8 @@
     <p>
         Alias : {{sertifikat.alias}}<br>
         Namena : {{sertifikat.namena}}<br>
-        Datum početka : {{sertifikat.startDate}}<br>
-        Datum završetka : {{sertifikat.endDate}}<br>
+        Datum početka : {{sertifikat.startDate | date:'dd.MM.yyyy HH:mm'}}<br>
+        Datum završetka : {{sertifikat.endDate | date:'dd.MM.yyyy HH:mm'}}<br>
         Subject Email : {{sertifikat.subjectEmail}}<br>
         Organizaciona Jedinica : {{sertifikat.organizacionaJedinica}}<br>
         Naziv Organizacije : {{sertifikat.nazivOrganizacije}}<br>
@@ -61,7 +61,8 @@
                 Ekstenzije
     </button><br>
     <button class="button is-outlined" (click)="natrag()">Natrag</button>&nbsp;&nbsp;
-    <button class="button is-danger is-outlined" (click)="povlacenjeSertifikata()">Povuci sertifikat</button>
+    <button class="button is-danger is-outlined" (click)="povlacenjeSertifikata()" *ngIf="getRole()==='ROLE_ADMIN' && !povlacenjeDugme">Povuci sertifikat</button>&nbsp;&nbsp;
+    <button class="button is-danger is-outlined" (click)="proveriSertifikat()">Proveri sertifikat</button>
 </div>
 
 <ng-template #ekstenzije2 let-modal>

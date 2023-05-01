@@ -47,8 +47,8 @@
         <tr (click)="idiNaZahtev(sertifikat.alias)">
             <td>{{sertifikat.alias}}</td>
             <td>{{sertifikat.namena}}</td>
-            <td>{{sertifikat.startDate}}</td>
-            <td>{{sertifikat.endDate}}</td>
+            <td>{{sertifikat.startDate | date:'dd.MM.yyyy HH:mm'}}</td>
+            <td>{{sertifikat.endDate | date:'dd.MM.yyyy HH:mm'}}</td>
             <td>{{sertifikat.subjectEmail}}</td>
             <td>{{sertifikat.admin.email}}</td>
         </tr>

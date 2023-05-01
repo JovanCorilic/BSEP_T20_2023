@@ -18,6 +18,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SignatureException;
+import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +51,25 @@ public class SertifikatController {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }*/
+
+    @PreAuthorize("hasAuthority('OPERACIJE_SERTIFIKATA_ADMIN')")
+    @GetMapping("/povlacenjeDugme/{alias}")
+    public ResponseEntity<?> povlacenjeDugme(@PathVariable String alias){
+        boolean dugme = sertifikatService.povlacenjeDugme(alias);
+        return new ResponseEntity<>(dugme,HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyAuthority('OPERACIJE_SERTIFIKATA_ADMIN','OPERACIJE_SERTIFIKATA_MUSTERIJA')")
+    @GetMapping("/proveriSertifikat/{alias}")
+    public ResponseEntity<?> proveraSertifikata(@PathVariable String alias){
+        try {
+            sertifikatService.proveraSertifikata(alias);
+        } catch (CertificateException | NoSuchAlgorithmException | SignatureException | InvalidKeyException |
+                 NoSuchProviderException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PreAuthorize("hasAuthority('OPERACIJE_SERTIFIKATA_ADMIN')")
     @GetMapping("/dajPovuceniSertifikat/{alias}")

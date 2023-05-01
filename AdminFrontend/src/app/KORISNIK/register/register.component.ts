@@ -22,8 +22,8 @@ export class RegisterComponent {
     this.registerForm = this.fBuilder.group({
       ime: ["",[Validators.required]],
       prezime: ["",[Validators.required]],
-      email: ["",[Validators.required]],
-      lozinka: ["",[Validators.required]]
+      email: ["",[Validators.required,Validators.email]],
+      lozinka: ["",[Validators.required, Validators.minLength(12)]]
     })
   }
 

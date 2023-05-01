@@ -28,7 +28,7 @@ public class ZahtevZaSertifikatController {
         this.zahtevZaSertifikatMapper = new ZahtevZaSertifikatMapper();
     }
 
-    @PreAuthorize("hasAuthority('OPERACIJE_ZAHTEVA_ZA_SERTIFIKAT_MUSTERIJA')")
+    //@PreAuthorize("hasAuthority('OPERACIJE_ZAHTEVA_ZA_SERTIFIKAT_MUSTERIJA')")
     @PutMapping("/potvrdaZahteva/{token}")
     public ResponseEntity<Void> potvrdaZahteva(@PathVariable String token){
         try {

@@ -67,9 +67,7 @@ const routes: Routes = [
   },
   {
     path: 'potvrdaZahteva/:token',
-    component: VerifikacijaZahtevaZaSertifikatComponent,
-    canActivate: [RoleGuard],
-    data: {expectedRoles: 'ROLE_MUSTERIJA'}
+    component: VerifikacijaZahtevaZaSertifikatComponent
   },
   {
     path: 'register',

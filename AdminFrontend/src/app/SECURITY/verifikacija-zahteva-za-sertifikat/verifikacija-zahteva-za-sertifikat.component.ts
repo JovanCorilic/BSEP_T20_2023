@@ -29,7 +29,7 @@ export class VerifikacijaZahtevaZaSertifikatComponent {
     this.status = !this.status; 
     this.zahtevZaSertifikatService.potvrdaZahtevaZaSertifikat(this.token).subscribe(
       res=>{
-        this.router.navigate(['/viewAllZahtevSertifikat']);
+        this.router.navigate(['']);
       }
     )
   }

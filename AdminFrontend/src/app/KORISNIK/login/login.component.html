@@ -21,7 +21,10 @@
 		</div>
 		
 		<div [ngClass]="['form-group','block']">
-    		<button id="login-button" type="submit" [ngClass]="['btn btn-primary btn-block',status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" [disabled]="logForm.invalid">Log in</button>
+    		<button id="login-button" type="submit" [ngClass]="['btn btn-primary btn-block',
+			status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']"
+			*ngIf="failLogin!==5" 
+			[disabled]="logForm.invalid">Log in</button>
 		</div>
     </form>
 </div>

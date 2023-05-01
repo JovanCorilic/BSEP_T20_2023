@@ -13,7 +13,7 @@ export class LoginComponent {
   logForm: FormGroup;
   pokazivanje:boolean=false;
   status: boolean = true;
-
+  failLogin:number=0;
 
   constructor(
     private fBuilder:FormBuilder,
@@ -56,7 +56,9 @@ export class LoginComponent {
         
 			},
 			error => {
-	
+        this.status= !this.status;
+        alert("Loš login!");
+        this.failLogin += 1;
 			}
 		);
 	}

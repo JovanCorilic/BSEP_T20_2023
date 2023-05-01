@@ -112,6 +112,11 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
         sertifikat.setStartDate(zahtevZaSertifikat.getStartDate());
         sertifikat.setEndDate(zahtevZaSertifikat.getEndDate());
         sertifikat.setSubjectEmail(zahtevZaSertifikat.getEmailPotvrda());
+
+        sertifikat.setOrganizacionaJedinica(zahtevZaSertifikat.getOrganizacionaJedinica());
+        sertifikat.setNazivOrganizacije(zahtevZaSertifikat.getNazivOrganizacije());
+        sertifikat.setSkraceniNazivZemlje(zahtevZaSertifikat.getSkraceniNazivZemlje());
+
         sertifikat.setEkstenzije(zahtevZaSertifikat.getEkstenzije());
         Sertifikat temp = sertifikatRepository.save(sertifikat);
         temp.setPublicKey(PravljenjeSertifikata.pravljenje(temp));

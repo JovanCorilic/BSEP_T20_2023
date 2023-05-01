@@ -4,11 +4,17 @@ import Backend.AdminBackend.model.Korisnik;
 import Backend.AdminBackend.model.PovlacenjeSertifikata;
 import Backend.AdminBackend.model.Sertifikat;
 import Backend.AdminBackend.repository.*;
+import Backend.AdminBackend.security.certificate.PravljenjeSertifikata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SignatureException;
+import java.security.cert.CertificateException;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,6 +28,17 @@ public class SertifikatService implements ServiceInterface<Sertifikat>{
 
     @Autowired
     private KorisnikRepository korisnikRepository;
+
+    public boolean povlacenjeDugme(String alias){
+        return povlacenjeSertifikataRepository.existsByAlias(alias);
+    }
+
+    public void proveraSertifikata(String alias) throws CertificateException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, NoSuchProviderException {
+        Sertifikat sertifikat = sertifikatRepository.findByAlias(alias);
+        if (povlacenjeSertifikataRepository.existsByAlias(alias))
+            throw new CertificateException();
+        PravljenjeSertifikata.proveraSertifikata(sertifikat);
+    }
 
     public void povlacenjeSertifikata(String alias,String razlog){
         PovlacenjeSertifikata povlacenjeSertifikata = new PovlacenjeSertifikata();

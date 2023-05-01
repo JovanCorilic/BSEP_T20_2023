@@ -22,6 +22,14 @@ public class PravljenjeSertifikata {
 
     private static final String SIFRA_KEY_STORE= "PwWqaqU6tk93OvfwfCY4cQO8V+EKdYHzhuptiLhG99jz+UCPYkygcAicXWxp0cpOXXV0NMAzroqidrjetkZ0Uwk=6YWESfA2yhssxaEeS6MFbM/6mZ7oRWrBmsLwmYmSgQ==";
 
+    public static void proveraSertifikata(Sertifikat sertifikat) throws CertificateException, NoSuchAlgorithmException, SignatureException, InvalidKeyException, NoSuchProviderException {
+        KeyStoreReader reader = new KeyStoreReader();
+        X509Certificate temp = (X509Certificate) reader.readCertificate("src/main/resources/jks/sertifikati.jks",
+                SIFRA_KEY_STORE,sertifikat.getAlias());
+        temp.verify(sertifikat.getPublicKey());
+        temp.checkValidity(new Date());
+    }
+
     public static PublicKey pravljenje(Sertifikat sertifikat){
         try {
             SubjectData subjectData = generateSubjectData(sertifikat);
@@ -47,18 +55,18 @@ public class PravljenjeSertifikata {
             cert.verify(keyPairIssuer.getPublic());
             System.out.println("\nValidacija uspesna :)");
 
-            KeyStoreReader reader = new KeyStoreReader();
+
             KeyStoreWriter writer = new KeyStoreWriter();
 
-            File f = new File("src/main/resources/jks/sertifikati.cer");
+            File f = new File("src/main/resources/jks/sertifikati.jks");
             if(f.exists() && !f.isDirectory()) {
-                writer.loadKeyStore("src/main/resources/jks/sertifikati.cer",SIFRA_KEY_STORE.toCharArray());
+                writer.loadKeyStore("src/main/resources/jks/sertifikati.jks",SIFRA_KEY_STORE.toCharArray());
                 writer.write(sertifikat.getAlias(), keyPairIssuer.getPrivate(), SIFRA_KEY_STORE.toCharArray(),cert);
-                writer.saveKeyStore("src/main/resources/jks/sertifikati.cer",SIFRA_KEY_STORE.toCharArray());
+                writer.saveKeyStore("src/main/resources/jks/sertifikati.jks",SIFRA_KEY_STORE.toCharArray());
             }else {
                 writer.loadKeyStore(null,SIFRA_KEY_STORE.toCharArray());
                 writer.write(sertifikat.getAlias(), keyPairIssuer.getPrivate(), SIFRA_KEY_STORE.toCharArray(),cert);
-                writer.saveKeyStore("src/main/resources/jks/sertifikati.cer",SIFRA_KEY_STORE.toCharArray());
+                writer.saveKeyStore("src/main/resources/jks/sertifikati.jks",SIFRA_KEY_STORE.toCharArray());
             }
 
             return keyPairIssuer.getPublic();

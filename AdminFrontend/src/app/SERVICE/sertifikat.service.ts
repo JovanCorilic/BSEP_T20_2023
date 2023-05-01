@@ -39,5 +39,13 @@ export class SertifikatService{
     public createSertifikat(zahtev:ZahtevZaSertifikat){
         return this.http.post(this.path+"/napravi",zahtev);
     }
+
+    public proveriSertifikat(alias:string){
+        return this.http.get(this.path+"/proveriSertifikat"+`/${alias}`);
+    }
+
+    public povlacenjeDugme(alias:string):Observable<boolean>{
+        return this.http.get<boolean>(this.path+"/povlacenjeDugme"+`/${alias}`);
+    }
     
 }

@@ -17,6 +17,7 @@ export class ViewSertifikatComponent {
   sertifikat=<Sertifikat>{};
   ekstenzije = <Ekstenzije>{};
   closeResult = '';
+  povlacenjeDugme = false;
 
   constructor(
     private sertifikatService:SertifikatService,
@@ -49,14 +50,31 @@ export class ViewSertifikatComponent {
         res=>{
           this.sertifikat=res;
           this.ekstenzije=this.sertifikat.ekstenzije;
+          this.sertifikatService.povlacenjeDugme(this.alias).subscribe(
+            res=>{
+              this.povlacenjeDugme = res;
+            }
+          )
         }
       )
+      
     }
   }
+
 
   povlacenjeSertifikata(){
     this.router.navigate(['/povlacenjeSertifikat/'+this.alias]);
 
+  }
+
+  proveriSertifikat(){
+    this.sertifikatService.proveriSertifikat(this.sertifikat.alias).subscribe(
+      res=>{
+        alert("Sve je kako treba!");
+      },error=>{
+        alert("Sertifikat ne može da se koristi više!");
+      }
+    )
   }
 
   natrag(){
@@ -82,6 +100,19 @@ export class ViewSertifikatComponent {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  getRole():string{
+    const item = sessionStorage.getItem('user');
+
+    if(!item){
+      return "";
+    }
+
+    const jwt:JwtHelperService = new JwtHelperService();
+    const decodedItem = JSON.parse(item!);
+    const info = jwt.decodeToken(decodedItem.accessToken);
+    return info['uloga'];
   }
 
 }

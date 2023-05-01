@@ -116,8 +116,10 @@
         </div>
         <br>
         <div [ngClass]="['form-group','block']">
-    		<button type="submit" [ngClass]="['btn btn-primary btn-block',status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" [disabled]="createForm.invalid">Posalji zahtev</button>
-		</div>
+    		<button type="submit" 
+            [ngClass]="['btn btn-primary btn-block',status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" 
+            [disabled]="createForm.invalid">Posalji zahtev</button>
+		</div><br>
     </form>
 </div>
 

@@ -108,7 +108,9 @@
             </div>
         </div><br>
         <div [ngClass]="['form-group','block']">
-    		<button *ngIf="getRole()==='ROLE_MUSTERIJA'" type="submit" [ngClass]="['btn btn-primary btn-block',status2 ? 'button is-warning is-outlined' : 'button is-warning is-outlined is-loading']" [disabled]="createForm.invalid">Promeni zahtev</button>
+    		<button *ngIf="getRole()==='ROLE_MUSTERIJA'" type="submit"
+            [ngClass]="['btn btn-primary btn-block',status2 ? 'button is-warning is-outlined' : 'button is-warning is-outlined is-loading']" 
+            [disabled]="createForm.invalid">Promeni zahtev</button>
 		</div>
     </form><br>
     <div class="block">
@@ -119,8 +121,10 @@
             <br>
         <button class="button is-outlined" (click)="natrag()">Natrag</button>&nbsp;&nbsp;
         
-        <button *ngIf="getRole()==='ROLE_ADMIN'" [ngClass]="[status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" (click)="napraviSertifikat()">Napravi sertifikat</button>
-    </div>
+        <button *ngIf="getRole()==='ROLE_ADMIN' && !zahtev.prihvacen && zahtev.potvrdjenZahtev"
+        [ngClass]="[status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" 
+        (click)="napraviSertifikat()">Napravi sertifikat</button>
+    </div><br>
 </div>
 
 <ng-template #ekstenzije2 let-modal>
