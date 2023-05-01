@@ -158,14 +158,25 @@ export class ViewZahtevZaSertifikatComponent {
       this.zahtev.nazivOrganizacije = this.createForm.value.nazivOrganizacije;
       this.zahtev.skraceniNazivZemlje = this.createForm.value.skraceniNazivZemlje;
       if(this.pokazivanje==1){
+        if (this.createForm.value.email === "" || this.createForm.value.ime === "" || this.createForm.value.prezime === ""){
+          alert("Polja za korisnika su prazna!")
+        }
         this.zahtev.zaKorisnika = <ZaKorisnika>{};
         this.zahtev.zaKorisnika.email=this.createForm.value.email;
         this.zahtev.zaKorisnika.ime=this.createForm.value.ime;
         this.zahtev.zaKorisnika.prezime=this.createForm.value.prezime;
       }else if(this.pokazivanje==2){
+        if(this.createForm.value.serijskiBroj === ""){
+          alert("Polja za moja kuca aplikacija su prazna!")
+          return;
+        }
         this.zahtev.zaMojaKucaAplikacija = <ZaMojaKucaAplikacija>{};
         this.zahtev.zaMojaKucaAplikacija.serijskiBroj=this.createForm.value.serijskiBroj;
       }else if(this.pokazivanje==3){
+        if (this.createForm.value.naziv === "" || this.createForm.value.svrha === "" || this.createForm.value.serijskiBroj === ""){
+          alert("Polja za uredjaj su prazna!")
+          return;
+        }
         this.zahtev.zaUredjaj = <ZaUredjaj>{};
         this.zahtev.zaUredjaj.naziv=this.createForm.value.naziv;
         this.zahtev.zaUredjaj.svrha=this.createForm.value.svrha;

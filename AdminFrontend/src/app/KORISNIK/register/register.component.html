@@ -16,10 +16,16 @@
             <input type="password" [ngClass]="['form-control','input']" formControlName="lozinka" placeholder="lozinka">
             <small style="color: red;"
                 *ngIf="registerForm.controls.lozinka.touched && registerForm.controls.lozinka.errors?.required">
-                Lozinka je potrebna</small>
+                Lozinka je potrebna.</small>
             <small style="color: red;"
-            *ngIf="registerForm.controls.lozinka.touched && registerForm.controls.lozinka.errors?.minlength">
-            Lozinka treba da ima najmanje 12 znaka</small>
+                *ngIf="registerForm.controls.lozinka.touched && registerForm.controls.lozinka.errors?.minlength">
+                Lozinka treba da ima najmanje 12 znaka.</small>
+            <small style="color: red;"
+                *ngIf="registerForm.controls.lozinka.touched && registerForm.controls.lozinka.errors?.daLiImaBroj">
+                Lozinka treba da ima barem jedan broj.</small>
+            <small style="color: red;"
+                *ngIf="registerForm.controls.lozinka.touched && registerForm.controls.lozinka.errors?.daLiImaSpecijalanKarakter">
+                Lozinka treba da ima barem jedan specijalan karakter.</small>
         </div>
         <div [ngClass]="['form-group','block']">
             <p>Ime</p>

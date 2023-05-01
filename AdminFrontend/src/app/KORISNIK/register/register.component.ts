@@ -1,5 +1,5 @@
 import { Musterija } from './../../MODEL/Musterija';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AuthenticationService } from './../../SERVICE/authentication.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ export class RegisterComponent {
       ime: ["",[Validators.required]],
       prezime: ["",[Validators.required]],
       email: ["",[Validators.required,Validators.email]],
-      lozinka: ["",[Validators.required, Validators.minLength(12)]]
+      lozinka: ["",[Validators.required, Validators.minLength(12),this.daLiImaBroj(),this.daLiImaSpecijalanKarakter()]]
     })
   }
 
@@ -39,5 +39,50 @@ export class RegisterComponent {
       }
     )
   }
+
+  notANumber(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      const value = control.value
+      let nV = value
+      if (typeof value == 'string') {
+        nV = value.replace(',', '.')
+      }
+      return (Number.isNaN(Number(nV)) && !control.pristine) ? {notANumber: true} : null;
+    };
+  }
+
+  daLiImaBroj(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      const value = control.value
+      let nV = value
+      if (typeof value == 'string') {
+        nV = value.replace(',', '.')
+      }
+      const hasNumbers = (str: string): boolean => {
+        const regex = /\d/;
+        return regex.test(str);
+      }
+
+      return (!hasNumbers(nV) && !control.pristine) ? {daLiImaBroj: true} : null;
+    };
+  }
+
+  daLiImaSpecijalanKarakter(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      const value = control.value
+      let nV = value
+      if (typeof value == 'string') {
+        nV = value.replace(',', '.')
+      }
+      const hasSpecialChars = (str: string): boolean => {
+        const regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+        return regex.test(str);
+      }
+
+      return (!hasSpecialChars(nV) && !control.pristine) ? {daLiImaSpecijalanKarakter: true} : null;
+    };
+  }
+
+  
 
 }
