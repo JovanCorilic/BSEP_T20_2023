@@ -112,9 +112,248 @@
 		</div>
     </form><br>
     <div class="block">
-        
+        <br>
+            <button type="button" class="btn btn-lg btn-outline-primary" 
+                        (click)="open(ekstenzije2)">
+                        Ekstenzije
+            </button><br>
         <button class="button is-outlined" (click)="natrag()">Natrag</button>&nbsp;&nbsp;
         
         <button *ngIf="getRole()==='ROLE_ADMIN'" [ngClass]="[status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" (click)="napraviSertifikat()">Napravi sertifikat</button>
     </div>
 </div>
+
+<ng-template #ekstenzije2 let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" 
+            id="modal-basic-title">
+            Ekstenzije
+        </h4>
+        <button type="button" class="close"
+                aria-label="Close" (click)=
+                "modal.dismiss('Cross click')">
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+    <div class="modal-body">
+        
+        <div class="form-group">
+            <div >
+                <div *ngIf="ekstenzije.authorityKeyIdentifierEkstenzije !== null" class="block"><br>
+                    <button class="button is-danger">Authority Key Identifier</button>&nbsp;&nbsp;
+                    <mat-checkbox [(ngModel)]="ekstenzije.authorityKeyIdentifierEkstenzije.daLiJeKriticno">Da li je kriticno</mat-checkbox><br>
+                </div>
+                <div *ngIf="ekstenzije.basicConstraintsEkstenzije !== null" class="block">
+                    <button class="button is-danger is-outlined" (click)="open(basicConstraintsEkstenzije)">Basic Constraints</button><br>
+                </div>
+                <div *ngIf="ekstenzije.extendedKeyUsageEkstenzije !== null" class="block">
+                    <button class="button is-danger is-outlined" (click)="open(extendedKeyUsageEkstenzije)">Extended Key Usage</button><br>
+                </div>
+                <div *ngIf="ekstenzije.keyUsageEkstenzije !== null" class="block">
+                    <button class="button is-danger is-outlined" (click)="open(keyUsageEkstenzije)">Key Usage</button><br>
+                </div>
+                <div *ngIf="ekstenzije.subjectAlternativeNameEkstenzije !== null" class="block">
+                    <button class="button is-danger is-outlined" (click)="open(subjectAlternativeNameEkstenzije)">Subject Alternative Name</button><br>
+                </div>
+                <div *ngIf="ekstenzije.subjectKeyIdentifierEkstenzije !== null" class="block">
+                    <button class="button is-danger">Subject Key Identifier</button>&nbsp;&nbsp;
+                    <mat-checkbox [(ngModel)]="ekstenzije.subjectKeyIdentifierEkstenzije.daLiJeKriticno">Da li je kriticno</mat-checkbox><br>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" 
+            class="btn btn-outline-dark" 
+            (click)="modal.close('Save click')">
+            Sacuvaj
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #basicConstraintsEkstenzije let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" 
+            id="modal-basic-title">
+            Basic Constraints
+        </h4>
+        <button type="button" class="close"
+                aria-label="Close" (click)=
+                "modal.dismiss('Cross click')">
+  
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+        <div class="modal-body">
+                <div class="form-group">
+                    <label for="maxLen">
+                        Maksimalna duzina
+                    </label>
+                    <div class="input-group">
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.basicConstraintsEkstenzije.daLiJeKriticno">Da li je kriticno</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.basicConstraintsEkstenzije.daLiJeCA">Da li je CA</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <p id="maxLen">{{ekstenzije.basicConstraintsEkstenzije.maxPathLen}}</p>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div [ngClass]="['modal-footer','form-group']">
+
+        </div>
+   
+</ng-template>
+
+<ng-template #extendedKeyUsageEkstenzije let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" 
+            id="modal-basic-title">
+            Extended Key Usage
+        </h4>
+        <button type="button" class="close"
+                aria-label="Close" (click)=
+                "modal.dismiss('Cross click')">
+  
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+        <div class="modal-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.extendedKeyUsageEkstenzije.daLiJeKriticno">Da li je kriticno</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.extendedKeyUsageEkstenzije.anyExtendedKeyUsage">Extended key usage</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.extendedKeyUsageEkstenzije.id_kp_codeSigning">Code signing</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.extendedKeyUsageEkstenzije.id_kp_emailProtection">Email protection</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.extendedKeyUsageEkstenzije.id_kp_ipsecEndSystem">IP Security End System</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.extendedKeyUsageEkstenzije.id_kp_ipsecUser">IP Security User</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.extendedKeyUsageEkstenzije.id_kp_timeStamping">Time Stamping</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.extendedKeyUsageEkstenzije.id_kp_OCSPSigning">OCSP Signing</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.extendedKeyUsageEkstenzije.id_kp_smartcardlogon">Smartcard logon</mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div [ngClass]="['modal-footer','form-group']">
+            
+        </div>
+</ng-template>
+
+<ng-template #keyUsageEkstenzije let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" 
+            id="modal-basic-title">
+            Key Usage
+        </h4>
+        <button type="button" class="close"
+                aria-label="Close" (click)=
+                "modal.dismiss('Cross click')">
+  
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+        <div class="modal-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.keyUsageEkstenzije.daLiKoristi">Da li je kriticno</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.keyUsageEkstenzije.digitalSignature">Digital Signature</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.keyUsageEkstenzije.nonRepudiation">Non Repudation</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.keyUsageEkstenzije.keyEncipherment">Key Encipherment</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.keyUsageEkstenzije.dataEncipherment">Data Encipherment</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.keyUsageEkstenzije.keyAgreement">Key Agreement</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.keyUsageEkstenzije.keyCertSign">Key Certificate Signing</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.keyUsageEkstenzije.da_li_jecrlsign">CRL Sign</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.keyUsageEkstenzije.encipherOnly">Encipher Only</mat-checkbox>
+                        </div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.keyUsageEkstenzije.decipherOnly">Decipher Only</mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div [ngClass]="['modal-footer','form-group']">
+            
+        </div>
+</ng-template>
+
+<ng-template #subjectAlternativeNameEkstenzije let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" 
+            id="modal-basic-title">
+            Subject Alternative Name
+        </h4>
+        <button type="button" class="close"
+                aria-label="Close" (click)=
+                "modal.dismiss('Cross click')">
+  
+            <span aria-hidden="true">
+                ×
+            </span>
+        </button>
+    </div>
+        <div class="modal-body">
+                <div class="form-group">
+                    <div>
+                        <div [ngClass]="['block']">
+                            <mat-checkbox [(ngModel)]="ekstenzije.subjectAlternativeNameEkstenzije.daLiJeKriticno">Da li je kriticno</mat-checkbox>
+                        </div>
+                        
+                        <div *ngFor="let name of ekstenzije.subjectAlternativeNameEkstenzije.alternativeNames" class="block">
+                            <button type="button" class="button is-warning">
+                                {{name.generalNameType}} : {{name.generalNameContent}}
+                            </button>&nbsp;&nbsp;
+                            <br>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div [ngClass]="['modal-footer','form-group']">
+            
+        </div>
+</ng-template>

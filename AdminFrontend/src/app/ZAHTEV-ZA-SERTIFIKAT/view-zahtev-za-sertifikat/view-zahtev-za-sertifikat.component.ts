@@ -3,6 +3,7 @@ import { Component, Inject, LOCALE_ID } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ZaKorisnika } from 'src/app/MODEL/ZaKorisnika';
 import { ZaMojaKucaAplikacija } from 'src/app/MODEL/ZaMojaKucaAplikacija';
 import { ZaUredjaj } from 'src/app/MODEL/ZaUredjaj';
@@ -20,8 +21,10 @@ export class ViewZahtevZaSertifikatComponent {
   createForm: FormGroup;
   pokazivanje:number = 0;
   zahtev = <ZahtevZaSertifikat>{};
+  ekstenzije = this.zahtev.ekstenzije;
   status: boolean = true;
   status2: boolean = true;
+  closeResult = '';
 
   constructor(
     private sertifikatService:SertifikatService,
@@ -29,7 +32,8 @@ export class ViewZahtevZaSertifikatComponent {
     private router:Router,
     private route:ActivatedRoute,
     private fBuilder:FormBuilder,
-    @Inject(LOCALE_ID) public locale: string
+    @Inject(LOCALE_ID) public locale: string,
+    private modalService: NgbModal
   ){
     let temp=this.route.snapshot.paramMap.get('id');
     if(temp != null)
@@ -200,6 +204,27 @@ export class ViewZahtevZaSertifikatComponent {
     const decodedItem = JSON.parse(item!);
     const info = jwt.decodeToken(decodedItem.accessToken);
     return info['uloga'];
+  }
+
+  open(content:any) {
+    this.modalService.open(content,
+   {ariaLabelledBy: 'modal-basic-title'}).result.then( 
+    result =>  { 
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = 
+         `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
 }

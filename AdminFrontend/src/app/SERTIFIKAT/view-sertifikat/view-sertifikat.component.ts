@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Sertifikat } from 'src/app/MODEL/Sertifikat';
 import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
 
@@ -13,12 +14,15 @@ import { SertifikatService } from 'src/app/SERVICE/sertifikat.service';
 export class ViewSertifikatComponent {
   alias=<string>{};
   sertifikat=<Sertifikat>{};
+  ekstenzije = this.sertifikat.ekstenzije
+  closeResult = '';
 
   constructor(
     private sertifikatService:SertifikatService,
     private router:Router,
     private route:ActivatedRoute,
-    private fBuilder:FormBuilder
+    private fBuilder:FormBuilder,
+    private modalService: NgbModal
   ){
     let temp=this.route.snapshot.paramMap.get('alias');
     if(temp != null)
@@ -54,6 +58,27 @@ export class ViewSertifikatComponent {
 
   natrag(){
     this.router.navigate(['/viewAllSertifikat']);
+  }
+
+  open(content:any) {
+    this.modalService.open(content,
+   {ariaLabelledBy: 'modal-basic-title'}).result.then( 
+    result =>  { 
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = 
+         `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
 }
