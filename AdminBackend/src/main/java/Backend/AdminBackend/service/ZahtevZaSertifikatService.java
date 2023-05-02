@@ -90,12 +90,13 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
                 sertifikat.setZaKorisnika(zahtevZaSertifikat.getZaKorisnika());
                 break;
             case "Moja kuca aplikacija":
-                sertifikat.setAlias(zahtevZaSertifikat.getZaMojaKucaAplikacija().getSerijskiBroj() + zahtevZaSertifikat.getZaMojaKucaAplikacija().getId());
+                sertifikat.setAlias("mojaKucaAplikacija"+zahtevZaSertifikat.getZaMojaKucaAplikacija().getSerijskiBroj()
+                        +"("+ zahtevZaSertifikat.getZaMojaKucaAplikacija().getId() + ")");
                 sertifikat.setNamena(zahtevZaSertifikat.getNamena());
                 sertifikat.setZaMojaKucaAplikacija(zahtevZaSertifikat.getZaMojaKucaAplikacija());
                 break;
             case "Uredjaj":
-                sertifikat.setAlias(zahtevZaSertifikat.getZaUredjaj().getSerijskiBroj() + zahtevZaSertifikat.getZaUredjaj().getId());
+                sertifikat.setAlias("uredjaj"+zahtevZaSertifikat.getZaUredjaj().getSerijskiBroj() +"("+ zahtevZaSertifikat.getZaUredjaj().getId()+ ")");
                 sertifikat.setNamena(zahtevZaSertifikat.getNamena());
                 sertifikat.setZaUredjaj(sertifikat.getZaUredjaj());
                 break;
