@@ -14,4 +14,8 @@ public class ZaUredjajDTO {
     private String svrha;
     private String serijskiBroj;
 
+    public boolean proveraPodataka(){
+        return naziv.isEmpty() || svrha.isEmpty() || serijskiBroj.isEmpty();
+    }
+
 }

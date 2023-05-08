@@ -26,6 +26,8 @@ public class KorisnikController {
     @PreAuthorize("hasAuthority('RAD_SA_ADMINOM')")
     @PostMapping("/napraviAdmina")
     public ResponseEntity<?> napraviAdmina(@RequestBody MusterijaDTO musterijaDTO){
+        if (musterijaDTO.proveraPodataka())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         userDetailsService.pravljenjeAdminNaloga(musterijaDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }

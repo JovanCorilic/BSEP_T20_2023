@@ -28,4 +28,16 @@ public class EkstenzijeDTO {
     private SubjectAlternativeNameEkstenzijeDTO subjectAlternativeNameEkstenzije;
 
     private SubjectKeyIdentifierEkstenzijeDTO subjectKeyIdentifierEkstenzije;
+
+    public boolean proveraPodataka(){
+        if (basicConstraintsEkstenzije!=null){
+            if (basicConstraintsEkstenzije.proveraPodataka())
+                return true;
+        }
+        if (subjectAlternativeNameEkstenzije!=null){
+            if (subjectAlternativeNameEkstenzije.proveraPodataka())
+                return true;
+        }
+        return false;
+    }
 }

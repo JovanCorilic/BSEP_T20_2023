@@ -77,6 +77,8 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<?>registracijaMusterije(@RequestBody MusterijaDTO musterijaDTO){
+        if (musterijaDTO.proveraPodataka())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         userDetailsService.register(musterijaDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }

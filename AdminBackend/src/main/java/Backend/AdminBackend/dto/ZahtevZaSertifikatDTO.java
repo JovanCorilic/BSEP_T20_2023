@@ -32,4 +32,23 @@ public class ZahtevZaSertifikatDTO {
     private KorisnikDTO admin;
     private EkstenzijeDTO ekstenzije;
 
+    public boolean proveraPodataka(){
+        if (startDate == null || endDate == null || namena.isEmpty() || emailPotvrda.isEmpty() ||
+                organizacionaJedinica.isEmpty() || nazivOrganizacije.isEmpty() || skraceniNazivZemlje.isEmpty())
+            return true;
+        if (ekstenzije != null)
+            if (ekstenzije.proveraPodataka())
+                return true;
+        if (zaKorisnika != null)
+            if (zaKorisnika.proveraPodataka())
+                return true;
+        if (zaMojaKucaAplikacija !=null)
+            if (zaMojaKucaAplikacija.proveraPodataka())
+                return true;
+        if (zaUredjaj!=null)
+            if (zaUredjaj.proveraPodataka())
+                return true;
+        return false;
+    }
+
 }

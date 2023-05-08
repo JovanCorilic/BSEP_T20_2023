@@ -14,5 +14,7 @@ public class ZaKorisnikaDTO {
     private String ime;
     private String prezime;
 
-
+    public boolean proveraPodataka(){
+        return email.isEmpty() || ime.isEmpty() || prezime.isEmpty();
+    }
 }

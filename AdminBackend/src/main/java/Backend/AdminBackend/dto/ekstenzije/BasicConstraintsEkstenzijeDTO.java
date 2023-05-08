@@ -22,4 +22,8 @@ public class BasicConstraintsEkstenzijeDTO {
 
     private int maxPathLen;
 
+    public boolean proveraPodataka(){
+        return maxPathLen  <= 0;
+    }
+
 }

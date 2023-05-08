@@ -42,6 +42,8 @@ public class ZahtevZaSertifikatController {
     @PreAuthorize("hasAuthority('OPERACIJE_ZAHTEVA_ZA_SERTIFIKAT_MUSTERIJA')")
     @PostMapping("/createZahtevZaSertifikat")
     public ResponseEntity<?> createZahtevZaSertifikat(@RequestBody ZahtevZaSertifikatDTO zahtevZaSertifikatDTO){
+        if (zahtevZaSertifikatDTO.proveraPodataka())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatMapper.toModel(zahtevZaSertifikatDTO);
         zahtevZaSertifikat.setPrihvacen(false);
         zahtevZaSertifikat.setPotvrdjenZahtev(false);
@@ -52,6 +54,8 @@ public class ZahtevZaSertifikatController {
     @PreAuthorize("hasAuthority('OPERACIJE_ZAHTEVA_ZA_SERTIFIKAT_MUSTERIJA')")
     @PutMapping("/updateZahtevZaSertifikat")
     public ResponseEntity<?> updateZahtevZaSertifikat(@RequestBody ZahtevZaSertifikatDTO zahtevZaSertifikatDTO){
+        if (zahtevZaSertifikatDTO.proveraPodataka())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatMapper.toModel(zahtevZaSertifikatDTO);
         zahtevZaSertifikatService.update(zahtevZaSertifikat,zahtevZaSertifikat.getId());
         return new ResponseEntity<>(HttpStatus.OK);

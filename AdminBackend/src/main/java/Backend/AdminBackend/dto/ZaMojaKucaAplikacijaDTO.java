@@ -12,4 +12,7 @@ import lombok.Setter;
 public class ZaMojaKucaAplikacijaDTO {
     private String serijskiBroj;
 
+    public boolean proveraPodataka(){
+        return serijskiBroj.isEmpty();
+    }
 }

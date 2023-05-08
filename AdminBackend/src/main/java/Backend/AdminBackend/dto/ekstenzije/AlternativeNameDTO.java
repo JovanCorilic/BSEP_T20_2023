@@ -14,4 +14,8 @@ import javax.persistence.*;
 public class AlternativeNameDTO {
     private String generalNameType;
     private String generalNameContent;
+
+    public boolean proveraPodataka(){
+        return generalNameType.isEmpty() || generalNameContent.isEmpty();
+    }
 }

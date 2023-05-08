@@ -92,6 +92,8 @@ public class SertifikatController {
     @PreAuthorize("hasAuthority('OPERACIJE_SERTIFIKATA_ADMIN')")
     @PostMapping("/povuciSertifikat")
     public ResponseEntity<?> povuciSertifikat(@RequestBody PovlacenjeSertifikataDTO povlacenjeSertifikataDTO){
+        if (povlacenjeSertifikataDTO.proveraPodataka())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         sertifikatService.povlacenjeSertifikata(povlacenjeSertifikataDTO.getAlias(),povlacenjeSertifikataDTO.getRazlog());
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -137,6 +139,8 @@ public class SertifikatController {
     @PreAuthorize("hasAuthority('OPERACIJE_SERTIFIKATA_ADMIN')")
     @PostMapping("/napravi")
     public ResponseEntity<?> createSertifikat(@RequestBody ZahtevZaSertifikatDTO zahtevZaSertifikatDTO){
+        if (zahtevZaSertifikatDTO.proveraPodataka())
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatMapper.toModel(zahtevZaSertifikatDTO);
         zahtevZaSertifikatService.napraviSertifikatOdZahteva(zahtevZaSertifikat);
         return new ResponseEntity<>(HttpStatus.OK);
