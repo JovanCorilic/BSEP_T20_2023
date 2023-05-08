@@ -40,4 +40,13 @@ export class PregledSvihKorisnikaComponent {
     );
   }
 
+  izbrisiMusteriju(email:string){
+    this.mapaIzgled.set(email,{status: false,kliknuo:true});
+    this.korisnikService.izbrisiMusteriju(email).subscribe(
+      res=>{
+        this.mapaIzgled.set(email,{status: true,kliknuo:false});
+      }
+    );
+  }
+
 }

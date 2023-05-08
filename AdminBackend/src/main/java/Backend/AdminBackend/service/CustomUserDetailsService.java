@@ -104,6 +104,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         userRepository.save(korisnik);
     }
 
+    public void delete(String email){
+        Korisnik korisnik = userRepository.findByEmail(email);
+        verificationTokenRepository.deleteByKorisnik(korisnik);
+        userRepository.delete(korisnik);
+    }
+
     public CustomUserDetailsService() {
         this.customPasswordEncoder = new CustomPasswordEncoder();
     }

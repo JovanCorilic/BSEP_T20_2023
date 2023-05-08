@@ -65,21 +65,15 @@ export class NavbarComponent {
   }
 
   logOut() {
-    /*
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('uloga');
-    
-    this.router.navigate(['']);*/
     this.authenticationService.logout().subscribe(
 			result => {
-        sessionStorage.removeItem('user');
-        sessionStorage.removeItem('accessToken');
-        sessionStorage.removeItem('uloga');
 				
-				this.router.navigate(['']);
 			}
 		);
+    this.router.navigate(['']);
   }
 
 }

@@ -72,7 +72,7 @@ export class ViewSertifikatComponent {
       res=>{
         alert("Sve je kako treba!");
       },error=>{
-        alert("Sertifikat ne može da se koristi više!");
+        alert("Sertifikat ne može da se koristi!");
       }
     )
   }

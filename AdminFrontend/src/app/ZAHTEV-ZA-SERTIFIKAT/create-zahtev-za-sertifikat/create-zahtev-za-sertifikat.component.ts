@@ -216,6 +216,11 @@ export class CreateZahtevZaSertifikatComponent {
       this.status = !this.status; 
       this.zahtev.startDate = this.createForm.value.startDate;
       this.zahtev.endDate=this.createForm.value.endDate;
+      if (this.zahtev.startDate > this.zahtev.endDate){
+        alert("Datum početka je posle datuma kraja!")
+        this.status = !this.status; 
+        return;
+      }
       this.zahtev.namena=this.createForm.value.namena;
       this.zahtev.emailPotvrda=this.createForm.value.emailPotvrda;
       this.zahtev.organizacionaJedinica = this.createForm.value.organizacionaJedinica;
@@ -226,6 +231,7 @@ export class CreateZahtevZaSertifikatComponent {
       if(this.pokazivanje==1){
         if (this.createForm.value.email === "" || this.createForm.value.ime === "" || this.createForm.value.prezime === ""){
           alert("Polja za korisnika su prazna!")
+          this.status = !this.status; 
           return;
         }
         this.zahtev.zaKorisnika = <ZaKorisnika>{};
@@ -235,6 +241,7 @@ export class CreateZahtevZaSertifikatComponent {
       }else if(this.pokazivanje==2){
         if(this.createForm.value.serijskiBroj === ""){
           alert("Polja za moja kuca aplikacija su prazna!")
+          this.status = !this.status; 
           return;
         }
         this.zahtev.zaMojaKucaAplikacija = <ZaMojaKucaAplikacija>{};
@@ -242,6 +249,7 @@ export class CreateZahtevZaSertifikatComponent {
       }else if(this.pokazivanje==3){
         if (this.createForm.value.naziv === "" || this.createForm.value.svrha === "" || this.createForm.value.serijskiBroj === ""){
           alert("Polja za uredjaj su prazna!")
+          this.status = !this.status; 
           return;
         }
         this.zahtev.zaUredjaj = <ZaUredjaj>{};

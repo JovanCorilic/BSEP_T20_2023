@@ -46,9 +46,9 @@
             Uredjaj sertifikat
         </h3>
         <p>
-            Naziv : {{sertifikat.zaUredjaj.naziv}}
-            Svrha : {{sertifikat.zaUredjaj.svrha}}
-            Serijski Broj : {{sertifikat.zaUredjaj.serijskiBroj}}
+            Naziv : {{sertifikat.zaUredjaj.naziv}}<br>
+            Svrha : {{sertifikat.zaUredjaj.svrha}}<br>
+            Serijski Broj : {{sertifikat.zaUredjaj.serijskiBroj}}<br>
         </p>
     </div>
     <div *ngIf="sertifikat.namena==='Za mene'">
@@ -59,10 +59,10 @@
     <button type="button" class="btn btn-lg btn-outline-primary" 
                 (click)="open(ekstenzije2)">
                 Ekstenzije
-    </button><br>
+    </button><br><br>
     <button class="button is-outlined" (click)="natrag()">Natrag</button>&nbsp;&nbsp;
     <button class="button is-danger is-outlined" (click)="povlacenjeSertifikata()" *ngIf="getRole()==='ROLE_ADMIN' && !povlacenjeDugme">Povuci sertifikat</button>&nbsp;&nbsp;
-    <button class="button is-danger is-outlined" (click)="proveriSertifikat()">Proveri sertifikat</button>
+    <button class="button is-link is-outlined" (click)="proveriSertifikat()">Proveri sertifikat</button>
 </div>
 
 <ng-template #ekstenzije2 let-modal>

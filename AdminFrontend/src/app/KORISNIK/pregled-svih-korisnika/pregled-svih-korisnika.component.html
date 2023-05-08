@@ -14,6 +14,9 @@
             <th>
                 
             </th>
+            <th>
+                
+            </th>
         </tr>
     </thead>
     <tfoot>
@@ -31,6 +34,9 @@
             <th>
                 
             </th>
+            <th>
+                
+            </th>
         </tr>
     </tfoot>
     <tbody *ngFor="let korisnik of lista">
@@ -39,6 +45,7 @@
             <td>{{korisnik.ime}}</td>
             <td>{{korisnik.prezime}}</td>
             <td><button *ngIf="mapaIzgled.get(korisnik.email)?.kliknuo" [ngClass]="[mapaIzgled.get(korisnik.email)?.status ? 'button is-danger is-outlined' : 'button is-danger is-outlined is-loading']" (click)="napraviMusterijuNalog(korisnik.email)">Odobri</button></td>
+            <td><button *ngIf="mapaIzgled.get(korisnik.email)?.kliknuo" [ngClass]="[mapaIzgled.get(korisnik.email)?.status ? 'button is-link is-outlined' : 'button is-link is-outlined is-loading']" (click)="izbrisiMusteriju(korisnik.email)">Odbij registraciju</button></td>
         </tr>
     </tbody>
 </table>

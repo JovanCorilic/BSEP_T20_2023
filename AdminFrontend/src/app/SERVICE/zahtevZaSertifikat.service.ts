@@ -37,4 +37,8 @@ export class ZahtevZaSertifikatService{
     public dajListuZahtevaZaSertifikatMusterija():Observable<ZahtevZaSertifikat[]>{
         return this.http.get<ZahtevZaSertifikat[]>(this.path+"/dajListuZahtevaZaSertifikatMoji");
     }
+
+    public izbrisiZahtev(id:number){
+        return this.http.delete(this.path+"/izbrisiZahtev"+`/${id}`);
+    }
 }

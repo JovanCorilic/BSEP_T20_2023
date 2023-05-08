@@ -91,5 +91,12 @@ public class ZahtevZaSertifikatController {
         return new ResponseEntity<>(listaDTO, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('OPERACIJE_SERTIFIKATA_ADMIN')")
+    @DeleteMapping("/izbrisiZahtev/{id}")
+    public ResponseEntity<?> izbrisiZahtev(@PathVariable Integer id){
+        zahtevZaSertifikatService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

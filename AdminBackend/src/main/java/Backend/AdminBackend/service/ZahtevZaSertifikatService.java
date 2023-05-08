@@ -98,7 +98,7 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
             case "Uredjaj":
                 sertifikat.setAlias("uredjaj"+zahtevZaSertifikat.getZaUredjaj().getSerijskiBroj() +"("+ zahtevZaSertifikat.getZaUredjaj().getId()+ ")");
                 sertifikat.setNamena(zahtevZaSertifikat.getNamena());
-                sertifikat.setZaUredjaj(sertifikat.getZaUredjaj());
+                sertifikat.setZaUredjaj(zahtevZaSertifikat.getZaUredjaj());
                 break;
             case "Za mene":
                 //ponavljanje kod admina
@@ -277,9 +277,7 @@ public class ZahtevZaSertifikatService implements ServiceInterface<ZahtevZaSerti
     public void delete(Integer id){
         ZahtevZaSertifikat zahtevZaSertifikat = zahtevZaSertifikatRepository.findById(id).orElse(null);
         assert zahtevZaSertifikat != null;
-        ZaMojaKucaAplikacija zaMojaKucaAplikacija = zaMojaKucaAplikacijaRepository.findById(zahtevZaSertifikat.getZaMojaKucaAplikacija().getId()).orElse(null);
-        assert zaMojaKucaAplikacija != null;
-        zaMojaKucaAplikacijaRepository.delete(zaMojaKucaAplikacija);
-        zahtevZaSertifikatRepository.delete(zahtevZaSertifikat);
+        zahtevZaSertifikat.setPrihvacen(true);
+        zahtevZaSertifikatRepository.save(zahtevZaSertifikat);
     }
 }

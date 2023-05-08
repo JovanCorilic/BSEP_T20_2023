@@ -123,8 +123,7 @@ public class PravljenjeSertifikata {
                 break;
             case "Uredjaj":
                 builder.addRDN(BCStyle.SERIALNUMBER, sertifikat.getZaUredjaj().getSerijskiBroj());
-                builder.addRDN(BCStyle.GIVENNAME, sertifikat.getZaUredjaj().getNaziv());
-                builder.addRDN(BCStyle.DESCRIPTION, sertifikat.getZaUredjaj().getSvrha());
+                builder.addRDN(BCStyle.DESCRIPTION,sertifikat.getZaUredjaj().getNaziv() + " "+ sertifikat.getZaUredjaj().getSvrha());
                 builder.addRDN(BCStyle.UID, sertifikat.getZaUredjaj().getId() + "");
                 break;
             default:

@@ -38,6 +38,13 @@ public class KorisnikController {
     }
 
     @PreAuthorize("hasAuthority('RAD_SA_MUSTERIJOM')")
+    @DeleteMapping("/izbrisiMusteriju/{email}")
+    public ResponseEntity<?> izbrisiMusteriju(@PathVariable String email){
+        userDetailsService.delete(email);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('RAD_SA_MUSTERIJOM')")
     @GetMapping("/sveMusterije")
     public ResponseEntity<List<KorisnikDTO>> SveMusterije(){
         List<Korisnik>lista = userDetailsService.SveMusterije();

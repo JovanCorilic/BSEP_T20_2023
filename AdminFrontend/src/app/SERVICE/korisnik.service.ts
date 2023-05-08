@@ -23,5 +23,8 @@ export class KorisnikService{
         return this.http.get(this.path+"/napraviMusteriju"+`/${email}`);
     }
 
+    izbrisiMusteriju(email:string){
+        return this.http.delete(this.path+"/izbrisiMusteriju"+`/${email}`);
+    }
     
 }
