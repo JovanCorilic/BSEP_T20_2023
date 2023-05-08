@@ -36,6 +36,9 @@ export class PravljenjeAdminaComponent {
     this.korisnikService.pravljenjeAdmina(this.musterija).subscribe(
       res=>{
         this.router.navigate(['']);
+      },error =>{
+        alert("Nisu pravilno uneti podaci!")
+        this.status = !this.status;
       }
     )
   }

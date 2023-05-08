@@ -31,8 +31,15 @@ export class PovlacenjeSertifikatComponent {
   posalji(){
     this.status = !this.status; 
     let razlog = (document.getElementById("text") as HTMLTextAreaElement).value;
-    this.sertifikatService.povuciSertifikat(new PovlacenjeSertifikata(razlog,this.id)).subscribe();
-    this.router.navigate(['/viewSertifikat/'+this.id])
+    this.sertifikatService.povuciSertifikat(new PovlacenjeSertifikata(razlog,this.id)).subscribe(
+      res =>{
+        this.router.navigate(['/viewSertifikat/'+this.id])
+      },error =>{
+        alert("Nisu pravilno uneti podaci!")
+        this.status = !this.status;
+      }
+    );
+    
   }
 
   loadJS(){

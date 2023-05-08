@@ -262,6 +262,9 @@ export class CreateZahtevZaSertifikatComponent {
       this.zahtevZaSertifikatService.createZahtevZaSertifikat(this.zahtev).subscribe(
         res=>{
           this.router.navigate(['/viewAllZahtevSertifikat']);
+        },error =>{
+          alert("Nisu pravilno uneti podaci!")
+          this.status = !this.status;
         }
       );
   }

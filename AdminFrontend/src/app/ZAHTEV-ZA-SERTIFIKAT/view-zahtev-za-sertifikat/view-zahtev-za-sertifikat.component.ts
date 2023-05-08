@@ -197,6 +197,9 @@ export class ViewZahtevZaSertifikatComponent {
           alert("Uspesno promenjeno!");
           this.router.navigate(['/viewZahtevZaSertifikat/'+this.id]);
           this.status2 = !this.status2;
+        },error =>{
+          alert("Nisu pravilno uneti podaci!")
+          this.status = !this.status;
         }
       );
       

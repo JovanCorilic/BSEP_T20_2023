@@ -48,6 +48,8 @@ public class ZahtevZaSertifikatDTO {
         if (zaUredjaj!=null)
             if (zaUredjaj.proveraPodataka())
                 return true;
+        if (startDate.after(endDate))
+            return true;
         return false;
     }
 

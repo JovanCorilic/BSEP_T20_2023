@@ -36,6 +36,9 @@ export class RegisterComponent {
     this.authenticationService.register(this.musterija).subscribe(
       res=>{
         this.router.navigate(['']);
+      },error =>{
+        alert("Nisu pravilno uneti podaci!")
+        this.status = !this.status;
       }
     )
   }
