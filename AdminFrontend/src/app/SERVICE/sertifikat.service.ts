@@ -10,7 +10,7 @@ import { PovlacenjeSertifikata } from '../MODEL/PovlacenjeSertifikata';
 })
 export class SertifikatService{
     constructor(private http: HttpClient){}
-    private path = "http://localhost:8080/sertifikat";
+    private path = "https://localhost:8443/sertifikat";
 
     public dajSvePovuceneSertifikate():Observable<PovlacenjeSertifikata[]>{
         return this.http.get<PovlacenjeSertifikata[]>(this.path+"/dajSvePovuceneSertifikate");

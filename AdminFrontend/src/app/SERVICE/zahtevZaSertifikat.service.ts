@@ -8,7 +8,7 @@ import { Observable } from "rxjs";
 })
 export class ZahtevZaSertifikatService{
     constructor(private http: HttpClient){}
-    private path = "http://localhost:8080/zahtevZaSertifikat";
+    private path = "https://localhost:8443/zahtevZaSertifikat";
 
     public potvrdaZahtevaZaSertifikat(token:string){
         return this.http.put(this.path+"/potvrdaZahteva"+`/${token}`,null);

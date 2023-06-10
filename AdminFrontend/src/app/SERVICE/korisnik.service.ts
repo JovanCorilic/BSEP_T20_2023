@@ -9,7 +9,7 @@ import { Korisnik } from "../MODEL/Korisnik";
 })
 export class KorisnikService{
     constructor(private http: HttpClient){}
-    private path = "http://localhost:8080/korisnik";
+    private path = "https://localhost:8443/korisnik";
 
     sveMusterije():Observable<Korisnik[]>{
         return this.http.get<Korisnik[]>(this.path+"/sveMusterije");

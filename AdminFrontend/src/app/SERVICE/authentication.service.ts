@@ -11,7 +11,7 @@ export class AuthenticationService {
 	'Accept': 'application/json',
 	'Content-Type': 'application/json'
 	});
-	private path = "http://localhost:8080/auth";
+	private path = "https://localhost:8443/auth";
 	constructor(
 		private http: HttpClient
 	) { }

@@ -34,7 +34,6 @@ export class LoginComponent {
 
   logIn(){
     this.status= !this.status;
-    console.log(this.logForm.value.test);
 		const auth: any = {};
 		auth.username = this.logForm.value.email;
 		auth.password = this.logForm.value.password;
