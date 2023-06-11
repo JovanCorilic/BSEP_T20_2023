@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.cert.X509Certificate;
 
 //Filter koji ce presretati svaki zahtev klijenta ka serveru
 //Sem nad putanjama navedenim u WebSecurityConfig.configure(WebSecurity web)
@@ -30,6 +31,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse httpServletResponse,
                                     FilterChain filterChain) throws ServletException, IOException {
         String username;
+        //X509Certificate[] clientCertificates = (X509Certificate[]) httpServletRequest.getAttribute("javax.servlet.request.X509Certificate");
+
         String authToken = tokenUtils.getToken(httpServletRequest);
 
         //String fingerprint = tokenUtils.getFingerprintFromToken(authToken);
