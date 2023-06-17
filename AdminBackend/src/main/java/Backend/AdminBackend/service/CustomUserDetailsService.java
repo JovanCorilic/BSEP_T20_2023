@@ -56,6 +56,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         userRepository.save(korisnik);
     }
 
+    public boolean daLiSeVecKoristiEmail(String email){
+        return userRepository.existsKorisnikByEmail(email);
+    }
+
     public void register(MusterijaDTO musterijaDTO){
         List<Uloga>listaUloga = new ArrayList<>();
         listaUloga.add(ulogaRepository.findById(3).orElse(null));

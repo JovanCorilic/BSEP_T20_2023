@@ -54,46 +54,58 @@ public class CertificateGenerator {
             // Add the extension
             JcaX509ExtensionUtils extUtils = new JcaX509ExtensionUtils();
             if (ekstenzije.getAuthorityKeyIdentifierEkstenzije()!=null){
-                AuthorityKeyIdentifierEkstenzije authorityKeyIdentifierEkstenzije = ekstenzije.getAuthorityKeyIdentifierEkstenzije();
-                AuthorityKeyIdentifier authorityKeyID = extUtils.createAuthorityKeyIdentifier(subjectData.getPublicKey());
-                certGen.addExtension(Extension.authorityKeyIdentifier, authorityKeyIdentifierEkstenzije.isCritical(), authorityKeyID);
+                if (ekstenzije.getAuthorityKeyIdentifierEkstenzije().isDaLiKoristi()) {
+                    AuthorityKeyIdentifierEkstenzije authorityKeyIdentifierEkstenzije = ekstenzije.getAuthorityKeyIdentifierEkstenzije();
+                    AuthorityKeyIdentifier authorityKeyID = extUtils.createAuthorityKeyIdentifier(subjectData.getPublicKey());
+                    certGen.addExtension(Extension.authorityKeyIdentifier, authorityKeyIdentifierEkstenzije.isCritical(), authorityKeyID);
+                }
             }
             if (ekstenzije.getBasicConstraintsEkstenzije()!=null){
-                BasicConstraintsEkstenzije basicConstraintsEkstenzije = ekstenzije.getBasicConstraintsEkstenzije();
-                BasicConstraints basicConstraints = new BasicConstraints(basicConstraintsEkstenzije.isCA());
-                if (basicConstraintsEkstenzije.isCA() && basicConstraintsEkstenzije.getMaxPathLen()>=0){
-                    basicConstraints = new BasicConstraints(basicConstraintsEkstenzije.getMaxPathLen());
+                if (ekstenzije.getBasicConstraintsEkstenzije().isDaLiKoristi()) {
+                    BasicConstraintsEkstenzije basicConstraintsEkstenzije = ekstenzije.getBasicConstraintsEkstenzije();
+                    BasicConstraints basicConstraints = new BasicConstraints(basicConstraintsEkstenzije.isCA());
+                    if (basicConstraintsEkstenzije.isCA() && basicConstraintsEkstenzije.getMaxPathLen() >= 0) {
+                        basicConstraints = new BasicConstraints(basicConstraintsEkstenzije.getMaxPathLen());
+                    }
+                    certGen.addExtension(Extension.basicConstraints, basicConstraintsEkstenzije.isCritical(), basicConstraints);
                 }
-                certGen.addExtension(Extension.basicConstraints, basicConstraintsEkstenzije.isCritical(), basicConstraints);
             }
             if (ekstenzije.getExtendedKeyUsageEkstenzije()!=null){
-                ExtendedKeyUsageEkstenzije extendedKeyUsageEkstenzije= ekstenzije.getExtendedKeyUsageEkstenzije();
-                List<KeyPurposeId> ekuList = ExtendedKeyUsageMetoda(extendedKeyUsageEkstenzije);
-                if (!ekuList.isEmpty()){
-                    KeyPurposeId[] ekuArray = ekuList.toArray(new KeyPurposeId[ekuList.size()]);
-                    certGen.addExtension(Extension.extendedKeyUsage, extendedKeyUsageEkstenzije.isCritical(), new ExtendedKeyUsage(ekuArray));
+                if (ekstenzije.getExtendedKeyUsageEkstenzije().isDaLiKoristi()) {
+                    ExtendedKeyUsageEkstenzije extendedKeyUsageEkstenzije = ekstenzije.getExtendedKeyUsageEkstenzije();
+                    List<KeyPurposeId> ekuList = ExtendedKeyUsageMetoda(extendedKeyUsageEkstenzije);
+                    if (!ekuList.isEmpty()) {
+                        KeyPurposeId[] ekuArray = ekuList.toArray(new KeyPurposeId[ekuList.size()]);
+                        certGen.addExtension(Extension.extendedKeyUsage, extendedKeyUsageEkstenzije.isCritical(), new ExtendedKeyUsage(ekuArray));
+                    }
                 }
             }
             if (ekstenzije.getKeyUsageEkstenzije()!=null){
-                KeyUsageEkstenzije keyUsageEkstenzije = ekstenzije.getKeyUsageEkstenzije();
-                int key = KeyUsageMetoda(keyUsageEkstenzije);
-                if (key != -1){
-                    KeyUsage keyUsage = new KeyUsage(key);
-                    certGen.addExtension(Extension.keyUsage,keyUsageEkstenzije.isCritical(),keyUsage);
+                if (ekstenzije.getKeyUsageEkstenzije().isDaLiKoristi()) {
+                    KeyUsageEkstenzije keyUsageEkstenzije = ekstenzije.getKeyUsageEkstenzije();
+                    int key = KeyUsageMetoda(keyUsageEkstenzije);
+                    if (key != -1) {
+                        KeyUsage keyUsage = new KeyUsage(key);
+                        certGen.addExtension(Extension.keyUsage, keyUsageEkstenzije.isCritical(), keyUsage);
+                    }
                 }
             }
             if (ekstenzije.getSubjectAlternativeNameEkstenzije()!=null){
-                SubjectAlternativeNameEkstenzije subjectAlternativeNameEkstenzije = ekstenzije.getSubjectAlternativeNameEkstenzije();
-                List<GeneralName>nameList = SubjectAlternativeNameMetoda(subjectAlternativeNameEkstenzije);
-                if (!nameList.isEmpty()) {
-                    GeneralNames sanNames = new GeneralNames(nameList.toArray(new GeneralName[nameList.size()]));
-                    certGen.addExtension(Extension.subjectAlternativeName, subjectAlternativeNameEkstenzije.isCritical(), sanNames);
+                if (ekstenzije.getSubjectAlternativeNameEkstenzije().isDaLiKoristi()) {
+                    SubjectAlternativeNameEkstenzije subjectAlternativeNameEkstenzije = ekstenzije.getSubjectAlternativeNameEkstenzije();
+                    List<GeneralName> nameList = SubjectAlternativeNameMetoda(subjectAlternativeNameEkstenzije);
+                    if (!nameList.isEmpty()) {
+                        GeneralNames sanNames = new GeneralNames(nameList.toArray(new GeneralName[nameList.size()]));
+                        certGen.addExtension(Extension.subjectAlternativeName, subjectAlternativeNameEkstenzije.isCritical(), sanNames);
+                    }
                 }
             }
             if (ekstenzije.getSubjectKeyIdentifierEkstenzije()!=null){
-                SubjectKeyIdentifierEkstenzije subjectKeyIdentifierEkstenzije = ekstenzije.getSubjectKeyIdentifierEkstenzije();
-                certGen.addExtension(Extension.subjectKeyIdentifier, subjectKeyIdentifierEkstenzije.isCritical(),
-                        extUtils.createSubjectKeyIdentifier(subjectData.getPublicKey()));
+                if (ekstenzije.getSubjectKeyIdentifierEkstenzije().isDaLiKoristi()) {
+                    SubjectKeyIdentifierEkstenzije subjectKeyIdentifierEkstenzije = ekstenzije.getSubjectKeyIdentifierEkstenzije();
+                    certGen.addExtension(Extension.subjectKeyIdentifier, subjectKeyIdentifierEkstenzije.isCritical(),
+                            extUtils.createSubjectKeyIdentifier(subjectData.getPublicKey()));
+                }
             }
             // Generise se sertifikat
             X509CertificateHolder certHolder = certGen.build(contentSigner);

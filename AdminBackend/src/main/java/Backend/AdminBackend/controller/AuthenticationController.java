@@ -79,6 +79,8 @@ public class AuthenticationController {
     public ResponseEntity<?>registracijaMusterije(@RequestBody MusterijaDTO musterijaDTO){
         if (musterijaDTO.proveraPodataka())
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (userDetailsService.daLiSeVecKoristiEmail(musterijaDTO.getEmail()))
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         userDetailsService.register(musterijaDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }

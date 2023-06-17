@@ -31,12 +31,14 @@ public class EkstenzijeDTO {
 
     public boolean proveraPodataka(){
         if (basicConstraintsEkstenzije!=null){
-            if (basicConstraintsEkstenzije.proveraPodataka())
-                return true;
+            if (basicConstraintsEkstenzije.isDaLiKoristi())
+                if (basicConstraintsEkstenzije.proveraPodataka())
+                    return true;
         }
         if (subjectAlternativeNameEkstenzije!=null){
-            if (subjectAlternativeNameEkstenzije.proveraPodataka())
-                return true;
+            if (subjectAlternativeNameEkstenzije.isDaLiKoristi())
+                if (subjectAlternativeNameEkstenzije.proveraPodataka())
+                    return true;
         }
         return false;
     }

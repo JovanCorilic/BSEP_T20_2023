@@ -258,7 +258,6 @@ export class CreateZahtevZaSertifikatComponent {
         this.zahtev.zaUredjaj.serijskiBroj=this.createForm.value.serijskiBroj;
       }
       this.provera();
-      console.log(this.zahtev);
       this.zahtevZaSertifikatService.createZahtevZaSertifikat(this.zahtev).subscribe(
         res=>{
           this.router.navigate(['/viewAllZahtevSertifikat']);
