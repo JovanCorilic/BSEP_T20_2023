@@ -1,5 +1,7 @@
 # BSEP_T20_2023
-Projekat za predmet bezbednost u sistemima elektronskog poslovanje , Tim 20
+Projekat za predmet bezbednost u sistemima elektronskog poslovanje.
+## Opis
+Bavi se pravljenjem i radom sa sertifikatima. Koristi se HTTPS umesto HTTP. Klijentski sloj je implementiran u Angular radnom okviru. Server je razvijen kao REST aplikacija u radnom okviru Spring uz oslonac na PostgreSQL bazu. U API gateway-u implementiran je RBAC sa fingerprint cookie-jem.
 
 # Član
 Jovan Ćorilić SW48/2017
